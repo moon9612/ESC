@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.esc.wmg.entity.UserEntity;
 import com.esc.wmg.repository.UserRepository;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -21,6 +20,7 @@ public class UserController {
     @PostMapping("/UserUpdate")
     public String UserUpdate() {
 
+        return "";
     }
     
 
