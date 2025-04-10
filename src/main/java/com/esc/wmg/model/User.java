@@ -17,4 +17,5 @@ public class User {
     private String job_type;
     private String company_size;
     private int work_time;
+    
 }
