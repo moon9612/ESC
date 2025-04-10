@@ -9,25 +9,7 @@
 </head>
 
 <body>
-  <header>
-    <nav class="nav-bar">
-      <div class="nav-logo">
-        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="logo" />
-      </div>
-      <ul class="nav-center">
-        <li><a href="/" class="active">Home</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-      <div class="auth-buttons">
-        <button class="btn-signin" onclick="document.getElementById('loginModal').classList.remove('hidden')">Sign
-          in</button>
-        <button class="btn-register">Register</button>
-      </div>
-    </nav>
-  </header>
-
+    <header th:replace="~{/fragment/header :: header}"></header>
 
   <main>
     <!-- Hero Section -->
