@@ -21,8 +21,16 @@
         <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="auth-buttons">
-        <button class="btn-signin" onclick="document.getElementById('loginModal').classList.remove('hidden')">Sign
-          in</button>
+        <div th:if="${session.loginUser == null}">
+          <form th:action="@{/goLogin}" method="get">
+              <button type="submit" class="btn-signin">Sign in</button>
+          </form>
+      </div>
+      <div th:if="${session.loginUser != null}">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn-signin">Log out</button>
+        </form>
+    </div>
         <button class="btn-register">Register</button>
       </div>
     </nav>
