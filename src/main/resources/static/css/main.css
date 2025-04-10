@@ -1,466 +1,486 @@
-
 /* Base Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    background: #f8f8f8;
-    color: #333;
-    line-height: 1.6;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-  
-  /* Header */
-  header {
-    background: #fff;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-  
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    height: 40px;
-  }
-  
-  .nav {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav a {
-    text-decoration: none;
-    color: #555;
-    padding-bottom: 4px;
-    border-bottom: 2px solid transparent;
-  }
-  
-  .nav a:hover,
-  .nav a.active {
-    color: #000;
-    border-color: #000;
-  }
-  
-  /* Hero */
-  .hero {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4rem 2rem;
-    background: #fff;
-  }
-  
-  .hero-text {
-    flex: 1 1 45%;
-  }
-  
-  .hero-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .hero-text h1 span {
-    color: #000;
-  }
-  
-  .hero-text p {
-    margin-bottom: 2rem;
-    color: #666;
-  }
-  
-  .hero-img {
-    flex: 1 1 45%;
-    text-align: right;
-  }
-  
-  .hero-img img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Buttons */
-  .btn {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    background: #000;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-  }
-  
-  .btn-light {
-    background: #fff;
-    color: #000;
-    border: 1px solid #000;
-  }
-  
-  .btn:hover {
-    opacity: 0.9;
-  }
-  
-  /* News Section */
-  .news {
-    padding: 4rem 2rem;
-    background: #f9f9f9;
-    text-align: center;
-  }
-  
-  .news-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-  
-  .card {
-    background: #fff;
-    padding: 1rem;
-    width: 300px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
-  
-  .card img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-  
-  .card h3 {
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Concept & Services */
-  .concept,
-  .services {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 4rem 2rem;
-    background: #fff;
-  }
-  
-  .concept-text,
-  .services-text {
-    flex: 1 1 50%;
-  }
-  
-  .concept-img,
-  .services-img {
-    flex: 1 1 50%;
-    text-align: right;
-  }
-  
-  .concept-img img,
-  .services-img img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* Workflow */
-  .workflow {
-    background: #f4f4f4;
-    padding: 4rem 2rem;
-    text-align: center;
-  }
-  
-  .workflow-steps {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2rem;
-  }
-  
-  .step {
-    max-width: 300px;
-  }
-  
-  /* CTA */
-  .cta {
-    background: #000;
-    color: #fff;
-    text-align: center;
-    padding: 4rem 2rem;
-  }
-  
-  .cta span {
-    color: #ffd700;
-  }
-  
-  /* Footer */
-  footer {
-    background: #222;
-    color: #ccc;
-    padding: 4rem 2rem;
-  }
-  
-  .footer-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: space-between;
-  }
-  
-  .footer-grid h3 {
-    margin-bottom: 1rem;
-  }
-  
-  .footer-grid ul {
-    list-style: none;
-  }
-  
-  .footer-grid ul li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .footer-grid ul li a {
-    color: #ccc;
-    text-decoration: none;
-  }
-  
-  .footer-grid ul li a:hover {
-    color: #fff;
-  }
-  
-  footer .copyright {
-    text-align: center;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
-  
-  
-  /* News Section - Circle Style */
-  .news {
-    background: #fff;
-    padding: 4rem 2rem;
-    border: 1px solid #294fbb;
-    border-radius: 12px;
-    margin: 4rem auto;
-    max-width: 1200px;
-    position: relative;
-  }
-  
-  .news-wrapper {
-    text-align: center;
-  }
-  
-  .section-title {
-    font-size: 1.8rem;
-    color: #294fbb;
-    margin-bottom: 0.25rem;
-  }
-  
-  .section-subtitle {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 2rem;
-  }
-  
-  .news-grid {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-  
-  .news-item {
-    max-width: 280px;
-  }
-  
-  .image-circle {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 1rem;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 1px solid #ccc;
-  }
-  
-  .image-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .news-meta {
-    font-size: 0.85rem;
-    color: #444;
-    margin-bottom: 0.5rem;
-  }
-  
-  .news-meta .tag {
-    background: #e6e9f8;
-    color: #294fbb;
-    font-size: 0.75rem;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    margin-left: 0.5rem;
-  }
-  
-  .news-item h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #000;
-  }
-  
-  .news-button {
-    text-align: center;
-  }
-  
-  .btn-outline {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    background: transparent;
-    border: 2px solid #294fbb;
-    color: #294fbb;
-    border-radius: 4px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.3s;
-  }
-  
-  .btn-outline:hover {
-    background: #294fbb;
-    color: #fff;
-  }
-  
-  
-  /* News Features Section */
-  .news-features {
-    background-color: #f5f5f5;
-    padding: 4rem 2rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  
-  .news-feature {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    flex: 1 1 300px;
-    padding: 2rem;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .news-feature-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    height: 160px; /* 또는 필요 시 auto */
-    object-fit: cover;
-    border-radius: 4px;
-  }
-  
-  .news-feature-header h2 {
-    font-size: 1.5rem;
-    color: #333;
-  }
-  
-  .news-feature-header p {
-    font-size: 0.95rem;
-    color: #777;
-  }
-  
-  .news-feature-header img {
-    width: 100px;
-    margin-bottom: 1.5rem;
-    width: 100%;
-    height: 160px; /* 또는 필요 시 auto */
-    object-fit: cover;
-    border-radius: 4px;
-  
-  }
-  
-  .news-feature-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .news-feature-list li {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    border-top: 1px solid #eee;
-    padding: 1rem 0;
-  }
-  
-  .news-feature-list li:first-child {
-    border-top: none;
-  }
-  
-  .icon-circle {
-    width: 36px;
-    height: 36px;
-    background-color: #f1e85c;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    color: #000;
-    flex-shrink: 0;
-  }
-  
-  .feature-text {
-    flex: 1;
-  }
-  
-  .feature-text strong {
-    display: block;
-    color: #333;
-    font-size: 0.95rem;
-  }
-  
-  .feature-text span {
-    font-size: 0.85rem;
-    color: #666;
-  }
-  
-  .news-feature-footer {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .btn-outline {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    border: 1px solid #000;
-    background-color: transparent;
-    color: #000;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s;
-  }
-  
-  .btn-outline:hover {
-    background-color: #000;
-    color: #fff;
-  }
-  
-  .card-full {
-    width: 100%;
-    height: 160px; /* 또는 필요 시 auto */
-    object-fit: cover;
-    border-radius: 4px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header 고정 + 스타일 */
+header {
+  background: #fff;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  /* ✅ 고정 위치 */
+  top: 0;
+  /* 상단에 고정 */
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  /* 다른 요소보다 위에 표시 */
+}
+
+/* 헤더 아래 콘텐츠가 겹치지 않도록 보정 */
+body {
+  padding-top: 60px;
+  /* header 높이만큼 여백 줌 */
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 로고 */
+.nav-logo .logo {
+  height: 40px;
+}
+
+/* 가운데 메뉴 정렬 */
+.nav-center {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-center a {
+  text-decoration: none;
+  color: #555;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-center a:hover,
+.nav-center a.active {
+  color: #000;
+  border-color: #000;
+}
+
+/* 로그인 / 회원가입 버튼 */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-signin {
+  background-color: #000;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.btn-register {
+  background-color: white;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+.hero-text {
+  flex: 1 1 45%;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-text h1 span {
+  color: #000;
+}
+
+.hero-text p {
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.hero-img {
+  flex: 1 1 45%;
+  text-align: right;
+}
+
+.hero-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.btn-light {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* News Section */
+
+/* Concept & Services */
+.concept,
+.services {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+.concept-text,
+.services-text {
+  flex: 1 1 50%;
+}
+
+.concept-img,
+.services-img {
+  flex: 1 1 50%;
+  text-align: right;
+}
+
+.concept-img img,
+.services-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Workflow */
+.workflow {
+  background: #f4f4f4;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.workflow-steps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.step {
+  max-width: 300px;
+}
+
+/* CTA */
+.cta {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.cta span {
+  color: #ffd700;
+}
+
+/* Footer */
+footer {
+  background: #222;
+  color: #ccc;
+  padding: 4rem 2rem;
+}
+
+.footer-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.footer-grid h3 {
+  margin-bottom: 1rem;
+}
+
+.footer-grid ul {
+  list-style: none;
+}
+
+.footer-grid ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-grid ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-grid ul li a:hover {
+  color: #fff;
+}
+
+footer .copyright {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+
+/* News Section - Circle Style */
+.news {
+  background: #fff;
+  padding: 4rem 2rem;
+  border: 1px solid #294fbb;
+  border-radius: 12px;
+  margin: 4rem auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+.news-wrapper {
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #294fbb;
+  margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.news-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.news-item {
+  max-width: 280px;
+}
+
+.image-circle {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-meta {
+  font-size: 0.85rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.news-meta .tag {
+  background: #e6e9f8;
+  color: #294fbb;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+.news-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.news-button {
+  text-align: center;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: transparent;
+  border: 2px solid #294fbb;
+  color: #294fbb;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-outline:hover {
+  background: #294fbb;
+  color: #fff;
+}
+
+
+/* News Features Section */
+.news-features {
+  background-color: #f5f5f5;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.news-feature {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  flex: 1 1 300px;
+  padding: 2rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-feature-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  height: 160px;
+  /* 또는 필요 시 auto */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.news-feature-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.news-feature-header p {
+  font-size: 0.95rem;
+  color: #777;
+}
+
+.news-feature-header img {
+  width: 100px;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  height: 160px;
+  /* 또는 필요 시 auto */
+  object-fit: cover;
+  border-radius: 4px;
+
+}
+
+.news-feature-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 40px;
+}
+
+.news-feature-list li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1px solid #eee;
+  padding: 1rem 0;
+}
+
+.news-feature-list li:first-child {
+  border-top: none;
+}
+
+.icon-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #f1e85c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  flex: 1;
+}
+
+.feature-text strong {
+  display: block;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.feature-text span {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.news-feature-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #000;
+  background-color: transparent;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.card-full {
+  width: 100%;
+  height: 160px;
+  /* 또는 필요 시 auto */
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}

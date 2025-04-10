@@ -9,8 +9,6 @@ import com.esc.wmg.entity.UserEntity;
 import com.esc.wmg.model.User;
 import com.esc.wmg.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class UserController {
@@ -18,12 +16,6 @@ public class UserController {
     @Autowired
     UserRepository repository;
 
-
-    // 마이페이지 이동
-    @GetMapping("goMyPage")
-    public String getMethodName() {
-        return "MyPage";
-    }
     
     // 회원정보 수정기능
     @PostMapping("/userUpdate")
@@ -32,7 +24,6 @@ public class UserController {
         session.setAttribute("loginUser", entity);
         return "redirect:/"; 
     }
-    
 
     // 회원가입 기능
     @PostMapping("/userInsert")
