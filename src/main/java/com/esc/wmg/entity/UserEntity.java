@@ -36,4 +36,5 @@ public class UserEntity {
     private String company_size;
     @Column(length = 50)
     private int work_time;
+    
 }
