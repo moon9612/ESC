@@ -41,6 +41,12 @@ public class UserController {
         return "loginSuccess";
     }
 
+    // 로그인 페이지로 이동
+    @GetMapping("/goLogin")
+    public String goLogin() {
+        return "login";
+    }
+
     // 초기 메인 페이지
     @GetMapping("/")
     public String loginForm() {
