@@ -1,191 +1,259 @@
 <!DOCTYPE html>
-<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Consulting Services</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Consulting</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+
 <body>
   <header>
-    <nav class="nav-container">
+    <nav class="nav-bar">
       <div class="nav-logo">
-        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" />
+        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="logo" />
       </div>
-      <div class="nav-links">
-        <a href="#" class="active">Home</a>
-        <a href="goLogin">login</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+      <ul class="nav-center">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <button class="btn-signin" onclick="document.getElementById('loginModal').classList.remove('hidden')">Sign
+          in</button>
+        <button class="btn-register">Register</button>
       </div>
     </nav>
   </header>
 
+
   <main>
-    <section class="hero-section">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <h1>
-            <span>Business Solutions</span><br />
-            <span class="highlight">For Your Success</span>
-          </h1>
-          <p>
-            We provide comprehensive consulting services to help your business grow and succeed in today's competitive market.
-          </p>
-          <div class="hero-button">
-            <a href="#">Get Started</a>
-          </div>
-        </div>
-        <img class="hero-image" src="https://creatie.ai/ai/api/search-image?query=A%203D%20vector-style%20illustration%20of%20a%20modern%20cityscape%20with%20two%20business%20professionals%20riding%20a%20bicycle&width=800&height=600&orientation=landscape&removebg=true&flag=672dcb6c-51aa-463a-bf68-5615509fa961" alt="Hero image" />
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Business Solutions<br><span>For Your Success</span></h1>
+        <p>We provide consulting services to help your business grow and succeed in today's competitive market.</p>
+        <a href="#" class="btn">Get Started</a>
+      </div>
+      <div class="hero-img">
+        <img src="프로젝트 이미지/악수1.png" alt="Hero Image">
       </div>
     </section>
-    <!-- 이어지는 코드 -->
-<section class="news-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>Latest News & Insights</h2>
-        <p>Stay updated with our latest business insights and success stories</p>
+
+    <!-- News Section -->
+    <section class="news-features">
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal 2</h2>
+          <p>All rewards, no fees.</p>
+          <img th:src="@{/assets/ai-generated-8615668_1280.jpg}" alt="Card Image" class="card-full" />
+        </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">💲</div>
+            <div class="feature-text">
+              <strong>Annual membership fee</strong>
+              <span>No fees of any kind*</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">⭐</div>
+            <div class="feature-text">
+              <strong>Cash back</strong>
+              <span>1% – 1.5%</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💰</div>
+            <div class="feature-text">
+              <strong>Variable APR</strong>
+              <span>28.99% – 30.99%</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">⬆️</div>
+            <div class="feature-text">
+              <strong>Path to a credit limit increase<sup>2</sup></strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
+        </div>
       </div>
-      <div class="news-grid">
-        <div class="news-card">
-          <img src="https://creatie.ai/ai/api/search-image?query=A%20professional%20business%20meeting%20scene%20with%20people%20discussing%20strategy%20around%20a%20modern%20conference%20table&width=400&height=300&orientation=landscape&flag=a6f768b2-2a81-460a-ac7b-597aa26045b3" alt="News 1" />
-          <div class="card-content">
-            <h3>Strategic Planning Workshop</h3>
-            <p>Learn how our strategic planning workshops help businesses achieve their goals.</p>
-          </div>
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal 3</h2>
+          <p>No foreign transaction fees.</p>
+          <img th:src="@{assets/construction-1921518_1920.jpg}" alt="Card Image" class="card-full">
         </div>
-        <div class="news-card">
-          <img src="https://creatie.ai/ai/api/search-image?query=A%20modern%20workspace%20setting%20with%20digital%20devices%20and%20business%20documents&width=400&height=300&orientation=landscape&flag=1d212342-a48a-46e6-8b36-fe2994f20239" alt="News 2" />
-          <div class="card-content">
-            <h3>Digital Transformation</h3>
-            <p>Discover how we help businesses embrace digital transformation.</p>
-          </div>
-        </div>
-        <div class="news-card">
-          <img src="https://creatie.ai/ai/api/search-image?query=A%20collaborative%20team%20meeting%20in%20a%20bright,%20modern%20office%20space&width=400&height=300&orientation=landscape&flag=602a6e87-c800-404c-a364-2f2f5facb59f" alt="News 3" />
-          <div class="card-content">
-            <h3>Team Development</h3>
-            <p>Building high-performing teams through effective leadership and communication.</p>
-          </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">🌐</div>
+            <div class="feature-text">
+              <strong>No foreign transaction fees</strong>
+              <span>Travel anywhere freely</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💼</div>
+            <div class="feature-text">
+              <strong>Expense tracking</strong>
+              <span>Smart financial tools included</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">🔔</div>
+            <div class="feature-text">
+              <strong>Real-time alerts</strong>
+              <span>Stay informed anytime</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">📈</div>
+            <div class="feature-text">
+              <strong>Automatic credit reporting</strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- Concept Section -->
-<section class="concept-section">
-    <div class="container concept-grid">
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal Build</h2>
+          <p>For building credit history.</p>
+          <img th:src="@{assets/늙은손.jpg}" alt="Card Image" class="card-full">
+        </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">🧱</div>
+            <div class="feature-text">
+              <strong>Credit building support</strong>
+              <span>Even with no credit history</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">📊</div>
+            <div class="feature-text">
+              <strong>Account insights</strong>
+              <span>Simple dashboard access</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">🔒</div>
+            <div class="feature-text">
+              <strong>Secure by design</strong>
+              <span>Protected with best-in-class security</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💳</div>
+            <div class="feature-text">
+              <strong>No deposit required</strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Concept Section -->
+    <section class="concept">
       <div class="concept-text">
         <h2>Our Concept</h2>
-        <p>
-          We believe in providing tailored solutions that address your specific business needs.
-          Our approach combines industry expertise with innovative strategies.
-        </p>
-        <div class="concept-button">
-          <a href="#">Learn More</a>
-        </div>
+        <p>We believe in providing tailored solutions that address your specific business needs. Our approach combines
+          industry expertise with innovative strategies.</p>
+        <a href="#" class="btn">Learn More</a>
       </div>
-      <div class="concept-image">
-        <img src="https://creatie.ai/ai/api/search-image?query=A%20professional%20business%20illustration%20showing%20two%20people%20in%20discussion&width=600&height=400&orientation=landscape&removebg=true&flag=20e59cdc-6108-48a0-a30b-5a39684a93c5" alt="Concept illustration" />
+      <div class="concept-img">
+        <img src="concept.jpg" alt="Concept Illustration">
       </div>
-    </div>
-  </section>
-  <!-- Service Highlight Section -->
-<section class="service-section">
-    <div class="container service-grid">
-      <div class="service-image">
-        <img src="https://creatie.ai/ai/api/search-image?query=A%20business%20professional%20working%20at%20a%20modern%20desk&width=600&height=400&orientation=landscape&removebg=true&flag=6381accf-36e6-46cf-b3d8-dfcb990c2101" alt="Service illustration" />
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+      <div class="services-img">
+        <img src="services.jpg" alt="Service Illustration">
       </div>
-      <div class="service-text">
+      <div class="services-text">
         <h2>Our Services</h2>
-        <p>
-          From strategic planning to implementation, we offer comprehensive business consulting services to help you achieve your goals.
-        </p>
-        <div class="service-button">
-          <a href="#">View Services</a>
-        </div>
+        <p>From strategic planning to implementation, we offer comprehensive business consulting services to help you
+          achieve your goals.</p>
+        <a href="#" class="btn">View Services</a>
       </div>
-    </div>
-  </section>
-  <!-- Flow Section -->
-<section class="flow-section">
-    <div class="container text-center">
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="workflow">
       <h2>How We Work</h2>
-      <p>Our proven process ensures successful outcomes for your business</p>
-      <div class="flow-grid">
-        <div class="flow-card">
-          <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
+      <p>Our proven process ensures successful outcomes for your business.</p>
+      <div class="workflow-steps">
+        <div class="step">
           <h3>1. Initial Consultation</h3>
           <p>We begin with a thorough assessment of your business needs and goals.</p>
         </div>
-        <div class="flow-card">
-          <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+        <div class="step">
           <h3>2. Strategy Development</h3>
           <p>Our team creates a customized plan tailored to your objectives.</p>
         </div>
-        <div class="flow-card">
-          <div class="icon-box"><i class="fas fa-check-circle"></i></div>
+        <div class="step">
           <h3>3. Implementation</h3>
           <p>We execute the strategy and monitor progress to ensure success.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- Contact CTA Section -->
-<section class="cta-section">
-    <div class="cta-container">
-      <div class="cta-text">
-        <h2>
-          <span>Ready to get started?</span><br />
-          <span class="highlight">Contact us today for a consultation.</span>
-        </h2>
-      </div>
-      <div class="cta-button">
-        <a href="#">Contact Us</a>
-      </div>
-    </div>
-  </section>
-  <!-- Footer Section -->
-<footer class="footer-section">
-    <div class="footer-container">
-      <div class="footer-grid">
-        <div class="footer-column">
-          <h3>Company</h3>
-          <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Blog</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Services</h3>
-          <ul>
-            <li><a href="#">Consulting</a></li>
-            <li><a href="#">Strategy</a></li>
-            <li><a href="#">Development</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Resources</h3>
-          <ul>
-            <li><a href="#">Documentation</a></li>
-            <li><a href="#">Guides</a></li>
-            <li><a href="#">Case Studies</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Contact</h3>
-          <ul>
-            <li><a href="#">Support</a></li>
-            <li><a href="#">Sales</a></li>
-            <li><a href="#">Partners</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2024 Business
-  
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+      <h2>Ready to get started?<br><span>Contact us today for a consultation.</span></h2>
+      <a href="#" class="btn btn-light">Contact Us</a>
+    </section>
   </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Consulting</a></li>
+          <li><a href="#">Strategy</a></li>
+          <li><a href="#">Development</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Guides</a></li>
+          <li><a href="#">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#">Support</a></li>
+          <li><a href="#">Sales</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2024 Business Consulting. All rights reserved.</p>
+  </footer>
 </body>
+
 </html>
