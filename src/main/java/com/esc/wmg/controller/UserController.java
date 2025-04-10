@@ -9,19 +9,28 @@ import com.esc.wmg.entity.UserEntity;
 import com.esc.wmg.model.User;
 import com.esc.wmg.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class UserController {
 
     @Autowired
     UserRepository repository;
+
+
+    // 마이페이지 이동
+    @GetMapping("goMyPage")
+    public String getMethodName() {
+        return "MyPage";
+    }
     
-
     // 회원정보 수정기능
-    @PostMapping("/UserUpdate")
-    public String UserUpdate() {
-
-        return "";
+    @PostMapping("/userUpdate")
+    public String userUpdate(UserEntity entity, HttpSession session) {
+        repository.save(entity);
+        session.setAttribute("loginUser", entity);
+        return "redirect:/"; 
     }
     
 
@@ -32,7 +41,7 @@ public class UserController {
         repository.save(entity);
         return "redirect:/";
     }
-    //로그인
+    // 로그인 기능
     @PostMapping("/userSelect")
     public String userSelect(User user, HttpSession session) {
         UserEntity userEntity = repository.findByEmailAndPw(user.getEmail(), user.getPw());

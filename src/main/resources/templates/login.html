@@ -20,7 +20,7 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <!-- ✅ 마이페이지 버튼 -->
-                    <a href="/mypage" class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
+                    <a href="/goMyPage" class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium hover:bg-custom/90">
                         <i class="fas fa-user-circle mr-2"></i>마이페이지
                     </a>
                 </div>
@@ -41,12 +41,8 @@
                     <button onclick="showSignup()" class="text-sm font-medium px-4 py-2 !rounded-button" id="signupTab">Sign Up</button>
                 </div>
 
-<<<<<<< HEAD
                 <!-- 로그인 폼 -->
-                <form class="space-y-6" id="loginForm">
-=======
-                <form class="space-y-6" id="loginForm" action="userSelect" method="post">
->>>>>>> test
+                <form action="userSelect" method="post" class="space-y-6" id="loginForm">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
                         <div class="mt-1 relative">
@@ -64,13 +60,9 @@
                             <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                                 <i class="fas fa-lock"></i>
                             </span>
-<<<<<<< HEAD
                             <input id="password" name="password" type="password" required placeholder="Enter your password"
                                 class="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 !rounded-button shadow-sm placeholder-gray-400 focus:outline-none focus:ring-custom focus:border-custom sm:text-sm">
                         </div>
-=======
-                            <input id="password" name="pw" type="password" required class="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-300 !rounded-button shadow-sm placeholder-gray-400 focus:outline-none focus:ring-custom focus:border-custom sm:text-sm" placeholder="Enter your password">                        </div>
->>>>>>> test
                     </div>
 
                     <div class="flex items-center justify-between">
