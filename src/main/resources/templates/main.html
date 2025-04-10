@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Business Consulting</title>
   <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+
 <body>
   <header>
-    <nav class="container">
-      <img src="logo.png" alt="Logo" class="logo">
-      <ul class="nav">
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+    <nav class="nav-bar">
+      <div class="nav-logo">
+        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="logo" />
+      </div>
+      <ul class="nav-center">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
+      <div class="auth-buttons">
+        <button class="btn-signin" onclick="document.getElementById('loginModal').classList.remove('hidden')">Sign
+          in</button>
+        <button class="btn-register">Register</button>
+      </div>
     </nav>
   </header>
+
 
   <main>
     <!-- Hero Section -->
@@ -32,133 +42,134 @@
       </div>
     </section>
 
-<!-- News Section -->
-<section class="news-features">
-    <div class="news-feature">
-      <div class="news-feature-header">
-        <h2>Petal 2</h2>
-        <p>All rewards, no fees.</p>
-        <img src="프로젝트 이미지/악수1.png" alt="Card Image">
+    <!-- News Section -->
+    <section class="news-features">
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal 2</h2>
+          <p>All rewards, no fees.</p>
+          <img th:src="@{/assets/ai-generated-8615668_1280.jpg}" alt="Card Image" class="card-full" />
+        </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">💲</div>
+            <div class="feature-text">
+              <strong>Annual membership fee</strong>
+              <span>No fees of any kind*</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">⭐</div>
+            <div class="feature-text">
+              <strong>Cash back</strong>
+              <span>1% – 1.5%</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💰</div>
+            <div class="feature-text">
+              <strong>Variable APR</strong>
+              <span>28.99% – 30.99%</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">⬆️</div>
+            <div class="feature-text">
+              <strong>Path to a credit limit increase<sup>2</sup></strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
+        </div>
       </div>
-      <ul class="news-feature-list">
-        <li>
-          <div class="icon-circle">💲</div>
-          <div class="feature-text">
-            <strong>Annual membership fee</strong>
-            <span>No fees of any kind*</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">⭐</div>
-          <div class="feature-text">
-            <strong>Cash back</strong>
-            <span>1% – 1.5%</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">💰</div>
-          <div class="feature-text">
-            <strong>Variable APR</strong>
-            <span>28.99% – 30.99%</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">⬆️</div>
-          <div class="feature-text">
-            <strong>Path to a credit limit increase<sup>2</sup></strong>
-          </div>
-        </li>
-      </ul>
-      <div class="news-feature-footer">
-        <a href="#" class="btn-outline">Learn more →</a>
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal 3</h2>
+          <p>No foreign transaction fees.</p>
+          <img th:src="@{assets/construction-1921518_1920.jpg}" alt="Card Image" class="card-full">
+        </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">🌐</div>
+            <div class="feature-text">
+              <strong>No foreign transaction fees</strong>
+              <span>Travel anywhere freely</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💼</div>
+            <div class="feature-text">
+              <strong>Expense tracking</strong>
+              <span>Smart financial tools included</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">🔔</div>
+            <div class="feature-text">
+              <strong>Real-time alerts</strong>
+              <span>Stay informed anytime</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">📈</div>
+            <div class="feature-text">
+              <strong>Automatic credit reporting</strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
+        </div>
       </div>
-    </div>
-    <div class="news-feature">
-      <div class="news-feature-header">
-        <h2>Petal 3</h2>
-        <p>No foreign transaction fees.</p>
-        <img src="프로젝트 이미지/상담1.png" alt="Card Image" class="card-full">
+      <div class="news-feature">
+        <div class="news-feature-header">
+          <h2>Petal Build</h2>
+          <p>For building credit history.</p>
+          <img th:src="@{assets/늙은손.jpg}" alt="Card Image" class="card-full">
+        </div>
+        <ul class="news-feature-list">
+          <li>
+            <div class="icon-circle">🧱</div>
+            <div class="feature-text">
+              <strong>Credit building support</strong>
+              <span>Even with no credit history</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">📊</div>
+            <div class="feature-text">
+              <strong>Account insights</strong>
+              <span>Simple dashboard access</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">🔒</div>
+            <div class="feature-text">
+              <strong>Secure by design</strong>
+              <span>Protected with best-in-class security</span>
+            </div>
+          </li>
+          <li>
+            <div class="icon-circle">💳</div>
+            <div class="feature-text">
+              <strong>No deposit required</strong>
+            </div>
+          </li>
+        </ul>
+        <div class="news-feature-footer">
+          <a href="#" class="btn-outline">Learn more →</a>
+        </div>
       </div>
-      <ul class="news-feature-list">
-        <li>
-          <div class="icon-circle">🌐</div>
-          <div class="feature-text">
-            <strong>No foreign transaction fees</strong>
-            <span>Travel anywhere freely</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">💼</div>
-          <div class="feature-text">
-            <strong>Expense tracking</strong>
-            <span>Smart financial tools included</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">🔔</div>
-          <div class="feature-text">
-            <strong>Real-time alerts</strong>
-            <span>Stay informed anytime</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">📈</div>
-          <div class="feature-text">
-            <strong>Automatic credit reporting</strong>
-          </div>
-        </li>
-      </ul>
-      <div class="news-feature-footer">
-        <a href="#" class="btn-outline">Learn more →</a>
-      </div>
-    </div>
-    <div class="news-feature">
-      <div class="news-feature-header">
-        <h2>Petal Build</h2>
-        <p>For building credit history.</p>
-        <img src="프로젝트 이미지/악수2.png" alt="Card Image">
-      </div>
-      <ul class="news-feature-list">
-        <li>
-          <div class="icon-circle">🧱</div>
-          <div class="feature-text">
-            <strong>Credit building support</strong>
-            <span>Even with no credit history</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">📊</div>
-          <div class="feature-text">
-            <strong>Account insights</strong>
-            <span>Simple dashboard access</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">🔒</div>
-          <div class="feature-text">
-            <strong>Secure by design</strong>
-            <span>Protected with best-in-class security</span>
-          </div>
-        </li>
-        <li>
-          <div class="icon-circle">💳</div>
-          <div class="feature-text">
-            <strong>No deposit required</strong>
-          </div>
-        </li>
-      </ul>
-      <div class="news-feature-footer">
-        <a href="#" class="btn-outline">Learn more →</a>
-      </div>
-    </div>
-  </section>
-  
+    </section>
+
 
     <!-- Concept Section -->
     <section class="concept">
       <div class="concept-text">
         <h2>Our Concept</h2>
-        <p>We believe in providing tailored solutions that address your specific business needs. Our approach combines industry expertise with innovative strategies.</p>
+        <p>We believe in providing tailored solutions that address your specific business needs. Our approach combines
+          industry expertise with innovative strategies.</p>
         <a href="#" class="btn">Learn More</a>
       </div>
       <div class="concept-img">
@@ -173,7 +184,8 @@
       </div>
       <div class="services-text">
         <h2>Our Services</h2>
-        <p>From strategic planning to implementation, we offer comprehensive business consulting services to help you achieve your goals.</p>
+        <p>From strategic planning to implementation, we offer comprehensive business consulting services to help you
+          achieve your goals.</p>
         <a href="#" class="btn">View Services</a>
       </div>
     </section>
@@ -243,4 +255,5 @@
     <p class="copyright">&copy; 2024 Business Consulting. All rights reserved.</p>
   </footer>
 </body>
+
 </html>
