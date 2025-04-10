@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<UserEntity, String>{
 
     // select * from member where email = ? and pw = ?
 	public UserEntity findByEmailAndPw(String email, String pw);
+
+    
 }

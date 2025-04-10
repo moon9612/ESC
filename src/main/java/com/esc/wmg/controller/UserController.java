@@ -16,7 +16,6 @@ public class UserController {
     @Autowired
     UserRepository repository;
 
-    
     // 회원정보 수정기능
     @PostMapping("/userUpdate")
     public String userUpdate(UserEntity entity, HttpSession session) {
@@ -32,6 +31,7 @@ public class UserController {
         repository.save(entity);
         return "redirect:/";
     }
+
     // 로그인 기능
     @PostMapping("/userSelect")
     public String userSelect(User user, HttpSession session) {
@@ -41,8 +41,10 @@ public class UserController {
         return "loginSuccess";
     }
 
+    // 초기 메인 페이지
     @GetMapping("/")
     public String loginForm() {
         return "main";
     }
+
 }
