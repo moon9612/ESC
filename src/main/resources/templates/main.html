@@ -1,193 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Business Consulting Services</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
-    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000" data-border-radius="small"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Consulting Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
-<body class="font-inter bg-gray-50">
-    <header class="bg-white shadow-sm fixed w-full z-50">
-        <nav class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">                        <img class="h-8 w-auto" src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
-                    </div>                </div>
-                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#" class="border-custom text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Services</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">About</a>
-                    <a href="#" class="border-transparent text-gray-500 hover:text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
-                </div>
-            </div>
-        </nav>
-    </header>
+<body>
+  <header>
+    <nav class="nav-container">
+      <div class="nav-logo">
+        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="#" class="active">Home</a>
+        <a href="#">Services</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+    </nav>
+  </header>
 
-    <main class="pt-16">
-        <!-- Hero Section -->        <div class="relative bg-white overflow-hidden">
-            <div class="max-w-8xl mx-auto">
-                <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-1/2 lg:pb-28 xl:pb-32">                    <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                        <div class="sm:text-center lg:text-left">                            <h1 class="text-4xl tracking-tight font-bold text-gray-900 sm:text-5xl md:text-6xl">
-                                <span class="block">Business Solutions</span>
-                                <span class="block text-custom">For Your Success</span>
-                            </h1>                            <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">                                We provide comprehensive consulting services to help your business grow and succeed in today's competitive market.
-                            </p>                            <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                                <div class="rounded-md shadow">                                    <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-button text-white bg-custom hover:bg-custom/90 md:py-4 md:text-lg md:px-10">                                        Get Started
-                                    </a>
-                                </div>                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>            <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="https://creatie.ai/ai/api/search-image?query=A 3D vector-style illustration of a modern cityscape with two business professionals riding a bicycle, featuring clean lines and a minimalist style, set against a light background with subtle architectural details&width=800&height=600&orientation=landscape&removebg=true&flag=672dcb6c-51aa-463a-bf68-5615509fa961" alt="Hero image">            </div>
+  <main>
+    <section class="hero-section">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>
+            <span>Business Solutions</span><br />
+            <span class="highlight">For Your Success</span>
+          </h1>
+          <p>
+            We provide comprehensive consulting services to help your business grow and succeed in today's competitive market.
+          </p>
+          <div class="hero-button">
+            <a href="#">Get Started</a>
+          </div>
         </div>
-
-        <!-- News & Column Section -->
-        <div class="bg-gray-50 py-12 sm:py-16">
-            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">                <div class="text-center">
-                    <h2 class="text-3xl font-bold text-gray-900">Latest News & Insights</h2>                    <p class="mt-4 text-lg text-gray-500">Stay updated with our latest business insights and success stories</p>                </div>
-                <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    <div class="bg-white overflow-hidden shadow rounded-lg">                        <img class="h-48 w-full object-cover" src="https://creatie.ai/ai/api/search-image?query=A professional business meeting scene with people discussing strategy around a modern conference table, with clean minimalist office interior background&width=400&height=300&orientation=landscape&flag=a6f768b2-2a81-460a-ac7b-597aa26045b3" alt="News 1">                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900">Strategic Planning Workshop</h3>                            <p class="mt-2 text-sm text-gray-500">Learn how our strategic planning workshops help businesses achieve their goals.</p>                        </div>
-                    </div>
-                    <div class="bg-white overflow-hidden shadow rounded-lg">                        <img class="h-48 w-full object-cover" src="https://creatie.ai/ai/api/search-image?query=A modern workspace setting with digital devices and business documents, showing contemporary business solutions and technology integration&width=400&height=300&orientation=landscape&flag=1d212342-a48a-46e6-8b36-fe2994f20239" alt="News 2">                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900">Digital Transformation</h3>                            <p class="mt-2 text-sm text-gray-500">Discover how we help businesses embrace digital transformation.</p>                        </div>
-                    </div>
-                    <div class="bg-white overflow-hidden shadow rounded-lg">                        <img class="h-48 w-full object-cover" src="https://creatie.ai/ai/api/search-image?query=A collaborative team meeting in a bright, modern office space with people working together on innovative solutions&width=400&height=300&orientation=landscape&flag=602a6e87-c800-404c-a364-2f2f5facb59f" alt="News 3">                        <div class="p-6">
-                            <h3 class="text-lg font-medium text-gray-900">Team Development</h3>                            <p class="mt-2 text-sm text-gray-500">Building high-performing teams through effective leadership and communication.</p>                        </div>
-                    </div>
-                </div>
-            </div>
+        <img class="hero-image" src="https://creatie.ai/ai/api/search-image?query=A%203D%20vector-style%20illustration%20of%20a%20modern%20cityscape%20with%20two%20business%20professionals%20riding%20a%20bicycle&width=800&height=600&orientation=landscape&removebg=true&flag=672dcb6c-51aa-463a-bf68-5615509fa961" alt="Hero image" />
+      </div>
+    </section>
+    <!-- 이어지는 코드 -->
+<section class="news-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Latest News & Insights</h2>
+        <p>Stay updated with our latest business insights and success stories</p>
+      </div>
+      <div class="news-grid">
+        <div class="news-card">
+          <img src="https://creatie.ai/ai/api/search-image?query=A%20professional%20business%20meeting%20scene%20with%20people%20discussing%20strategy%20around%20a%20modern%20conference%20table&width=400&height=300&orientation=landscape&flag=a6f768b2-2a81-460a-ac7b-597aa26045b3" alt="News 1" />
+          <div class="card-content">
+            <h3>Strategic Planning Workshop</h3>
+            <p>Learn how our strategic planning workshops help businesses achieve their goals.</p>
+          </div>
         </div>
-
-        <!-- Concept Section -->        <div class="bg-white py-12 sm:py-16">
-            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">                    <div>
-                        <h2 class="text-3xl font-bold text-gray-900">Our Concept</h2>
-                        <p class="mt-4 text-lg text-gray-500">We believe in providing tailored solutions that address your specific business needs. Our approach combines industry expertise with innovative strategies.</p>                        <div class="mt-8">
-                            <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-button shadow-sm text-white bg-custom hover:bg-custom/90">                                Learn More
-                            </a>
-                        </div>
-                    </div>                    <div class="mt-10 lg:mt-0">
-                        <img class="mx-auto" src="https://creatie.ai/ai/api/search-image?query=A professional business illustration showing two people in discussion, with modern office elements and a clean, minimal style&width=600&height=400&orientation=landscape&removebg=true&flag=20e59cdc-6108-48a0-a30b-5a39684a93c5" alt="Concept illustration">                    </div>
-                </div>
-            </div>
+        <div class="news-card">
+          <img src="https://creatie.ai/ai/api/search-image?query=A%20modern%20workspace%20setting%20with%20digital%20devices%20and%20business%20documents&width=400&height=300&orientation=landscape&flag=1d212342-a48a-46e6-8b36-fe2994f20239" alt="News 2" />
+          <div class="card-content">
+            <h3>Digital Transformation</h3>
+            <p>Discover how we help businesses embrace digital transformation.</p>
+          </div>
         </div>
-
-        <!-- Service Highlight -->
-        <div class="bg-yellow-50 py-12 sm:py-16">            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">                    <div class="mt-10 lg:mt-0">
-                        <img class="mx-auto" src="https://creatie.ai/ai/api/search-image?query=A business professional working at a modern desk with laptop and documents, showing focused work environment with minimal design&width=600&height=400&orientation=landscape&removebg=true&flag=6381accf-36e6-46cf-b3d8-dfcb990c2101" alt="Service illustration">                    </div>
-                    <div>
-                        <h2 class="text-3xl font-bold text-gray-900">Our Services</h2>                        <p class="mt-4 text-lg text-gray-500">From strategic planning to implementation, we offer comprehensive business consulting services to help you achieve your goals.</p>                        <div class="mt-8">
-                            <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-button shadow-sm text-white bg-custom hover:bg-custom/90">                                View Services
-                            </a>
-                        </div>
-                    </div>                </div>
-            </div>
+        <div class="news-card">
+          <img src="https://creatie.ai/ai/api/search-image?query=A%20collaborative%20team%20meeting%20in%20a%20bright,%20modern%20office%20space&width=400&height=300&orientation=landscape&flag=602a6e87-c800-404c-a364-2f2f5facb59f" alt="News 3" />
+          <div class="card-content">
+            <h3>Team Development</h3>
+            <p>Building high-performing teams through effective leadership and communication.</p>
+          </div>
         </div>
-
-        <!-- Flow Section -->
-        <div class="bg-white py-12 sm:py-16">            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center">
-                    <h2 class="text-3xl font-bold text-gray-900">How We Work</h2>
-                    <p class="mt-4 text-lg text-gray-500">Our proven process ensures successful outcomes for your business</p>                </div>
-                <div class="mt-12">
-                    <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">                        <div class="text-center">
-                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-custom text-white mx-auto">                                <i class="fas fa-lightbulb text-xl"></i>
-                            </div>
-                            <h3 class="mt-5 text-lg font-medium text-gray-900">1. Initial Consultation</h3>
-                            <p class="mt-2 text-base text-gray-500">We begin with a thorough assessment of your business needs and goals.</p>                        </div>
-                        <div class="text-center">
-                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-custom text-white mx-auto">                                <i class="fas fa-chart-line text-xl"></i>
-                            </div>
-                            <h3 class="mt-5 text-lg font-medium text-gray-900">2. Strategy Development</h3>
-                            <p class="mt-2 text-base text-gray-500">Our team creates a customized plan tailored to your objectives.</p>                        </div>
-                        <div class="text-center">
-                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-custom text-white mx-auto">                                <i class="fas fa-check-circle text-xl"></i>
-                            </div>
-                            <h3 class="mt-5 text-lg font-medium text-gray-900">3. Implementation</h3>
-                            <p class="mt-2 text-base text-gray-500">We execute the strategy and monitor progress to ensure success.</p>                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </section>
+  <!-- Concept Section -->
+<section class="concept-section">
+    <div class="container concept-grid">
+      <div class="concept-text">
+        <h2>Our Concept</h2>
+        <p>
+          We believe in providing tailored solutions that address your specific business needs.
+          Our approach combines industry expertise with innovative strategies.
+        </p>
+        <div class="concept-button">
+          <a href="#">Learn More</a>
         </div>
-
-        <!-- Contact CTA -->        <div class="bg-custom">
-            <div class="max-w-8xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                    <span class="block">Ready to get started?</span>                    <span class="block text-yellow-200">Contact us today for a consultation.</span>
-                </h2>
-                <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">                    <div class="inline-flex rounded-md shadow">
-                        <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-button text-custom bg-white hover:bg-gray-50">                            Contact Us
-                        </a>
-                    </div>
-                </div>
-            </div>        </div>
-    </main>
-
-    <footer class="bg-gray-800">
-        <div class="max-w-8xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">            <div class="grid grid-cols-2 gap-8 md:grid-cols-4">
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
-                    <ul role="list" class="mt-4 space-y-4">
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">About</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Careers</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Blog</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Services</h3>
-                    <ul role="list" class="mt-4 space-y-4">
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Consulting</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Strategy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Development</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
-                    <ul role="list" class="mt-4 space-y-4">
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Documentation</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Guides</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Case Studies</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Contact</h3>
-                    <ul role="list" class="mt-4 space-y-4">
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Support</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Sales</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-base text-gray-300 hover:text-white">Partners</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="mt-12 border-t border-gray-700 pt-8">                <p class="text-base text-gray-400 xl:text-center">
-                    © 2024 Business Consulting. All rights reserved.
-                </p>            </div>
+      </div>
+      <div class="concept-image">
+        <img src="https://creatie.ai/ai/api/search-image?query=A%20professional%20business%20illustration%20showing%20two%20people%20in%20discussion&width=600&height=400&orientation=landscape&removebg=true&flag=20e59cdc-6108-48a0-a30b-5a39684a93c5" alt="Concept illustration" />
+      </div>
+    </div>
+  </section>
+  <!-- Service Highlight Section -->
+<section class="service-section">
+    <div class="container service-grid">
+      <div class="service-image">
+        <img src="https://creatie.ai/ai/api/search-image?query=A%20business%20professional%20working%20at%20a%20modern%20desk&width=600&height=400&orientation=landscape&removebg=true&flag=6381accf-36e6-46cf-b3d8-dfcb990c2101" alt="Service illustration" />
+      </div>
+      <div class="service-text">
+        <h2>Our Services</h2>
+        <p>
+          From strategic planning to implementation, we offer comprehensive business consulting services to help you achieve your goals.
+        </p>
+        <div class="service-button">
+          <a href="#">View Services</a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
+  <!-- Flow Section -->
+<section class="flow-section">
+    <div class="container text-center">
+      <h2>How We Work</h2>
+      <p>Our proven process ensures successful outcomes for your business</p>
+      <div class="flow-grid">
+        <div class="flow-card">
+          <div class="icon-box"><i class="fas fa-lightbulb"></i></div>
+          <h3>1. Initial Consultation</h3>
+          <p>We begin with a thorough assessment of your business needs and goals.</p>
+        </div>
+        <div class="flow-card">
+          <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+          <h3>2. Strategy Development</h3>
+          <p>Our team creates a customized plan tailored to your objectives.</p>
+        </div>
+        <div class="flow-card">
+          <div class="icon-box"><i class="fas fa-check-circle"></i></div>
+          <h3>3. Implementation</h3>
+          <p>We execute the strategy and monitor progress to ensure success.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Contact CTA Section -->
+<section class="cta-section">
+    <div class="cta-container">
+      <div class="cta-text">
+        <h2>
+          <span>Ready to get started?</span><br />
+          <span class="highlight">Contact us today for a consultation.</span>
+        </h2>
+      </div>
+      <div class="cta-button">
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+  </section>
+  <!-- Footer Section -->
+<footer class="footer-section">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Consulting</a></li>
+            <li><a href="#">Strategy</a></li>
+            <li><a href="#">Development</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Guides</a></li>
+            <li><a href="#">Case Studies</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Partners</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Business
+  
+  </main>
 </body>
 </html>
