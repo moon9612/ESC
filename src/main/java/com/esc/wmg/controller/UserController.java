@@ -17,9 +17,14 @@ public class UserController {
     // 회원가입 기능
     @PostMapping("/userInsert")
     public String userInsert(UserEntity entity) {
+<<<<<<< HEAD
         System.out.println("폼 데이터: " + toString());
     
         repository.save(entity); // 기존 테이블(tbl_user)에 insert됨
+=======
+        System.out.println(entity.toString());
+        repository.save(entity);
+>>>>>>> test4
         return "redirect:/";
     }
     
