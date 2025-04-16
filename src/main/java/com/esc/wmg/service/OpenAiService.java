@@ -17,7 +17,9 @@ public class OpenAiService {
 
         Dotenv dotenv = Dotenv.configure().load();
         this.API_KEY = dotenv.get("OPENAI_API_KEY");
-        this.ASSISTANT_ID = dotenv.get("OPENAI_ASSISTANT_ID");
+        this.ASSISTANT_ID = dotenv.get("ASSISTANT_ID");
+        System.out.println("API_KEY: " + API_KEY);
+        System.out.println("ASSISTANT_ID: " + ASSISTANT_ID);
     }
 
     public String getGptReply(String userMessage) {
