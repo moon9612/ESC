@@ -36,7 +36,7 @@ public class UserEntity {
     
     @NonNull
     @Column(name = "birthdate")
-    private LocalDate birthDate;
+    private LocalDate birthdate;
     
     @NonNull
     @CreationTimestamp

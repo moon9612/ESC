@@ -13,19 +13,22 @@
 <body>
   <div class="container" id="loginContainer">
     <div class="logo-container">
-      <div class="logo">logo</div>
-      <div class="logo-subtitle">당신의 디지털 라이프스타일 파트너</div>
+      <div class="logo">ESC</div>
+      <div class="logo-subtitle">당신의 상담 매니저</div>
     </div>
-    <form id="loginForm">
+    
+    <!-- 로그인 실패 메시지 출력 -->
+    
+    <form id="loginForm" action="userSelect" method="post">
       <div class="form-group">
-        <input type="text" id="email" class="form-input" placeholder="이메일 주소" />
+        <input type="text" id="email" name="email" class="form-input" placeholder="이메일 주소" />
         <label for="email" class="form-label">이메일 주소</label>
         <div class="error-message" id="emailError">
           유효한 이메일 주소를 입력해주세요.
         </div>
       </div>
       <div class="form-group">
-        <input type="password" id="password" class="form-input" placeholder="비밀번호" />
+        <input type="password" id="password" name="pw" class="form-input" placeholder="비밀번호" />
         <label for="password" class="form-label">비밀번호</label>
         <div class="error-message" id="passwordError">
           비밀번호를 입력해주세요.
@@ -57,6 +60,7 @@
       </div>
     </form>
   </div>
+  
   <div class="container" id="forgotPasswordContainer" style="display: none;">
     <a href="#" class="back-btn" id="backToLoginFromForgot">
       <i class="ri-arrow-left-line"></i> 로그인으로 돌아가기
@@ -117,7 +121,7 @@
         <div class="error-message" id="nameError">이름을 입력해주세요.</div>
       </div>
       <div class="form-group">
-        <input type="date" id="birthDate" name="birthDate" class="form-input" placeholder="생년월일" />
+        <input type="date" id="birthDate" name="birthdate" class="form-input" placeholder="생년월일" />
         <label for="birthDate" class="form-label">생년월일</label>
         <div class="error-message" id="birthDateError">
           생년월일을 입력해주세요.

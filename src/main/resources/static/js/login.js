@@ -78,41 +78,7 @@ window.onload = function () {
       }, 600);
     });
   });
-  // 로그인 폼 검증
-  const loginForm = document.getElementById("loginForm");
-  const emailInput = document.getElementById("email");
-  const passwordInput = document.getElementById("password");
-  const emailError = document.getElementById("emailError");
-  const passwordError = document.getElementById("passwordError");
-  loginForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    let isValid = true;
-    // 이메일 검증
-    if (!emailInput.value.trim()) {
-      emailError.textContent = "이메일 주소를 입력해주세요.";
-      emailError.classList.add("show");
-      isValid = false;
-    } else if (!isValidEmail(emailInput.value)) {
-      emailError.textContent = "유효한 이메일 주소를 입력해주세요.";
-      emailError.classList.add("show");
-      isValid = false;
-    } else {
-      emailError.classList.remove("show");
-    }
-    // 비밀번호 검증
-    if (!passwordInput.value.trim()) {
-      passwordError.textContent = "비밀번호를 입력해주세요.";
-      passwordError.classList.add("show");
-      isValid = false;
-    } else {
-      passwordError.classList.remove("show");
-    }
-    if (isValid) {
-      // 여기에 로그인 로직 추가
-      alert("로그인 성공!");
-      loginForm.reset();
-    }
-  });
+  
   // 회원가입 비밀번호 강도 체크
   const signupPassword = document.getElementById("signupPassword");
   const strengthMeter = document.getElementById("strengthMeter");
@@ -245,17 +211,18 @@ window.onload = function () {
       signupBtn.classList.remove("active");
     }
   }
+
   signupForm.addEventListener("submit", function (e) {
-  
     if (signupBtn.classList.contains("active")) {
-      // 여기에 회원가입 로직 추가
       alert("회원가입 성공!");
       signupContainer.style.display = "none";
       loginContainer.style.display = "block";
-    }else{
-      e.preventDefault();
+      // 기본 동작 허용 → 폼 자동 전송
+    } else {
+      e.preventDefault(); // 조건 만족 안 하면 전송 막음
     }
   });
+
   //유틸리티 함수 
   function isValidEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
