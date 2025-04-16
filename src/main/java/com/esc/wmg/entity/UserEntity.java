@@ -1,19 +1,21 @@
 package com.esc.wmg.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 @Entity
-@Data
+@Table(name = "tbl_user") // 기존 테이블명과 정확히 일치
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
+@Data
 public class UserEntity {
 
     @Id
@@ -26,15 +28,8 @@ public class UserEntity {
     @NonNull
     @Column(length = 50)
     private String pw;
-    @Column(length = 10)
-    private int age;
-    @Column(length = 50)
-    private String industry;
-    @Column(length = 50)
-    private String job_type;
-    @Column(length = 50)
-    private String company_size;
-    @Column(length = 50)
-    private int work_time;
+    @NonNull
+    @Column
+    private LocalDate birthDate;
     
 }
