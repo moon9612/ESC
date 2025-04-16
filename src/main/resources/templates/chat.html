@@ -320,6 +320,7 @@
     const input = document.querySelector('.chat-input input');
     const button = document.querySelector('.chat-input button');
     const chatBox = document.querySelector('.chat-messages');
+    let currentThreadId = null; // 🔹 스레드 ID 저장용
 
     function scrollToBottom() {
       chatBox.scrollTop = chatBox.scrollHeight;
@@ -329,6 +330,7 @@
       const text = input.value.trim();
       if (!text) return;
 
+      // 사용자 메시지 추가
       chatBox.innerHTML += `
         <div class="message user">
           <div class="avatar">😊</div>
@@ -338,6 +340,7 @@
       input.value = '';
       scrollToBottom();
 
+      // 로딩 메시지 표시
       const loadingEl = document.createElement('div');
       loadingEl.className = 'message bot';
       loadingEl.innerHTML = `
@@ -351,15 +354,23 @@
         const res = await fetch("http://localhost:8087/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text })
+          body: JSON.stringify({ message: text, threadId: currentThreadId })
         });
 
-        const reply = await res.text();
-        loadingEl.querySelector('.bubble').textContent = reply || '죄송합니다. 답변을 가져오지 못했어요.';
+        const data = await res.json(); // 🔹 JSON 응답 파싱
+        const formattedReply = (data.reply || '죄송합니다. 답변을 가져오지 못했어요.').replace(/\n/g, "<br>");
+        loadingEl.querySelector('.bubble').innerHTML = formattedReply;
+
+        // 🔹 응답으로부터 threadId 저장
+        if (!currentThreadId && data.threadId) {
+          currentThreadId = data.threadId;
+          console.log("🧵 스레드 ID 저장:", currentThreadId);
+        }
       } catch (err) {
         console.error("에러 발생:", err);
-        loadingEl.querySelector('.bubble').textContent = '오류가 발생했습니다. 다시 시도해주세요.';
+        loadingEl.querySelector('.bubble').innerHTML = '오류가 발생했습니다. 다시 시도해주세요.';
       }
+
 
       scrollToBottom();
     });
@@ -368,8 +379,9 @@
     input.addEventListener('keypress', e => {
       if (e.key === 'Enter') button.click();
     });
-
   </script>
+
+
 </body>
 
 </html>

@@ -1,8 +1,11 @@
+// ChatController.java
 package com.esc.wmg.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.esc.wmg.service.OpenAiService;
 
 @CrossOrigin(origins = "http://127.0.0.1:5501")
@@ -13,15 +16,15 @@ public class ChatController {
     @Autowired
     private OpenAiService openAiService;
 
-    // 프론트 fetch("/api/chat") 호출 대응
     @PostMapping("/chat")
-    public String chat(@RequestBody ChatRequest request) {
-        return openAiService.getGptReply(request.getMessage());
+    public ResponseEntity<Map<String, String>> chat(@RequestBody ChatRequest request) {
+        Map<String, String> response = openAiService.getGptReply(request.getMessage(), request.getThreadId());
+        return ResponseEntity.ok(response);
     }
 
-    // 요청 바디 클래스
     public static class ChatRequest {
         private String message;
+        private String threadId; // 🔹 추가
 
         public String getMessage() {
             return message;
@@ -29,6 +32,14 @@ public class ChatController {
 
         public void setMessage(String message) {
             this.message = message;
+        }
+
+        public String getThreadId() {
+            return threadId;
+        }
+
+        public void setThreadId(String threadId) {
+            this.threadId = threadId;
         }
     }
 }
