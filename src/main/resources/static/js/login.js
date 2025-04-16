@@ -245,16 +245,15 @@ window.onload = function () {
       signupBtn.classList.remove("active");
     }
   }
-  signupForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (signupBtn.classList.contains("active")) {
-      // 여기에 회원가입 로직 추가
-      alert("회원가입 성공!");
-      signupForm.reset();
-      signupContainer.style.display = "none";
-      loginContainer.style.display = "block";
-    }
-  });
+  // signupForm.addEventListener("submit", function (e) {
+  //   e.preventDefault();
+  //   if (signupBtn.classList.contains("active")) {
+  //     // 여기에 회원가입 로직 추가
+  //     alert("회원가입 성공!");
+  //     signupContainer.style.display = "none";
+  //     loginContainer.style.display = "block";
+  //   }
+  // });
   // 유틸리티 함수
   function isValidEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

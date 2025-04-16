@@ -1,6 +1,9 @@
 package com.esc.wmg.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,16 +23,23 @@ public class UserEntity {
 
     @Id
     @NonNull
-    @Column(length = 50)
+    @Column(length = 50, name = "email")
     private String email;
+    
     @NonNull
-    @Column(length = 50)
+    @Column(length = 50 ,name = "nick")
     private String nick;
+    
     @NonNull
-    @Column(length = 50)
+    @Column(length = 50, name = "pw")
     private String pw;
+    
     @NonNull
-    @Column
+    @Column(name = "birthdate")
     private LocalDate birthDate;
     
+    @NonNull
+    @CreationTimestamp
+    @Column(name = "joined_at", updatable = false)
+    private LocalDateTime joinedAt;
 }
