@@ -246,12 +246,14 @@ window.onload = function () {
     }
   }
   signupForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+  
     if (signupBtn.classList.contains("active")) {
       // 여기에 회원가입 로직 추가
       alert("회원가입 성공!");
       signupContainer.style.display = "none";
       loginContainer.style.display = "block";
+    }else{
+      e.preventDefault();
     }
   });
   //유틸리티 함수 
