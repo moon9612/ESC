@@ -83,7 +83,7 @@
       <i class="ri-arrow-left-line"></i> 로그인으로 돌아가기
     </a>
     <h1>회원가입</h1>
-    <form id="signupForm" action="userInsert" method="post">
+    <form id="signupForm" th:action="userInsert" method="post">
       <div class="form-group">
         <input type="email" id="signupEmail" name="email" class="form-input" placeholder="이메일 주소" />
         <label for="signupEmail" class="form-label">이메일 주소</label>

@@ -3,7 +3,6 @@ package com.esc.wmg.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.esc.wmg.entity.UserEntity;
@@ -17,7 +16,7 @@ public class UserController {
 
     // 회원가입 기능
     @PostMapping("/userInsert")
-    public String userInsert(@ModelAttribute UserEntity entity) {
+    public String userInsert(UserEntity entity) {
         System.out.println(entity.toString());
         repository.save(entity);
         return "redirect:/";
