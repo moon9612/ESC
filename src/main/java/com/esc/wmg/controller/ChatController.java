@@ -1,8 +1,9 @@
 package com.esc.wmg.controller;
 
-import com.esc.wmg.service.OpenAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import com.esc.wmg.service.OpenAiService;
 
 @CrossOrigin(origins = "http://127.0.0.1:5501")
 @RestController
