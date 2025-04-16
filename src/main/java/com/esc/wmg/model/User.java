@@ -1,6 +1,7 @@
 package com.esc.wmg.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,6 @@ public class User {
     private String email;
     private String nick;
     private String pw;
-    private LocalDate birthDate;
-    
+    private LocalDate birthdate;
+    private LocalDateTime joinedAt;
 }
