@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Table(name = "tbl_user") // 기존 테이블명과 정확히 일치
@@ -21,16 +22,6 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
 
     @Id
-<<<<<<< HEAD
-    @Column(length = 50)
-    private String email;
-    @Column(length = 50)
-    private String nick;
-    @Column(length = 50)
-    private String pw;
-    @Column
-    private LocalDate birthdate;
-=======
     @NonNull
     @Column(length = 50, name = "email")
     private String email;
@@ -45,8 +36,7 @@ public class UserEntity {
     
     @NonNull
     @Column(name = "birthdate")
-    private LocalDate birthDate;
->>>>>>> test4
+    private LocalDate birthdate;
     
     @NonNull
     @CreationTimestamp
