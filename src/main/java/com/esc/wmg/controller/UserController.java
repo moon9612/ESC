@@ -21,7 +21,7 @@ public class UserController {
     public String userUpdate(UserEntity entity, HttpSession session) {
         repository.save(entity);
         session.setAttribute("loginUser", entity);
-        return "redirect:/"; 
+        return "redirect:/";
     }
 
     // 회원가입 기능
@@ -50,7 +50,7 @@ public class UserController {
     // 초기 메인 페이지
     @GetMapping("/")
     public String loginForm() {
-        return "main";
+        return "chat";
     }
 
 }
