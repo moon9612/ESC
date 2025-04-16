@@ -3,7 +3,6 @@ package com.esc.wmg.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.esc.wmg.entity.UserEntity;
@@ -17,11 +16,13 @@ public class UserController {
 
     // 회원가입 기능
     @PostMapping("/userInsert")
-    public String userInsert(@ModelAttribute UserEntity entity) {
-        System.out.println(entity.toString());
-        repository.save(entity);
+    public String userInsert(UserEntity entity) {
+        System.out.println("폼 데이터: " + toString());
+    
+        repository.save(entity); // 기존 테이블(tbl_user)에 insert됨
         return "redirect:/";
     }
+    
 
     // 로그인 페이지로 이동
     @GetMapping("/goLogin")
