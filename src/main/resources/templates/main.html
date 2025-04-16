@@ -4,52 +4,62 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>멤버스 PG 서비스</title>
+    <title>서비스</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <script th:src="@{/js/main.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <a href="#" class="logo">
-            <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
-                alt="멤버스 PG 로고" />
-            <span>멤버스 PG</span>
-        </a>
-        <nav>
-            <div th:if="${session.loginUser == null}">
-                <ul>
-                    <li><a href="goLogin">로그인</a></li>
-                </ul>
-            </div>
-            <div th:if="${session.loginUser != null}">
-                <ul>
-                    <li><a href="logout">로그아웃</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="page-wrapper">
+        <!-- Header -->
+        <header>
+            <a href="#" class="logo">
+                <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
+                    alt="멤버스 PG 로고" />
+                <span>멤버스 PG</span>
+            </a>
+            <nav>
+                <div th:if="${session.loginUser == null}">
+                    <ul>
+                        <li><a href="goLogin">로그인</a></li>
+                    </ul>
+                </div>
+                <div th:if="${session.loginUser != null}">
+                    <ul>
+                        <li><a href="logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <section class="scroll-section full-screen-section main">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>PG서비스로<br />편리한 온라인 사업을<br />시작하세요!</h1>
-            <p>
-                안전하고 간편한 결제 시스템으로<br />매출증대는 물론 비용까지 절약할
-                수 있는<br />멤버스 PG 서비스를 경험해 보세요.
-            </p>
-        </div>
-        <div class="hero-image"></div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2>멤버스PG 서비스가<br />궁금하신가요?</h2>
+            <div>
+                <h1>아직도 부당한 대우를 받고 일을 하고 계시나요?</h1>
+            </div>
+            <div class="scroll-down">
+                <span>스크롤 하세요</span>
+                <i class="ri-arrow-down-line"></i>
+            </div>
+        </section>
+        <section class="hero">
+            <div class="hero-box text-box">
+                <h1>PG서비스로<br />편리한 온라인 사업을<br />시작하세요!</h1>
+                <p>
+                    안전하고 간편한 결제 시스템으로<br />
+                    매출증대는 물론 비용까지 절약할 수 있는<br />
+                    멤버스 PG 서비스를 경험해 보세요.
+                </p>
+                <button class="cta-button">서비스 시작하기</button>
+            </div>
+            <div class="hero-box image-box">
+                <img src="https://readdy.ai/api/search-image?query=professional%2520person%2520holding%2520smartphone%2520with%2520payment%2520app%2520interface%2520displayed%2520on%2520screen%252C%2520clean%2520white%2520desk%2520background%2520with%2520minimal%2520office%2520items%252C%2520soft%2520natural%2520lighting%252C%2520high%2520quality%2520professional%2520photography&width=600&height=500&seq=123&orientation=portrait"
+                    alt="PG 서비스 이미지" />
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="scroll-section features">
+            <h2 class="slide-in-up">지능형 권리상담 챗봇이<br />궁금하신가요?</h2>
 
             <div class="features-grid">
                 <div class="feature-item">
@@ -58,7 +68,7 @@
                             alt="간편 가입" />
                     </div>
                     <div class="feature-title">간편한 가입</div>
-                    <div class="feature-desc">서류 제출</div>
+                    <div class="feature-desc">로그인할시 대화 자동 저장!</div>
                 </div>
 
                 <div class="feature-item">
@@ -66,8 +76,8 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520wallet%2520icon%2C%2520payment%2520method%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=126&orientation=squarish"
                             alt="다양한 결제" />
                     </div>
-                    <div class="feature-title">다양한 결제</div>
-                    <div class="feature-desc">방법</div>
+                    <div class="feature-title">고용노동권리</div>
+                    <div class="feature-desc">숨어있는 내 권리 찾기</div>
                 </div>
 
                 <div class="feature-item">
@@ -75,8 +85,8 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520chart%2520graph%2520icon%2C%2520business%2520analytics%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=127&orientation=squarish"
                             alt="매출 관리" />
                     </div>
-                    <div class="feature-title">매출 데이터</div>
-                    <div class="feature-desc">관리</div>
+                    <div class="feature-title">산업 재해</div>
+                    <div class="feature-desc">내가 받을 수 있는 보험 알기</div>
                 </div>
 
                 <div class="feature-item">
@@ -84,36 +94,35 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520customer%2520support%2520icon%2C%2520technical%2520assistance%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=128&orientation=squarish"
                             alt="기술 지원" />
                     </div>
-                    <div class="feature-title">전문적인 고객</div>
-                    <div class="feature-desc">서비스 기술 지원</div>
+                    <div class="feature-title">잘 모르겠어요!</div>
+                    <div class="feature-desc">처음부터 차근차근 알아보기</div>
                 </div>
             </div>
 
             <div class="text-center mt-4">
-                <a href="#" class="btn btn-outline">서비스 신청하기</a>
+                <a href="#" class="btn btn-outline">지금 상담하기!</a>
             </div>
-        </div>
-    </section>
 
-    <!-- L.pay Section -->
-    <section class="lpay-section">
-        <div class="container">
+        </section>
+
+        <section class="scroll-section lpay-section">
+
             <div class="lpay-image">
                 <img src="https://readdy.ai/api/search-image?query=smartphone%2520displaying%2520payment%2520app%2520interface%2520with%2520barcode%2520scanner%2520and%2520digital%2520wallet%2520features%2C%2520clean%2520white%2520background%2C%2520professional%2520product%2520photography&width=400&height=500&seq=129&orientation=portrait"
                     alt="L.pay 서비스" />
             </div>
             <div class="lpay-content">
-                <h2>간편 결제의<br />새로운 기준 L.pay</h2>
+                <h2>대중화된 챗봇의<br />새로운 기준!</h2>
 
                 <div class="lpay-steps">
                     <div class="step">
                         <div class="step-number">1</div>
                         <div class="step-content">
                             <div class="step-title">
-                                원하는 결제 방식으로 쇼핑하고 결제하세요
+                                나의 맞춤 상담을 받고 권리를 보장받으세요!
                             </div>
                             <div class="step-desc">
-                                <span class="highlight">간편하게</span> 결제
+                                <span class="highlight">친구처럼</span> 대화하듯 상담서비스
                             </div>
                         </div>
                     </div>
@@ -122,10 +131,10 @@
                         <div class="step-number">2</div>
                         <div class="step-content">
                             <div class="step-title">
-                                멤버십 혜택 및 쿠폰
-                                <span class="highlight">자동적용</span>으로
+                                어려운 법률용어를 이해하기 쉽게 제안
+                                <span class="highlight">노무사</span>처럼
                             </div>
-                            <div class="step-desc">최대 할인가 적용 가능</div>
+                            <div class="step-desc">상황에 맞게 나만의 맞춤형 상담 적용</div>
                         </div>
                     </div>
 
@@ -133,198 +142,170 @@
                         <div class="step-number">3</div>
                         <div class="step-content">
                             <div class="step-title">
-                                멤버십 포인트 적립도
-                                <span class="highlight">자동으로 적립</span>
+                                대화했던 처음부터 끝까지
+                                <span class="highlight">자동으로 저장</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <a href="#" class="btn btn-primary">L.pay 안내</a>
+
             </div>
-        </div>
-    </section>
 
-    <!-- News Section -->
-    <section class="news-section">
-        <div class="container">
-            <h2>가맹점주님, 멤버스PG<br />소식이 궁금하신가요?</h2>
+        </section>
 
-            <div class="news-list">
-                <div class="news-item">
-                    <div class="news-icon">
-                        <i class="ri-notification-line ri-xl"></i>
+        <!-- News Section -->
+        <section class="scroll-section news-section">
+            <div class="container">
+                <h2>챗봇서비스의<br>더 다양한 소식이 궁금한가요?</h2>
+
+                <div class="news-list">
+                    <div class="news-item">
+                        <div class="news-icon">
+                            <i class="ri-notification-line ri-xl"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-title">
+                                [공지사항] 멤버스PG 서비스 이용약관 개정 안내
+                            </div>
+                        </div>
+                        <div class="news-date">2025.04.05</div>
                     </div>
-                    <div class="news-content">
-                        <div class="news-title">
-                            [공지사항] 멤버스PG 서비스 이용약관 개정 안내
+
+                    <div class="news-item">
+                        <div class="news-icon">
+                            <i class="ri-calendar-line ri-xl"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-title">
+                                [이벤트] 2025년 4월 가맹 시작하면 첫달 수수료 면제
+                            </div>
+                        </div>
+                        <div class="news-date">2025.04.01</div>
+                    </div>
+
+                    <div class="news-item">
+                        <div class="news-icon">
+                            <i class="ri-question-line ri-xl"></i>
+                        </div>
+                        <div class="news-content">
+                            <div class="news-title">
+                                [자주묻는질문] 결제 취소 절차는 어떻게 진행하나요?
+                            </div>
+                        </div>
+                        <div class="news-date">2025.03.15</div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="#" class="btn btn-outline"
+                        style="background-color: rgba(255, 255, 255, 0.2); color: white; border-color: white;">공지사항 더보기
+                        (15건)</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ 섹션 -->
+        <section class="scroll-section faq-section">
+            <div class="container">
+                <h2>
+                    FAQ
+                    <span style="font-size: 14px; color: #666;">묻고 답하기 멤버십에 관한 자주하는 질문</span>
+                </h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>멤버스PG 서비스는 어떻게 시작하나요?</h3>
+                            <div class="faq-date">2025.03.19</div>
+                        </div>
+                        <div class="faq-answer">
+                            멤버스PG 서비스는 회원가입 후 사업자 정보를 등록하고 심사를
+                            통과하면 바로 이용하실 수 있습니다. 자세한 내용은 고객센터로
+                            문의해주세요.
                         </div>
                     </div>
-                    <div class="news-date">2025.04.05</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-icon">
-                        <i class="ri-calendar-line ri-xl"></i>
-                    </div>
-                    <div class="news-content">
-                        <div class="news-title">
-                            [이벤트] 2025년 4월 가맹 시작하면 첫달 수수료 면제
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>결제 수수료는 얼마인가요?</h3>
+                            <div class="faq-date">2025.03.09</div>
+                        </div>
+                        <div class="faq-answer">
+                            결제 수수료는 결제 방식과 월 거래액에 따라 차등 적용됩니다. 자세한
+                            수수료 안내는 홈페이지 내 수수료 안내 페이지를 참고해주세요.
                         </div>
                     </div>
-                    <div class="news-date">2025.04.01</div>
-                </div>
-
-                <div class="news-item">
-                    <div class="news-icon">
-                        <i class="ri-question-line ri-xl"></i>
-                    </div>
-                    <div class="news-content">
-                        <div class="news-title">
-                            [자주묻는질문] 결제 취소 절차는 어떻게 진행하나요?
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>외부결제모듈과 연동이 가능한가요?</h3>
+                            <div class="faq-date">2025.02.05</div>
+                        </div>
+                        <div class="faq-answer">
+                            네, 외부결제모듈과 연동이 가능합니다. API 연동 가이드를
+                            참고하시거나 기술지원팀에 문의해주세요.
                         </div>
                     </div>
-                    <div class="news-date">2025.03.15</div>
-                </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-outline"
-                    style="background-color: rgba(255, 255, 255, 0.2); color: white; border-color: white;">공지사항 더보기
-                    (15건)</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ 섹션 -->
-    <section class="faq-section">
-        <div class="container">
-            <h2>
-                FAQ
-                <span style="font-size: 14px; color: #666;">묻고 답하기 멤버십에 관한 자주하는 질문</span>
-            </h2>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>멤버스PG 서비스는 어떻게 시작하나요?</h3>
-                        <div class="faq-date">2025.03.19</div>
-                    </div>
-                    <div class="faq-answer">
-                        멤버스PG 서비스는 회원가입 후 사업자 정보를 등록하고 심사를
-                        통과하면 바로 이용하실 수 있습니다. 자세한 내용은 고객센터로
-                        문의해주세요.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>결제 수수료는 얼마인가요?</h3>
-                        <div class="faq-date">2025.03.09</div>
-                    </div>
-                    <div class="faq-answer">
-                        결제 수수료는 결제 방식과 월 거래액에 따라 차등 적용됩니다. 자세한
-                        수수료 안내는 홈페이지 내 수수료 안내 페이지를 참고해주세요.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>외부결제모듈과 연동이 가능한가요?</h3>
-                        <div class="faq-date">2025.02.05</div>
-                    </div>
-                    <div class="faq-answer">
-                        네, 외부결제모듈과 연동이 가능합니다. API 연동 가이드를
-                        참고하시거나 기술지원팀에 문의해주세요.
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>정산주기는 어떻게 되나요?</h3>
-                        <div class="faq-date">2025.01.05</div>
-                    </div>
-                    <div class="faq-answer">
-                        기본 정산주기는 D+7일이며, 가맹점 등급에 따라 D+3, D+1 정산도
-                        가능합니다. 자세한 내용은 고객센터로 문의해주세요.
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>정산주기는 어떻게 되나요?</h3>
+                            <div class="faq-date">2025.01.05</div>
+                        </div>
+                        <div class="faq-answer">
+                            기본 정산주기는 D+7일이며, 가맹점 등급에 따라 D+3, D+1 정산도
+                            가능합니다. 자세한 내용은 고객센터로 문의해주세요.
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- 푸터 -->
-    <footer>
-        <div class="container">
-            <div class="footer-top">
-                <div>
-                    <div class="footer-logo">
-                        <img src="https://public.readdy.ai/gen_page/placeholder_logo.png" alt="멤버스 PG" />
+        <!-- 푸터 -->
+        <footer>
+            <div class="scroll-section container">
+                <div class="footer-top">
+                    <div>
+                        <div class="footer-logo">
+                            <img src="https://public.readdy.ai/gen_page/placeholder_logo.png" alt="멤버스 PG" />
+                        </div>
+                        <p>안전하고 편리한 결제 서비스</p>
                     </div>
-                    <p>안전하고 편리한 결제 서비스</p>
+                    <div class="footer-links">
+                        <a href="#">회사소개</a>
+                        <a href="#">이용약관</a>
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">고객센터 1588-0000</a>
+                    </div>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="ri-twitter-fill"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="ri-youtube-fill"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="footer-links">
-                    <a href="#">회사소개</a>
-                    <a href="#">이용약관</a>
-                    <a href="#">개인정보처리방침</a>
-                    <a href="#">고객센터 1588-0000</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="social-icon">
-                        <i class="ri-facebook-fill"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="ri-twitter-fill"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="ri-instagram-line"></i>
-                    </a>
-                    <a href="#" class="social-icon">
-                        <i class="ri-youtube-fill"></i>
-                    </a>
+                <div class="footer-bottom">
+                    <div class="footer-info">
+                        <p>
+                            (주)멤버스PG | 대표이사: 홍길동 | 사업자등록번호: 123-45-67890
+                        </p>
+                        <p>주소: 서울특별시 강남구 테헤란로 123 멤버스빌딩 4층</p>
+                        <p>© 2025 Members PG. All rights reserved.</p>
+                    </div>
+                    <div class="footer-policy">
+                        <a href="#">사이트맵</a>
+                        <a href="#">이용정책</a>
+                    </div>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div class="footer-info">
-                    <p>
-                        (주)멤버스PG | 대표이사: 홍길동 | 사업자등록번호: 123-45-67890
-                    </p>
-                    <p>주소: 서울특별시 강남구 테헤란로 123 멤버스빌딩 4층</p>
-                    <p>© 2025 Members PG. All rights reserved.</p>
-                </div>
-                <div class="footer-policy">
-                    <a href="#">사이트맵</a>
-                    <a href="#">이용정책</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // 서비스 버튼 토글
-            const serviceButtons = document.querySelectorAll(".service-button");
-            serviceButtons.forEach((button) => {
-                button.addEventListener("click", function () {
-                    serviceButtons.forEach((btn) => btn.classList.remove("active"));
-                    this.classList.add("active");
-                });
-            });
-
-            // FAQ 토글
-            const faqQuestions = document.querySelectorAll(".faq-question");
-            faqQuestions.forEach((question) => {
-                question.addEventListener("click", function () {
-                    const answer = this.nextElementSibling;
-                    if (answer.style.display === "block") {
-                        answer.style.display = "none";
-                    } else {
-                        document.querySelectorAll(".faq-answer").forEach((ans) => {
-                            ans.style.display = "none";
-                        });
-                        answer.style.display = "block";
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>
