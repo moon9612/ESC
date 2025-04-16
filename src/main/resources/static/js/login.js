@@ -254,7 +254,7 @@ window.onload = function () {
       loginContainer.style.display = "block";
     }
   });
-  //유틸리티 함수
+  //유틸리티 함수 
   function isValidEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
