@@ -21,9 +21,16 @@
             <span>멤버스 PG</span>
         </a>
         <nav>
-            <ul>
-                <li><a href="goLogin">로그인</a></li>
-            </ul>
+            <div th:if="${session.loginUser == null}">
+                <ul>
+                    <li><a href="goLogin">로그인</a></li>
+                </ul>
+            </div>
+            <div th:if="${session.loginUser != null}">
+                <ul>
+                    <li><a href="logout">로그아웃</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
 
