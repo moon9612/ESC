@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Consulting</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+  <header th:fragment="header">
+    <nav class="nav-bar">
+      <div class="nav-logo">
+        <img src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo" class="logo" />
+      </div>
+      <ul class="nav-center">
+        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <div th:if="${session.loginUser == null}">
+          <form th:action="@{/goLogin}" method="get">
+              <button type="submit" class="btn-signin">Sign in</button>
+          </form>
+      </div>
+      <div th:if="${session.loginUser != null}">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn-signin">Log out</button>
+        </form>
+    </div>
+        <button class="btn-register">Register</button>
+      </div>
+    </nav>
+  </header>
+</body>
+</html>
