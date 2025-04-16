@@ -1,241 +1,325 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Business Consulting</title>
-  <link rel="stylesheet" th:href="@{/css/main.css}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>멤버스 PG 서비스</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
 <body>
-    <header th:replace="~{/fragment/header :: header}"></header>
+    <!-- Header -->
+    <header>
+        <a href="#" class="logo">
+            <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
+                alt="멤버스 PG 로고" />
+            <span>멤버스 PG</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#">서비스 소개</a></li>
+                <li><a href="#">서비스 이용방법 안내</a></li>
+                <li><a href="#">이용안내</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main>
     <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-text">
-        <h1>Business Solutions<br><span>For Your Success</span></h1>
-        <p>We provide consulting services to help your business grow and succeed in today's competitive market.</p>
-        <a href="#" class="btn">Get Started</a>
-      </div>
-      <div class="hero-img">
-        <img src="프로젝트 이미지/악수1.png" alt="Hero Image">
-      </div>
+        <div class="hero-content">
+            <h1>PG서비스로<br />편리한 온라인 사업을<br />시작하세요!</h1>
+            <p>
+                안전하고 간편한 결제 시스템으로<br />매출증대는 물론 비용까지 절약할
+                수 있는<br />멤버스 PG 서비스를 경험해 보세요.
+            </p>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>멤버스PG 서비스가<br />궁금하신가요?</h2>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520document%2520icon%2C%2520payment%2520registration%2520form%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=125&orientation=squarish"
+                            alt="간편 가입" />
+                    </div>
+                    <div class="feature-title">간편한 가입</div>
+                    <div class="feature-desc">서류 제출</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520wallet%2520icon%2C%2520payment%2520method%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=126&orientation=squarish"
+                            alt="다양한 결제" />
+                    </div>
+                    <div class="feature-title">다양한 결제</div>
+                    <div class="feature-desc">방법</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520chart%2520graph%2520icon%2C%2520business%2520analytics%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=127&orientation=squarish"
+                            alt="매출 관리" />
+                    </div>
+                    <div class="feature-title">매출 데이터</div>
+                    <div class="feature-desc">관리</div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520customer%2520support%2520icon%2C%2520technical%2520assistance%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=128&orientation=squarish"
+                            alt="기술 지원" />
+                    </div>
+                    <div class="feature-title">전문적인 고객</div>
+                    <div class="feature-desc">서비스 기술 지원</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-outline">서비스 신청하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- L.pay Section -->
+    <section class="lpay-section">
+        <div class="container">
+            <div class="lpay-image">
+                <img src="https://readdy.ai/api/search-image?query=smartphone%2520displaying%2520payment%2520app%2520interface%2520with%2520barcode%2520scanner%2520and%2520digital%2520wallet%2520features%2C%2520clean%2520white%2520background%2C%2520professional%2520product%2520photography&width=400&height=500&seq=129&orientation=portrait"
+                    alt="L.pay 서비스" />
+            </div>
+            <div class="lpay-content">
+                <h2>간편 결제의<br />새로운 기준 L.pay</h2>
+
+                <div class="lpay-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                원하는 결제 방식으로 쇼핑하고 결제하세요
+                            </div>
+                            <div class="step-desc">
+                                <span class="highlight">간편하게</span> 결제
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                멤버십 혜택 및 쿠폰
+                                <span class="highlight">자동적용</span>으로
+                            </div>
+                            <div class="step-desc">최대 할인가 적용 가능</div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                멤버십 포인트 적립도
+                                <span class="highlight">자동으로 적립</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#" class="btn btn-primary">L.pay 안내</a>
+            </div>
+        </div>
     </section>
 
     <!-- News Section -->
-    <section class="news-features">
-      <div class="news-feature">
-        <div class="news-feature-header">
-          <h2>Petal 2</h2>
-          <p>All rewards, no fees.</p>
-          <img th:src="@{/assets/ai-generated-8615668_1280.jpg}" alt="Card Image" class="card-full" />
+    <section class="news-section">
+        <div class="container">
+            <h2>가맹점주님, 멤버스PG<br />소식이 궁금하신가요?</h2>
+
+            <div class="news-list">
+                <div class="news-item">
+                    <div class="news-icon">
+                        <i class="ri-notification-line ri-xl"></i>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">
+                            [공지사항] 멤버스PG 서비스 이용약관 개정 안내
+                        </div>
+                    </div>
+                    <div class="news-date">2025.04.05</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-icon">
+                        <i class="ri-calendar-line ri-xl"></i>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">
+                            [이벤트] 2025년 4월 가맹 시작하면 첫달 수수료 면제
+                        </div>
+                    </div>
+                    <div class="news-date">2025.04.01</div>
+                </div>
+
+                <div class="news-item">
+                    <div class="news-icon">
+                        <i class="ri-question-line ri-xl"></i>
+                    </div>
+                    <div class="news-content">
+                        <div class="news-title">
+                            [자주묻는질문] 결제 취소 절차는 어떻게 진행하나요?
+                        </div>
+                    </div>
+                    <div class="news-date">2025.03.15</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-outline"
+                    style="background-color: rgba(255, 255, 255, 0.2); color: white; border-color: white;">공지사항 더보기
+                    (15건)</a>
+            </div>
         </div>
-        <ul class="news-feature-list">
-          <li>
-            <div class="icon-circle">💲</div>
-            <div class="feature-text">
-              <strong>Annual membership fee</strong>
-              <span>No fees of any kind*</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">⭐</div>
-            <div class="feature-text">
-              <strong>Cash back</strong>
-              <span>1% – 1.5%</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">💰</div>
-            <div class="feature-text">
-              <strong>Variable APR</strong>
-              <span>28.99% – 30.99%</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">⬆️</div>
-            <div class="feature-text">
-              <strong>Path to a credit limit increase<sup>2</sup></strong>
-            </div>
-          </li>
-        </ul>
-        <div class="news-feature-footer">
-          <a href="#" class="btn-outline">Learn more →</a>
-        </div>
-      </div>
-      <div class="news-feature">
-        <div class="news-feature-header">
-          <h2>Petal 3</h2>
-          <p>No foreign transaction fees.</p>
-          <img th:src="@{assets/construction-1921518_1920.jpg}" alt="Card Image" class="card-full">
-        </div>
-        <ul class="news-feature-list">
-          <li>
-            <div class="icon-circle">🌐</div>
-            <div class="feature-text">
-              <strong>No foreign transaction fees</strong>
-              <span>Travel anywhere freely</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">💼</div>
-            <div class="feature-text">
-              <strong>Expense tracking</strong>
-              <span>Smart financial tools included</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">🔔</div>
-            <div class="feature-text">
-              <strong>Real-time alerts</strong>
-              <span>Stay informed anytime</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">📈</div>
-            <div class="feature-text">
-              <strong>Automatic credit reporting</strong>
-            </div>
-          </li>
-        </ul>
-        <div class="news-feature-footer">
-          <a href="#" class="btn-outline">Learn more →</a>
-        </div>
-      </div>
-      <div class="news-feature">
-        <div class="news-feature-header">
-          <h2>Petal Build</h2>
-          <p>For building credit history.</p>
-          <img th:src="@{assets/늙은손.jpg}" alt="Card Image" class="card-full">
-        </div>
-        <ul class="news-feature-list">
-          <li>
-            <div class="icon-circle">🧱</div>
-            <div class="feature-text">
-              <strong>Credit building support</strong>
-              <span>Even with no credit history</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">📊</div>
-            <div class="feature-text">
-              <strong>Account insights</strong>
-              <span>Simple dashboard access</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">🔒</div>
-            <div class="feature-text">
-              <strong>Secure by design</strong>
-              <span>Protected with best-in-class security</span>
-            </div>
-          </li>
-          <li>
-            <div class="icon-circle">💳</div>
-            <div class="feature-text">
-              <strong>No deposit required</strong>
-            </div>
-          </li>
-        </ul>
-        <div class="news-feature-footer">
-          <a href="#" class="btn-outline">Learn more →</a>
-        </div>
-      </div>
     </section>
 
-
-    <!-- Concept Section -->
-    <section class="concept">
-      <div class="concept-text">
-        <h2>Our Concept</h2>
-        <p>We believe in providing tailored solutions that address your specific business needs. Our approach combines
-          industry expertise with innovative strategies.</p>
-        <a href="#" class="btn">Learn More</a>
-      </div>
-      <div class="concept-img">
-        <img src="concept.jpg" alt="Concept Illustration">
-      </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services">
-      <div class="services-img">
-        <img src="services.jpg" alt="Service Illustration">
-      </div>
-      <div class="services-text">
-        <h2>Our Services</h2>
-        <p>From strategic planning to implementation, we offer comprehensive business consulting services to help you
-          achieve your goals.</p>
-        <a href="#" class="btn">View Services</a>
-      </div>
-    </section>
-
-    <!-- Workflow Section -->
-    <section class="workflow">
-      <h2>How We Work</h2>
-      <p>Our proven process ensures successful outcomes for your business.</p>
-      <div class="workflow-steps">
-        <div class="step">
-          <h3>1. Initial Consultation</h3>
-          <p>We begin with a thorough assessment of your business needs and goals.</p>
+    <!-- FAQ 섹션 -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>
+                FAQ
+                <span style="font-size: 14px; color: #666;">묻고 답하기 멤버십에 관한 자주하는 질문</span>
+            </h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>멤버스PG 서비스는 어떻게 시작하나요?</h3>
+                        <div class="faq-date">2025.03.19</div>
+                    </div>
+                    <div class="faq-answer">
+                        멤버스PG 서비스는 회원가입 후 사업자 정보를 등록하고 심사를
+                        통과하면 바로 이용하실 수 있습니다. 자세한 내용은 고객센터로
+                        문의해주세요.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>결제 수수료는 얼마인가요?</h3>
+                        <div class="faq-date">2025.03.09</div>
+                    </div>
+                    <div class="faq-answer">
+                        결제 수수료는 결제 방식과 월 거래액에 따라 차등 적용됩니다. 자세한
+                        수수료 안내는 홈페이지 내 수수료 안내 페이지를 참고해주세요.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>외부결제모듈과 연동이 가능한가요?</h3>
+                        <div class="faq-date">2025.02.05</div>
+                    </div>
+                    <div class="faq-answer">
+                        네, 외부결제모듈과 연동이 가능합니다. API 연동 가이드를
+                        참고하시거나 기술지원팀에 문의해주세요.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>정산주기는 어떻게 되나요?</h3>
+                        <div class="faq-date">2025.01.05</div>
+                    </div>
+                    <div class="faq-answer">
+                        기본 정산주기는 D+7일이며, 가맹점 등급에 따라 D+3, D+1 정산도
+                        가능합니다. 자세한 내용은 고객센터로 문의해주세요.
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="step">
-          <h3>2. Strategy Development</h3>
-          <p>Our team creates a customized plan tailored to your objectives.</p>
-        </div>
-        <div class="step">
-          <h3>3. Implementation</h3>
-          <p>We execute the strategy and monitor progress to ensure success.</p>
-        </div>
-      </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="cta">
-      <h2>Ready to get started?<br><span>Contact us today for a consultation.</span></h2>
-      <a href="#" class="btn btn-light">Contact Us</a>
-    </section>
-  </main>
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-logo">
+                        <img src="https://public.readdy.ai/gen_page/placeholder_logo.png" alt="멤버스 PG" />
+                    </div>
+                    <p>안전하고 편리한 결제 서비스</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#">회사소개</a>
+                    <a href="#">이용약관</a>
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">고객센터 1588-0000</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-icon">
+                        <i class="ri-facebook-fill"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="ri-twitter-fill"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="ri-instagram-line"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="ri-youtube-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-info">
+                    <p>
+                        (주)멤버스PG | 대표이사: 홍길동 | 사업자등록번호: 123-45-67890
+                    </p>
+                    <p>주소: 서울특별시 강남구 테헤란로 123 멤버스빌딩 4층</p>
+                    <p>© 2025 Members PG. All rights reserved.</p>
+                </div>
+                <div class="footer-policy">
+                    <a href="#">사이트맵</a>
+                    <a href="#">이용정책</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <h3>Company</h3>
-        <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Services</h3>
-        <ul>
-          <li><a href="#">Consulting</a></li>
-          <li><a href="#">Strategy</a></li>
-          <li><a href="#">Development</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Resources</h3>
-        <ul>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">Guides</a></li>
-          <li><a href="#">Case Studies</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Contact</h3>
-        <ul>
-          <li><a href="#">Support</a></li>
-          <li><a href="#">Sales</a></li>
-          <li><a href="#">Partners</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="copyright">&copy; 2024 Business Consulting. All rights reserved.</p>
-  </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // 서비스 버튼 토글
+            const serviceButtons = document.querySelectorAll(".service-button");
+            serviceButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    serviceButtons.forEach((btn) => btn.classList.remove("active"));
+                    this.classList.add("active");
+                });
+            });
+
+            // FAQ 토글
+            const faqQuestions = document.querySelectorAll(".faq-question");
+            faqQuestions.forEach((question) => {
+                question.addEventListener("click", function () {
+                    const answer = this.nextElementSibling;
+                    if (answer.style.display === "block") {
+                        answer.style.display = "none";
+                    } else {
+                        document.querySelectorAll(".faq-answer").forEach((ans) => {
+                            ans.style.display = "none";
+                        });
+                        answer.style.display = "block";
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
