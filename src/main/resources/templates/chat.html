@@ -347,7 +347,7 @@
       input.value = "";
 
       try {
-        const res = await fetch("http://localhost:5000/ask", {
+        const res = await fetch("http://localhost:8000/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message })
@@ -394,7 +394,7 @@
     const historyBtn = document.getElementById("history-btn");
     historyBtn.addEventListener("click", async () => {
       try {
-        const res = await fetch("http://localhost:5000/get_history");
+        const res = await fetch("http://localhost:8000/get_history");
         const data = await res.json();
 
         // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
