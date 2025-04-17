@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판</title>
-    <link rel="stylesheet" th:href="@{/css/board.css}" />
+    <link rel="stylesheet" th:href="@{/css/post.css}" />
+    <script th:src="@{/js/post.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
 
@@ -50,7 +51,7 @@
                     <i class="ri-search-line search-icon"></i>
                 </div>
             </div>
-            <a href="boardWrite" class="write-button"><i class="ri-add-line"></i> 글쓰기</a>
+            <a href="postWrite" class="write-button"><i class="ri-add-line"></i> 글쓰기</a>
         </div>
 
         <div class="board-list">
@@ -66,18 +67,35 @@
                 <div>공지</div>
                 <div><span class="badge notice">공지사항</span></div>
                 <div>
-                    <a href="#" class="title-link">멤버스PG 서비스 이용 안내 및 주요 업데이트 안내</a>
+                    <a href="#" class="title-link">프로젝트 개발중</a>
                     <span class="new-badge">NEW</span>
                 </div>
                 <div>관리자</div>
                 <div>1,245</div>
                 <div>2025.04.15</div>
             </div>
-            <!-- 더 많은 게시글은 JS 또는 HTML로 추가 -->
+
+            <div th:each="post : ${post_list}" class="board-item">
+                <div th:text="${post.post_idx}"></div>
+                <div>
+                    <span th:text="${post.post_category}" th:class="|badge ${post.post_category == '공지사항' ? 'notice' :
+                               post.post_category == '업데이트' ? 'update' :
+                               post.post_category == '이벤트' ? 'event' :
+                               post.post_category == '안내' ? 'guide' :
+                               post.post_category == 'FAQ' ? 'faq' :
+                               'default'}|">
+                    </span>
+                </div>
+                <div>
+                    <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="title-link" th:text="${post.post_title}"></a>
+                </div>
+                <div th:text="${post.post_email}"></div>
+                <div th:text="${post.post_views}"></div>
+                <div th:text="${#temporals.format(post.created_at, 'yyyy.MM.dd')}"></div>
+            </div>
+
         </div>
     </main>
-
-    <script src="script.js"></script>
 </body>
 
 </html>

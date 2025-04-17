@@ -16,6 +16,16 @@ window.onload = function () {
       document.querySelector(".custom-select").classList.remove("open");
     });
   });
+  document.querySelectorAll('.custom-select-option').forEach(option => {
+    option.addEventListener('click', function () {
+      const value = this.getAttribute('data-value');
+      const label = this.textContent;
+  
+      document.getElementById('selected-category').textContent = label;
+      document.getElementById('category').value = value;
+    });
+  });
+  
 }
 
 
