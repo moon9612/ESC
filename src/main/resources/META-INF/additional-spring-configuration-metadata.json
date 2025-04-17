@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "assistant_id",
+    "type": "java.lang.String",
+    "description": "A description for 'assistant_id'"
+  },
+  {
+    "name": "openai.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.key'"
+  },
+  {
+    "name": "assistant.id",
+    "type": "java.lang.String",
+    "description": "A description for 'assistant.id'"
+  }
+]}

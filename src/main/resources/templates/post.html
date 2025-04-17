@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ESC - 게시판</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f6f8;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .write-btn {
+      background: #000;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    thead {
+      background: #eee;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h3>커뮤니티</h3>
+      <a href="board_write" class="write-btn">글쓰기</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>카테고리</th>
+          <th>제목</th>
+          <th>작성자</th>
+          <th>작성일</th>
+          <th>좋아요</th>
+          <th>조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${boardList}" var="b" varStatus="s">
+          <tr>
+            <td>${s.count}</td>
+            <td>${b.b_category}</td>
+            <td><a href="board_detail?idx=${b.b_idx}">${b.b_title}</a></td>
+            <td>${b.m_id}</td>
+            <td>${b.created_at}</td>
+            <td>${b.b_likes}</td>
+            <td>${b.b_views}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
+</body>
+
+</html>
