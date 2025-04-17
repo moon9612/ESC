@@ -1,0 +1,323 @@
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  background-color: #f9fafb;
+  color: #333;
+  margin-top: 64px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header {
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 64px;
+  height: 64px;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: #0088cc;
+  color: white;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.logo-text {
+  font-family: 'Pacifico', cursive;
+  font-size: 20px;
+  color: #0088cc;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-left: 2rem;
+}
+
+nav ul li a {
+  font-size: 0.9rem;
+  color: #666;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #0088cc;
+}
+
+.main-content {
+  padding: 2rem 0;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #666;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #0088cc;
+}
+
+.form-wrapper {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.required {
+  color: red;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.editor-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px;
+  background-color: #f1f5f9;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.editor-toolbar button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #555;
+  border-radius: 4px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background-color: #ccc;
+  margin: 0 4px;
+}
+
+.editor-content {
+  min-height: 200px;
+  padding: 1rem;
+  outline: none;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.select-button {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-select-options {
+  display: none;
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 4px;
+  width: 100%;
+  z-index: 10;
+}
+
+.custom-select.open .custom-select-options {
+  display: block;
+}
+
+.custom-select-option {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.custom-select-option:hover {
+  background-color: #f3f4f6;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-checkbox.checked {
+  background-color: #0088cc;
+  border-color: #0088cc;
+}
+
+.custom-checkbox.checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 6px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.file-upload-area {
+  text-align: center;
+  border: 2px dashed #ccc;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.file-icon {
+  margin-bottom: 0.5rem;
+  color: #999;
+}
+
+.file-info {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.custom-file-upload {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
+.custom-file-upload input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.checkbox-group > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.cancel {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.cancel:hover {
+  background: #d1d5db;
+}
+
+.submit {
+  background: #0088cc;
+  color: #fff;
+  border: none;
+}
+
+.submit:hover {
+  background: #0077b3;
+}
+
+.footer {
+  background-color: #1f2937;
+  color: #ccc;
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}

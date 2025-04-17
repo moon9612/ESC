@@ -16,13 +16,13 @@
         <header>
             <a href="#" class="logo">
                 <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
-                    alt="멤버스 PG 로고" />
-                <span>멤버스 PG</span>
+                    alt="팀 ESC 로고" />
+                <span>팀 ESC</span>
             </a>
             <nav>
                 <div th:if="${session.loginUser == null}">
                     <ul>
-                        <li><a href="goLogin">로그인</a></li>
+                        <li><a href="login">로그인</a></li>
                     </ul>
                 </div>
                 <div th:if="${session.loginUser != null}">
@@ -67,8 +67,8 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520document%2520icon%2C%2520payment%2520registration%2520form%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=125&orientation=squarish"
                             alt="간편 가입" />
                     </div>
-                    <div class="feature-title">간편한 가입</div>
-                    <div class="feature-desc">로그인할시 대화 자동 저장!</div>
+                    <h3 class="feature-title">간편한 가입</h3>
+                    <p class="feature-desc">로그인할 시 대화 자동 저장!</p>
                 </div>
 
                 <div class="feature-item">
@@ -76,8 +76,8 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520wallet%2520icon%2C%2520payment%2520method%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=126&orientation=squarish"
                             alt="다양한 결제" />
                     </div>
-                    <div class="feature-title">고용노동권리</div>
-                    <div class="feature-desc">숨어있는 내 권리 찾기</div>
+                    <h3 class="feature-title">고용노동권리</h3>
+                    <p class="feature-desc">숨어있는 내 권리 찾기</p>
                 </div>
 
                 <div class="feature-item">
@@ -85,8 +85,8 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520chart%2520graph%2520icon%2C%2520business%2520analytics%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=127&orientation=squarish"
                             alt="매출 관리" />
                     </div>
-                    <div class="feature-title">산업 재해</div>
-                    <div class="feature-desc">내가 받을 수 있는 보험 알기</div>
+                    <h3 class="feature-title">산업 재해</h3>
+                    <p class="feature-desc">내가 받을 수 있는 보험 알기</p>
                 </div>
 
                 <div class="feature-item">
@@ -94,13 +94,9 @@
                         <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520customer%2520support%2520icon%2C%2520technical%2520assistance%2C%2520clean%2520minimal%2520design%2C%2520white%2520background&width=80&height=80&seq=128&orientation=squarish"
                             alt="기술 지원" />
                     </div>
-                    <div class="feature-title">잘 모르겠어요!</div>
-                    <div class="feature-desc">처음부터 차근차근 알아보기</div>
+                    <h3 class="feature-title">잘 모르겠어요!</h3>
+                    <p class="feature-desc">처음부터 차근차근 알아보기</p>
                 </div>
-            </div>
-
-            <div class="text-center mt-4">
-                <a href="#" class="btn btn-outline">지금 상담하기!</a>
             </div>
 
         </section>
@@ -198,8 +194,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="#" class="btn btn-outline"
-                        style="background-color: rgba(255, 255, 255, 0.2); color: white; border-color: white;">공지사항 더보기
+                    <a href="board" class="btn btn-outline">공지사항 더보기
                         (15건)</a>
                 </div>
             </div>
