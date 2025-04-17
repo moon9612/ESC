@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 권리보장 매니저</title>
+  <link rel="icon" href="data:,">
   <style>
     * {
       box-sizing: border-box;
@@ -244,6 +245,11 @@
       font-weight: bold;
       margin-bottom: 0.5rem;
     }
+
+    .loading .bubble {
+      color: #6b7280;
+      font-style: italic;
+    }
   </style>
 </head>
 
@@ -251,6 +257,7 @@
   <header>
     <div class="logo">AI 권리보장 매니저</div>
     <button class="login-btn">로그인</button>
+    <button id="history-btn" class="login-btn">대화 기록 보기</button>
   </header>
   <main>
     <div class="chat-wrapper">
@@ -264,8 +271,8 @@
           </div>
         </div>
         <div class="chat-input">
-          <input type="text" placeholder="메시지를 입력하세요..." />
-          <button>전송</button>
+          <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
+          <button id="send-btn">전송</button>
         </div>
       </section>
       <aside>
@@ -317,70 +324,90 @@
   </footer>
 
   <script>
-    const input = document.querySelector('.chat-input input');
-    const button = document.querySelector('.chat-input button');
-    const chatBox = document.querySelector('.chat-messages');
-    let currentThreadId = null; // 🔹 스레드 ID 저장용
+    const input = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const container = document.querySelector(".chat-messages");
 
-    function scrollToBottom() {
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    async function sendMessage() {
+      const message = input.value.trim();
+      if (!message) return;
 
-    button.addEventListener('click', async () => {
-      const text = input.value.trim();
-      if (!text) return;
-
-      // 사용자 메시지 추가
-      chatBox.innerHTML += `
+      container.innerHTML += `
         <div class="message user">
-          <div class="avatar">😊</div>
+          <div class="avatar">🙂</div>
           <div class="name">사용자</div>
-          <div class="bubble">${text}</div>
-        </div>`;
-      input.value = '';
-      scrollToBottom();
+          <div class="bubble">${message}</div>
+        </div>
+        <div class="message bot loading">
+          <div class="avatar">🤖</div>
+          <div class="bubble">로딩 중...</div>
+        </div>
+      `;
 
-      // 로딩 메시지 표시
-      const loadingEl = document.createElement('div');
-      loadingEl.className = 'message bot';
-      loadingEl.innerHTML = `
-        <div class="avatar">🤖</div>
-        <div class="name">챗봇</div>
-        <div class="bubble">답변 생성 중...</div>`;
-      chatBox.appendChild(loadingEl);
-      scrollToBottom();
+      input.value = "";
 
       try {
-        const res = await fetch("http://localhost:8087/api/chat", {
+        const res = await fetch("http://localhost:5000/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: text, threadId: currentThreadId })
+          body: JSON.stringify({ message })
         });
 
-        const data = await res.json(); // 🔹 JSON 응답 파싱
-        const formattedReply = (data.reply || '죄송합니다. 답변을 가져오지 못했어요.').replace(/\n/g, "<br>");
-        loadingEl.querySelector('.bubble').innerHTML = formattedReply;
+        const data = await res.json();
+        const rawResponse = data.answer;
 
-        // 🔹 응답으로부터 threadId 저장
-        if (!currentThreadId && data.threadId) {
-          currentThreadId = data.threadId;
-          console.log("🧵 스레드 ID 저장:", currentThreadId);
+        // ✅ \n 줄바꿈을 <br>로 변환
+        const formattedResponse = rawResponse.replace(/\n/g, "<br>");
+
+        const loadingEl = container.querySelector(".message.bot.loading");
+        if (loadingEl) {
+          loadingEl.outerHTML = `
+            <div class="message bot">
+              <div class="avatar">🤖</div>
+              <div class="bubble">${formattedResponse}</div>
+            </div>
+          `;
         }
       } catch (err) {
-        console.error("에러 발생:", err);
-        loadingEl.querySelector('.bubble').innerHTML = '오류가 발생했습니다. 다시 시도해주세요.';
+        console.error(err);
+        const loadingEl = container.querySelector(".message.bot.loading");
+        if (loadingEl) {
+          loadingEl.outerHTML = `
+            <div class="message bot">
+              <div class="avatar">🤖</div>
+              <div class="bubble">오류가 발생했어요. 다시 시도해 주세요.</div>
+            </div>
+          `;
+        }
       }
+    }
 
-
-      scrollToBottom();
+    sendBtn.addEventListener("click", sendMessage);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
     });
 
-    // 엔터키 입력 시 전송
-    input.addEventListener('keypress', e => {
-      if (e.key === 'Enter') button.click();
+    // 전체 대화 내용 기억하기
+    const historyBtn = document.getElementById("history-btn");
+    historyBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch("http://localhost:5000/get_history");
+        const data = await res.json();
+
+        // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
+        alert(data.history);
+      } catch (err) {
+        alert("대화 기록을 불러오는 중 오류가 발생했습니다.");
+        console.error(err);
+      }
     });
+
+
+
   </script>
-
 
 </body>
 
