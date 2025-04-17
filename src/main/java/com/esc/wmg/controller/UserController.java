@@ -17,6 +17,18 @@ public class UserController {
     @Autowired
     UserRepository repository;
 
+    // 게시판 글작성 페이지 이동
+    @GetMapping("/boardWrite")
+    public String boardWrite() {
+        return "boardWrite";
+    }
+
+    // 게시판 페이지 이동
+    @GetMapping("/board")
+    public String board() {
+        return "board";
+    }
+
     // 로그인 기능
     @PostMapping("/userSelect")
     public String userSelect(UserEntity entity, HttpSession session, Model model) {
@@ -47,7 +59,7 @@ public class UserController {
     }
 
     // 로그인 페이지로 이동
-    @GetMapping("/goLogin")
+    @GetMapping("/login")
     public String goLogin() {
         return "login";
     }
