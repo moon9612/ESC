@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글 작성하기</title>
+    <link rel="stylesheet" th:href="@{/css/boardWrite.css}" />
+    <script th:src="@{/js/boardWrite.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+          <a href="#" class="logo">
+              <div class="logo-icon"><i class="ri-user-3-line"></i></div>
+              <span class="logo-text">ESC</span>
+          </a>
+          <nav>
+              <div th:if="${session.loginUser == null}">
+                  <ul>
+                      <li><a href="login">로그인</a></li>
+                  </ul>
+              </div>
+              <div th:if="${session.loginUser != null}">
+                  <ul>
+                      <li><a href="logout">로그아웃</a></li>
+                  </ul>
+              </div>
+          </nav>
+      </div>
+  </header>
+
+    <main class="container main-content">
+      <div class="page-header">
+        <h1>글 작성하기</h1>
+        <a href="board" class="back-link" data-readdy="true">
+          <i class="ri-arrow-left-line"></i> 목록으로 돌아가기
+        </a>
+      </div>
+
+      <div class="form-wrapper">
+        <form id="post-form">
+          <!-- 카테고리 선택 -->
+          <div class="form-group">
+            <label for="category">카테고리 <span class="required">*</span></label>
+            <div class="custom-select">
+              <button type="button" id="category-button" class="select-button">
+                <span id="selected-category">카테고리 선택</span>
+                <i class="ri-arrow-down-s-line"></i>
+              </button>
+              <div class="custom-select-options">
+                <div class="custom-select-option" data-value="notice">공지사항</div>
+                <div class="custom-select-option" data-value="event">이벤트</div>
+                <div class="custom-select-option" data-value="update">업데이트</div>
+                <div class="custom-select-option" data-value="guide">안내</div>
+                <div class="custom-select-option" data-value="faq">FAQ</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 제목 입력 -->
+          <div class="form-group">
+            <label for="title">제목 <span class="required">*</span></label>
+            <input type="text" id="title" name="title" placeholder="제목을 입력하세요" />
+          </div>
+
+          <!-- 내용 에디터 -->
+          <div class="form-group">
+            <label>내용 <span class="required">*</span></label>
+            <div class="editor-container">
+              <div class="editor-toolbar">
+                <button type="button" title="굵게"><i class="ri-bold"></i></button>
+                <button type="button" title="기울임"><i class="ri-italic"></i></button>
+                <button type="button" title="밑줄"><i class="ri-underline"></i></button>
+                <button type="button" title="취소선"><i class="ri-strikethrough"></i></button>
+                <div class="toolbar-divider"></div>
+                <button type="button" title="글머리 기호"><i class="ri-list-unordered"></i></button>
+                <button type="button" title="번호 매기기"><i class="ri-list-ordered"></i></button>
+                <div class="toolbar-divider"></div>
+                <button type="button" title="링크"><i class="ri-link"></i></button>
+                <button type="button" title="이미지"><i class="ri-image-line"></i></button>
+                <button type="button" title="표"><i class="ri-table-line"></i></button>
+                <div class="toolbar-divider"></div>
+                <button type="button" title="정렬"><i class="ri-align-left"></i></button>
+                <button type="button" title="들여쓰기"><i class="ri-indent-increase"></i></button>
+                <button type="button" title="내어쓰기"><i class="ri-indent-decrease"></i></button>
+              </div>
+              <div id="editor" class="editor-content" contenteditable="true"></div>
+            </div>
+          </div>
+
+          <!-- 첨부파일 -->
+          <div class="form-group">
+            <label>첨부파일</label>
+            <div class="file-upload-area">
+              <div class="file-icon"><i class="ri-upload-cloud-line ri-2x"></i></div>
+              <p>파일을 여기에 끌어다 놓거나</p>
+              <button type="button" class="custom-file-upload">
+                파일 선택
+                <input type="file" id="file-upload" multiple />
+              </button>
+              <p class="file-info">최대 파일 크기: 10MB</p>
+            </div>
+            <div id="file-list"></div>
+          </div>
+
+          <!-- 옵션 -->
+          <div class="form-group checkbox-group">
+            <div>
+              <div id="important-checkbox" class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+              <label>중요 공지로 등록</label>
+            </div>
+            <div>
+              <div id="secret-checkbox" class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
+              <label>비밀글로 등록</label>
+            </div>
+          </div>
+
+          <!-- 버튼 그룹 -->
+          <div class="button-group">
+            <a href="#" class="btn cancel" data-readdy="true">취소</a>
+            <button type="submit" class="btn submit">등록</button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">© 2025 Members PG. All rights reserved.</div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
