@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 # 환경 변수 로드
 load_dotenv()
 client = OpenAI(api_key=os.getenv("openai_api_key"))
-
+assistant_id = os.getenv("assistant_id")
 app = FastAPI()
 
 # CORS 설정
@@ -54,7 +54,7 @@ async def ask(request: MessageRequest):
 
     run = client.beta.threads.runs.create(
         thread_id=thread_id,
-        assistant_id="asst_Q6wIGhBkWz9bk5GqhQqjdHJb"
+        assistant_id=assistant_id
     )
 
     while True:
