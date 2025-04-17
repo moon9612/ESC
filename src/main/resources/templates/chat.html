@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 권리보장 매니저</title>
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
   <style>
     * {
       box-sizing: border-box;
@@ -52,6 +53,7 @@
       justify-content: center;
       padding: 1rem;
       background: #e2e8f0;
+      align-content:stretch;
     }
 
     .chat-wrapper {
@@ -229,22 +231,6 @@
       font-weight: 500;
     }
 
-    footer {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      background: #f9fafb;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr) 160px;
-      border-top: 1px solid #e5e7eb;
-      font-size: 0.85rem;
-      gap: 15rem;
-    }
-
-    .footer-title {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
 
     .loading .bubble {
       color: #6b7280;
@@ -254,33 +240,35 @@
 </head>
 
 <body>
-  <header>
-    <div class="logo">AI 권리보장 매니저</div>
-    <button class="login-btn">로그인</button>
-    <button id="history-btn" class="login-btn">대화 기록 보기</button>
-  </header>
-  <main>
-    <div class="chat-wrapper">
-      <section class="chat-section">
-        <div class="chat-header">AI 챗봇 상담</div>
-        <div class="chat-messages">
-          <div class="message bot">
-            <div class="avatar">🤖</div>
-            <div class="name">챗봇</div>
-            <div class="bubble">안녕하세요! 무엇을 도와드릴까요?</div>
+  <div>
+    <header th:replace="~{fragment/header :: header}">
+      <!-- <div class="logo">AI 권리보장 매니저</div>
+      <button class="login-btn">로그인</button>
+      <button id="history-btn" class="login-btn">대화 기록 보기</button> -->
+    </header>
+  </div>    
+    <main>
+      <div class="chat-wrapper">
+        <section class="chat-section">
+          <div class="chat-header">AI 챗봇 상담</div>
+          <div class="chat-messages">
+            <div class="message bot">
+              <div class="avatar">🤖</div>
+              <div class="name">챗봇</div>
+              <div class="bubble">안녕하세요! 무엇을 도와드릴까요?</div>
+            </div>
           </div>
-        </div>
-        <div class="chat-input">
-          <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
-          <button id="send-btn">전송</button>
-        </div>
-      </section>
-      <aside>
-        <div class="panel">
-          <strong>내 사례</strong>
-          <div class="case-item">
-            <strong>유급휴가 문의</strong><small>2일 전</small>
-            연차휴가 계산에 대한 질문...
+          <div class="chat-input">
+            <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
+            <button id="send-btn">전송</button>
+          </div>
+        </section>
+        <aside>
+          <div class="panel">
+            <strong>내 사례</strong>
+            <div class="case-item">
+              <strong>유급휴가 문의</strong><small>2일 전</small>
+              연차휴가 계산에 대한 질문...
             <br><a href="#">계속하다 →</a>
           </div>
           <div class="case-item">
@@ -298,36 +286,12 @@
       </aside>
     </div>
   </main>
-  <footer>
-    <div>
-      <div class="footer-title">About</div>
-      <div>Our Mission</div>
-      <div>How It Works</div>
-      <div>Privacy Policy</div>
-    </div>
-    <div>
-      <div class="footer-title">Resources</div>
-      <div>Help Center</div>
-      <div>Blog</div>
-      <div>FAQs</div>
-    </div>
-    <div>
-      <div class="footer-title">Contact</div>
-      <div>Support</div>
-      <div>Partners</div>
-      <div>Feedback</div>
-    </div>
-    <div>
-      <div class="footer-title">Follow Us</div>
-      <div>🐦 🟦 🔗</div>
-    </div>
-  </footer>
-
+  
   <script>
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const container = document.querySelector(".chat-messages");
-
+    
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;

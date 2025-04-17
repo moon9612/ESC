@@ -8,29 +8,13 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <script th:src="@{/js/main.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 
 <body>
     <div class="page-wrapper">
         <!-- Header -->
-        <header>
-            <a href="#" class="logo">
-                <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
-                    alt="팀 ESC 로고" />
-                <span>팀 ESC</span>
-            </a>
-            <nav>
-                <div th:if="${session.loginUser == null}">
-                    <ul>
-                        <li><a href="login">로그인</a></li>
-                    </ul>
-                </div>
-                <div th:if="${session.loginUser != null}">
-                    <ul>
-                        <li><a href="logout">로그아웃</a></li>
-                    </ul>
-                </div>
-            </nav>
+        <header th:replace="~{fragment/header :: header}">
         </header>
         <section class="scroll-section full-screen-section main">
 
@@ -201,8 +185,7 @@
         </section>
 
         <!-- FAQ 섹션 -->
-        <section class="scroll-sectio
-        n faq-section">
+        <section class="scroll-section faq-section">
             <div class="container">
                 <h2>
                     FAQ
