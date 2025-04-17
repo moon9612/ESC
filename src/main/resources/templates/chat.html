@@ -347,6 +347,7 @@
       input.value = "";
 
       try {
+        // const res = await fetch("http://localhost:8087/api/chat", {
         const res = await fetch("http://localhost:8000/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

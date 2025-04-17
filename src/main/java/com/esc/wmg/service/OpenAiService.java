@@ -72,7 +72,7 @@ public class OpenAiService {
             }
 
             if (!status.equals("completed")) {
-                result.put("reply", "답변 생성 시간이 초과되었습니다.");
+                result.put("answer", "답변 생성 시간이 초과되었습니다.");
                 result.put("threadId", threadId);
                 return result;
             }
@@ -87,11 +87,11 @@ public class OpenAiService {
             JSONObject content = latestMessage.getJSONArray("content")
                     .getJSONObject(0).getJSONObject("text");
 
-            result.put("reply", content.getString("value"));
+            result.put("answer", content.getString("value"));
             result.put("threadId", threadId);
         } catch (Exception e) {
             e.printStackTrace();
-            result.put("reply", "죄송합니다. 답변 생성 중 오류가 발생했어요.");
+            result.put("answer", "죄송합니다. 답변 생성 중 오류가 발생했어요.");
             result.put("threadId", threadId != null ? threadId : "");
         }
         return result;

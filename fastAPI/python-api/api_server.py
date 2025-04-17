@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
 
+# 실행코드 : uvicorn api_server:app --reload --port 8000
 # 환경 변수 로드
 load_dotenv()
 client = OpenAI(api_key=os.getenv("openai_api_key"))
@@ -15,22 +16,27 @@ app = FastAPI()
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:8087"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # 쓰레드 ID 로딩 또는 생성
-thread_file = "thread_id.txt"
-if os.path.exists(thread_file):
-    with open(thread_file, "r") as f:
-        thread_id = f.read().strip()
-else:
-    thread = client.beta.threads.create()
-    thread_id = thread.id
-    with open(thread_file, "w") as f:
-        f.write(thread_id)
+# thread_file = "thread_id.txt"
+# if os.path.exists(thread_file):
+#     with open(thread_file, "r") as f:
+#         thread_id = f.read().strip()
+# else:
+#     thread = client.beta.threads.create()
+#     thread_id = thread.id
+#     with open(thread_file, "w") as f:
+#         f.write(thread_id)
+
+# thread_id 생성
+thread = client.beta.threads.create()
+thread_id = thread.id
+
 
 # 메시지 요청 모델
 class MessageRequest(BaseModel):
