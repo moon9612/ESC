@@ -1,0 +1,45 @@
+// ChatController.java
+package com.esc.wmg.controller;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.esc.wmg.service.OpenAiService;
+
+@CrossOrigin(origins = "http://127.0.0.1:5501")
+@RestController
+@RequestMapping("/api")
+public class ChatController {
+
+    @Autowired
+    private OpenAiService openAiService;
+
+    @PostMapping("/chat")
+    public ResponseEntity<Map<String, String>> chat(@RequestBody ChatRequest request) {
+        Map<String, String> response = openAiService.getGptReply(request.getMessage(), request.getThreadId());
+        return ResponseEntity.ok(response);
+    }
+
+    public static class ChatRequest {
+        private String message;
+        private String threadId; // 🔹 추가
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getThreadId() {
+            return threadId;
+        }
+
+        public void setThreadId(String threadId) {
+            this.threadId = threadId;
+        }
+    }
+}
