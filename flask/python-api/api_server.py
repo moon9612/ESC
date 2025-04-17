@@ -1,21 +1,28 @@
 import time
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+import os
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
-import os
 
-# 환경 변수 불러오기
+# 환경 변수 로드
 load_dotenv()
 client = OpenAI(api_key=os.getenv("openai_api_key"))
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
 
-thread_id = None
+# CORS 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 쓰레드 ID 로딩 또는 생성
 thread_file = "thread_id.txt"
-
-# 서버 시작 시 thread_id 불러오기 또는 생성
 if os.path.exists(thread_file):
     with open(thread_file, "r") as f:
         thread_id = f.read().strip()
@@ -25,17 +32,24 @@ else:
     with open(thread_file, "w") as f:
         f.write(thread_id)
 
-# ✅ 1. 메인 대화 처리 API
-@app.route("/ask", methods=["POST"])
-def ask():
+# 메시지 요청 모델
+class MessageRequest(BaseModel):
+    message: str
+
+# @app.get("/ask")
+# def read_root():
+#     return {"message": "Hello World!"}
+
+
+# ✅ 1. 대화 처리 엔드포인트
+@app.post("/ask")
+async def ask(request: MessageRequest):
     global thread_id
-    data = request.get_json()
-    prompt = data["message"]
 
     client.beta.threads.messages.create(
         thread_id=thread_id,
         role="user",
-        content=prompt
+        content=request.message
     )
 
     run = client.beta.threads.runs.create(
@@ -55,19 +69,16 @@ def ask():
     response = client.beta.threads.messages.list(thread_id=thread_id)
     answer = response.data[0].content[0].text.value
 
-    return jsonify({"answer": answer})
+    return {"answer": answer}
 
-# ✅ 2. 대화 전체 기록 조회 API
-@app.route("/get_history", methods=["GET"])
-def get_history():
+# ✅ 2. 대화 기록 조회
+@app.get("/get_history")
+async def get_history():
+    global thread_id
     messages = client.beta.threads.messages.list(thread_id=thread_id, order="asc")
     conversation = []
     for msg in messages.data:
         content = msg.content[0].text.value.strip()
         speaker = "🤖 챗봇" if msg.role == "assistant" else "🙂 사용자"
         conversation.append(f"{speaker}: {content}")
-    return jsonify({"history": "\n\n".join(conversation)})
-
-# 서버 실행
-if __name__ == "__main__":
-    app.run(debug=True)
+    return {"history": "\n\n".join(conversation)}
