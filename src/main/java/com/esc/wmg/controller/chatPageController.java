@@ -17,9 +17,16 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class chatPageController {
 
-    // 채팅 페이지로 이동 + 세션에서 theadId 가져오기 + 없으면 생성하기
+    // 로그인 확인 + 세션에서 theadId 가져오기 + (없으면 생성하고 세션에 저장  ) + 채팅 페이지로 이동
     @GetMapping("/chat")
     public String getThreadId(HttpSession session) {
+        // 1. 세션에서 로그인 유저 확인
+        String loginUser = (String) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            // 로그인 유저가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }else{
+            // 로그인 유저가 있으면 세션 thread_id 확인
         try {
             // 1. 세션에서 thread_id 확인
             String thread_id = (String) session.getAttribute("thread_id");
@@ -62,5 +69,6 @@ public class chatPageController {
 
         // 4. chat.html 템플릿으로 이동
         return "chat";
+    }
     }
 }

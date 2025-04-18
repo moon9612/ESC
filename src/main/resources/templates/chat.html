@@ -250,7 +250,14 @@
     <main>
       <div class="chat-wrapper">
         <section class="chat-section">
-          <div class="chat-header">AI 챗봇 상담</div>
+          <div class="chat-header">AI 챗봇 상담
+            <div th:if="${session.thread_id == null}">
+              <div th:text="쓰레드 없음"></div>
+            </div>
+            <div th:if="${session.thread_id != null}">
+              <div th:text="${session.thread_id}"></div>
+            </div>
+          </div>
           <div class="chat-messages">
             <div class="message bot">
               <div class="avatar">🤖</div>
