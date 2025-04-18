@@ -1,23 +1,26 @@
 package com.esc.wmg.controller;
 
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.esc.wmg.entity.UserEntity;
+import com.esc.wmg.service.ThreadService;
 
 import jakarta.servlet.http.HttpSession;
 
-
-
-@Controller
+@RestController
 public class ChatController {
+
+    @Autowired
+    private ThreadService threadService;
 
     // 1. 로그인 확인 + 2. 세션에서 theadId 가져오기(2-1. 없으면 생성, 2-2 세션에 저장) + 3.채팅 페이지로 이동
     @GetMapping("/chat")
@@ -72,5 +75,28 @@ public class ChatController {
         // 3. chat.html 템플릿으로 이동
         return "chat";
     }
+    }
+
+    
+    // session.loginUser.email을 통해 thread_id 가져오기
+    @PostMapping("/load_thread_id")
+    public String loadThreadId(HttpSession session) {
+        // 1. 세션에서 로그인 유저 확인
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return "로그인이 필요합니다.";
+        }
+
+        // 2. 이메일로 thread_id 조회
+        String email = loginUser.getEmail();
+        String threadId = threadService.getThreadIdByEmail(email);
+
+        // 3. thread_id가 없으면 새로 생성
+        if (threadId == null) {
+            return "해당 이메일에 대한 thread_id가 없습니다.";
+        }
+
+        // 4. thread_id를 반환
+        return threadId;
     }
 }
