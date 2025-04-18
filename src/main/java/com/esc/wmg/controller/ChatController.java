@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.esc.wmg.entity.UserEntity;
+import com.esc.wmg.entity.ThreadEntity;
 import com.esc.wmg.service.ThreadService;
 
 import jakarta.servlet.http.HttpSession;
@@ -59,8 +60,12 @@ public class ChatController {
                     JSONObject json = new JSONObject(response.getBody());
                     thread_id = json.getString("thread_id");
 
-                    // 세션에 저장하여 이후 요청에서도 재사용 가능
+                    // 세션에 thread_id 저장
                     session.setAttribute("thread_id", thread_id);
+
+                    // DB에 thread_id 저장
+                    ThreadEntity threadEntity = new ThreadEntity(thread_id, loginUser.getEmail());
+                    threadService.saveThreadId(threadEntity);
                 } else {
                     // 실패한 경우 로그 출력
                     System.err.println("Thread 생성 실패: " + response.getStatusCode());
@@ -77,7 +82,7 @@ public class ChatController {
     }
     }
 
-    
+
     // session.loginUser.email을 통해 thread_id 가져오기
     @PostMapping("/load_thread_id")
     public String loadThreadId(HttpSession session) {
@@ -90,7 +95,6 @@ public class ChatController {
         // 2. 이메일로 thread_id 조회
         String email = loginUser.getEmail();
         String threadId = threadService.getThreadIdByEmail(email);
-
         // 3. thread_id가 없으면 새로 생성
         if (threadId == null) {
             return "해당 이메일에 대한 thread_id가 없습니다.";

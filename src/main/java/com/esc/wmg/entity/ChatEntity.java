@@ -17,7 +17,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name = "tbl_chat1")
+@Table(name = "tbl_chat")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
