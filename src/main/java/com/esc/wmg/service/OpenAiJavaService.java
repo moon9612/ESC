@@ -11,12 +11,13 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+// Openai-java-api용 사용 X
 @Service
-public class OpenAiService {
+public class OpenAiJavaService {
     private String API_KEY;
     private String ASSISTANT_ID;
 
-    public OpenAiService() {
+    public OpenAiJavaService() {
         Dotenv dotenv = Dotenv.configure().load();
         this.API_KEY = dotenv.get("OPENAI_API_KEY");
         this.ASSISTANT_ID = dotenv.get("ASSISTANT_ID");
