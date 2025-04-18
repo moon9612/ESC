@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.esc.wmg.entity.UserEntity;
+
 import jakarta.servlet.http.HttpSession;
 
 
@@ -21,7 +23,7 @@ public class chatPageController {
     @GetMapping("/chat")
     public String getThreadId(HttpSession session) {
         // 1. 세션에서 로그인 유저 확인
-        String loginUser = (String) session.getAttribute("loginUser");
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         if (loginUser == null) {
             // 로그인 유저가 없으면 로그인 페이지로 리다이렉트
             return "redirect:/login";
