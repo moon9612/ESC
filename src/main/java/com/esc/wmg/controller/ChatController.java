@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.esc.wmg.service.OpenAiService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @CrossOrigin(origins = "http://127.0.0.1:5501")
 @RestController
@@ -16,6 +19,8 @@ public class ChatController {
     @Autowired
     private OpenAiService openAiService;
 
+
+    // 채팅메시지, 쓰레드 아이디
     @PostMapping("/chat")
     public ResponseEntity<Map<String, String>> chat(@RequestBody ChatRequest request) {
         Map<String, String> response = openAiService.getGptReply(request.getMessage(), request.getThreadId());

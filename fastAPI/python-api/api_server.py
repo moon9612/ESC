@@ -33,18 +33,13 @@ app.add_middleware(
 #     with open(thread_file, "w") as f:
 #         f.write(thread_id)
 
-# 쳇봇 페이지 진입시 thread_id 생성
+# /create_thread로 요청시 thread_id 생성 post로 thread_id값 반환
 @app.post("/create_thread")
-def create_thread():
-    global thread_id
-    # 기존 쓰레드가 있으면 삭제
-    if hasattr(app, 'thread_id'):
-        client.beta.threads.delete(thread_id=app.thread_id)
-    
-    # 새로운 쓰레드 생성
+async def create_thread(request: Request):
     thread = client.beta.threads.create()
-    app.thread_id = thread.id
-    return {"thread_id": app.thread_id}
+    thread_id = thread.id
+    return {"thread_id": thread_id}
+
 thread = client.beta.threads.create()
 thread_id = thread.id
 
