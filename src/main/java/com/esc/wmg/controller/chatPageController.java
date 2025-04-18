@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class chatPageController {
 
-    // 로그인 확인 + 세션에서 theadId 가져오기 + (없으면 생성하고 세션에 저장  ) + 채팅 페이지로 이동
+    // 1. 로그인 확인 + 2. 세션에서 theadId 가져오기(2-1. 없으면 생성, 2-2 세션에 저장) + 3.채팅 페이지로 이동
     @GetMapping("/chat")
     public String getThreadId(HttpSession session) {
         // 1. 세션에서 로그인 유저 확인
@@ -30,10 +30,10 @@ public class chatPageController {
         }else{
             // 로그인 유저가 있으면 세션 thread_id 확인
         try {
-            // 1. 세션에서 thread_id 확인
+            // 2. 세션에서 thread_id 확인
             String thread_id = (String) session.getAttribute("thread_id");
 
-            // 2. thread_id가 없으면 외부 API에 요청하여 새로 생성
+            // 2-1. thread_id가 없으면 외부 API에 요청하여 새로 생성
             if (thread_id == null) {
                 // 외부 OpenAI 쓰레드 생성 API URL
                 String threadApiUrl = "http://localhost:8000/create_thread";
@@ -51,7 +51,7 @@ public class chatPageController {
                 // 외부 서버에 POST 요청 보내기
                 ResponseEntity<String> response = restTemplate.postForEntity(threadApiUrl, request, String.class);
 
-                // 3. 응답이 성공이면 thread_id 추출 → 세션에 저장
+                // 2-2. 응답이 성공이면 thread_id 추출 → 세션에 저장
                 if (response.getStatusCode().is2xxSuccessful()) {
                     JSONObject json = new JSONObject(response.getBody());
                     thread_id = json.getString("thread_id");
@@ -69,7 +69,7 @@ public class chatPageController {
             e.printStackTrace();
         }
 
-        // 4. chat.html 템플릿으로 이동
+        // 3. chat.html 템플릿으로 이동
         return "chat";
     }
     }

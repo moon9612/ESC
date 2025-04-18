@@ -255,7 +255,7 @@
               <div th:text="쓰레드 없음"></div>
             </div>
             <div th:if="${session.thread_id != null}">
-              <div th:text="${session.thread_id}"></div>
+              <div  class="thread_id" th:text="${session.thread_id}"></div>
             </div>
           </div>
           <div class="chat-messages">
@@ -294,6 +294,7 @@
     </div>
   </main>
   <script>
+    const THREAD_ID = document.querySelector(".thread_id").innerText;
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const container = document.querySelector(".chat-messages");
@@ -366,19 +367,19 @@
     });
 
     // 전체 대화 내용 기억하기
-    const historyBtn = document.getElementById("history-btn");
-    historyBtn.addEventListener("click", async () => {
-      try {
-        const res = await fetch("http://localhost:8000/get_history");
-        const data = await res.json();
+    // const historyBtn = document.getElementById("history-btn");
+    // historyBtn.addEventListener("click", async () => {
+    //   try {
+    //     const res = await fetch("http://localhost:8000/get_history");
+    //     const data = await res.json();
 
-        // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
-        alert(data.history);
-      } catch (err) {
-        alert("대화 기록을 불러오는 중 오류가 발생했습니다.");
-        console.error(err);
-      }
-    });
+    //     // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
+    //     alert(data.history);
+    //   } catch (err) {
+    //     alert("대화 기록을 불러오는 중 오류가 발생했습니다.");
+    //     console.error(err);
+    //   }
+    // });
 
 
 
