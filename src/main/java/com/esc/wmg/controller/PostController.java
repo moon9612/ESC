@@ -1,8 +1,9 @@
 package com.esc.wmg.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +19,22 @@ public class PostController {
     @Autowired
     PostRepository repository;
 
-
+    // 조회수 증가 기능
     @GetMapping("/postContent")
     public String postContent(@RequestParam("post_idx") long idx, Model model) {
-    
-        repository.views(idx); // ✅ 먼저 조회수 +1
-    
+
+        repository.views(idx); // 먼저 조회수 +1
+
         PostEntity post = repository.findById(idx)
                                     .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
-    
+
         model.addAttribute("post", post);
         return "PostContent";
     }
-    
-
 
     // 게시판 글 업로드 기능
     @PostMapping("/postWriting")
-    public String boardWriting(PostEntity post) {
+    public String postdWriting(PostEntity post) {
         if (post == null) {
             throw new IllegalArgumentException("post is null");
         }
@@ -51,11 +50,31 @@ public class PostController {
 
     // 게시판 글 조회
     @GetMapping("/post")
-    public String post(Model model) {
+    public String post(@RequestParam(value = "page", defaultValue = "0") int page, 
+                        @RequestParam(value = "searchPost", required = false) String searchPost, 
+                        @RequestParam(value = "category", defaultValue = "all") String category, 
+                        Model model) {
 
-        List<PostEntity> post_list = repository.findAll();
-        model.addAttribute("post_list", post_list);
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<PostEntity> postPage;
 
+        if (searchPost != null && !searchPost.isEmpty() && !"all".equals(category)) {
+            postPage = repository.findByPostTitleContainingAndPostCategory(searchPost, category, pageable);
+        } else if (searchPost != null && !searchPost.isEmpty()) {
+            postPage = repository.findByPostTitleContaining(searchPost, pageable);
+        } else if (!"all".equals(category)) {
+            postPage = repository.findByPostCategory(category, pageable);
+        } else {
+            postPage = repository.findAll(pageable);
+        }
+
+        model.addAttribute("post_list", postPage.getContent()); // 게시글 10개
+        model.addAttribute("currentPage", page); // 현재 페이지
+        model.addAttribute("totalPages", postPage.getTotalPages()); // 전체 페이지 수
+        model.addAttribute("category", category);
+
+        // List<PostEntity> post_list = repository.findAll();
+        // model.addAttribute("post_list", post_list);
         return "post";
     }
 

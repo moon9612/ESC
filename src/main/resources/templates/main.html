@@ -194,8 +194,7 @@
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="post" class="btn btn-outline">공지사항 더보기
-                        (15건)</a>
+                    <a th:href="@{/post(page=${currentPage}, category=${category})}" class="btn btn-outline">공지사항 더보기 (15건)</a>
                 </div>
             </div>
         </section>

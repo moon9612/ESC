@@ -5,11 +5,17 @@ body {
     color: #333;
 }
 
+a {
+    text-decoration: none;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
     padding: 0 16px;
     margin: 0 auto;
+    height: 1040px;
+    position: relative;
 }
 
 .header {
@@ -180,19 +186,9 @@ select {
     color: white;
 }
 
-.badge.update {
-    background: #dbeafe;
-    color: #2563eb;
-}
-
-.badge.event {
-    background: #ffedd5;
-    color: #ea580c;
-}
-
-.badge.guide {
-    background: #d1fae5;
-    color: #059669;
+.badge.general {
+    background: #e0e0e0;
+    color: #333;
 }
 
 .badge.faq {
@@ -221,4 +217,57 @@ select {
     border-radius: 4px;
     font-size: 12px;
     margin-left: 8px;
+}
+
+/* 게시판 하단 페이지 버튼 */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1%;
+    margin-top: 2%;
+}
+
+.pagination-container>a:first-child {
+    margin-right: 4px;
+}
+
+.pagination-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    /* gray-200 */
+    color: #374151;
+    /* gray-700 */
+    margin-right: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pagination-btn:last-child {
+    margin-right: 0;
+}
+
+.pagination-btn:hover {
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+.pagination-btn.active {
+    background-color: #3b82f6;
+    /* primary color */
+    color: white;
+    border: none;
+}
+
+.pagination-btn.arrow-btn {
+    color: #9ca3af;
+    /* gray-400 */
+    border: 1px solid #e5e7eb;
+    /* gray-200 */
 }
