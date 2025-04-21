@@ -58,20 +58,10 @@ public class PostEntity {
     private int post_views;
 
     @Column(name = "post_likes", nullable = false)
-    private int post_likes = 0; 
+    private int post_likes = 0;
 
     @NonNull
     @Column(name = "post_email", nullable = false)
     private String post_email;
-
-
-    public String getPost_file() {
-        return post_file;
-    }
-    
-    public void setPost_file(String post_file) {
-        this.post_file = post_file;
-    }
-
 
 }

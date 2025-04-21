@@ -20,8 +20,8 @@ public interface PostRepository extends JpaRepository<PostEntity, Long>{
 
     // 제목과 카테고리를 기준으로 게시글 조회
     @Query("SELECT p FROM PostEntity p WHERE p.post_title LIKE %:postTitle% AND p.post_category = :postCategory")
-    Page<PostEntity> findByPostTitleContainingAndPostCategory(@Param("postTitle") String postTitle, 
-                                                                @Param("postCategory") String postCategory, 
+    Page<PostEntity> findByPostTitleContainingAndPostCategory(@Param("postTitle") String postTitle,
+                                                                @Param("postCategory") String postCategory,
                                                                 Pageable pageable);
 
     // 제목을 기준으로 게시글 조회

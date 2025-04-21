@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +12,6 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.esc.wmg.config.S3Config;
-
 
 @Service
 public class ImageService {
@@ -43,11 +41,11 @@ public class ImageService {
         File localFile = new File(localPath);
         file.transferTo(localFile);
 
-
-        s3Config.amazonS3Client().putObject(new PutObjectRequest(bucket, uuidFileName, localFile).withCannedAcl(CannedAccessControlList.PublicRead));
+        s3Config.amazonS3Client().putObject(new PutObjectRequest(bucket, uuidFileName, localFile)
+                .withCannedAcl(CannedAccessControlList.PublicRead));
         String s3Url = s3Config.amazonS3Client().getUrl(bucket, uuidFileName).toString();
 
-        localFile.delete();
+        // localFile.delete();
 
         return s3Url;
 
