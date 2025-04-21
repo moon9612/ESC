@@ -40,7 +40,6 @@ public class PostEntity {
     @Column(name = "post_content")
     private String post_content;
 
-    @NonNull
     @Column(name = "post_file")
     private String post_file;
 
