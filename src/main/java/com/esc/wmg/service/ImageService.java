@@ -50,7 +50,7 @@ public class ImageService {
                 .withCannedAcl(CannedAccessControlList.PublicRead));
         String s3Url = s3Config.amazonS3Client().getUrl(bucket, uuidFileName).toString();
 
-        // localFile.delete();
+        localFile.delete();
 
         return s3Url;
 
