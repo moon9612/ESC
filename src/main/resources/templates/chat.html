@@ -273,7 +273,7 @@
           </div>
         </section>
         <aside>
-          <div class="panel">
+          <div class="panel" id="my-case-panel">
             <strong>내 사례</strong>
             <div class="case-item">
               <strong>유급휴가 문의</strong><small>2일 전</small>
@@ -368,22 +368,55 @@
       }
     });
 
-    // 전체 대화 내용 기억하기
-    // const historyBtn = document.getElementById("history-btn");
-    // historyBtn.addEventListener("click", async () => {
-    //   try {
-    //     const res = await fetch("http://localhost:8000/get_history");
-    //     const data = await res.json();
 
-    //     // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
-    //     alert(data.history);
-    //   } catch (err) {
-    //     alert("대화 기록을 불러오는 중 오류가 발생했습니다.");
-    //     console.error(err);
-    //   }
-    // });
+    // 비동기 방식으로 이전 thread_id 가져오기
+    async function getAllThread() {
+      try {
+        const response = await fetch("http://localhost:8087/get_all_thread_id", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        // 예시: [{thread_id, room_title, thread_at, room_info}, ...]
+        renderMyCases(data);
+      } catch (error) {
+        console.error("Error fetching thread ID:", error);
+      }
+    }
 
+    // 사례 목록을 패널에 렌더링
+    function renderMyCases(threads) {
+      const panel = document.getElementById("my-case-panel");
+      // 기존 내용(제목 strong)만 남기고 모두 삭제
+      panel.querySelectorAll(".case-item").forEach(e => e.remove());
 
+      threads.forEach(thread => {
+        // 날짜 포맷 예시 (thread.thread_at이 ISO 문자열일 경우)
+        const date = new Date(thread.thread_at);
+        const now = new Date();
+        let dateText = "";
+        const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+        if (diff === 0) dateText = "오늘";
+        else if (diff === 1) dateText = "어제";
+        else dateText = `${diff}일 전`;
+
+        // form 방식으로 렌더링
+        panel.innerHTML += `
+          <div class="case-item">
+            <strong>${thread.room_title || "제목 없음"}</strong>
+            <small>${dateText}</small>
+            ${thread.room_info ? thread.room_info.substring(0, 30) + "..." : ""}
+            <form action="rechat?thread_id=${thread.thread_id}" method="get" style="display:inline;">
+              <input type="hidden" name="thread_id" value="${thread.thread_id}">
+              <button type="submit" style="background:none;border:none;color:#2563eb;cursor:pointer;padding:0;">계속하다 →</button>
+            </form>
+          </div>
+        `;
+      });
+    }
+
+    // 페이지 로드 시 호출
+    getAllThread();
 
   </script>
 

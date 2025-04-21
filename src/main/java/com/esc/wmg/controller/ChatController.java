@@ -6,9 +6,11 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.esc.wmg.entity.UserEntity;
@@ -17,7 +19,9 @@ import com.esc.wmg.service.ThreadService;
 
 import jakarta.servlet.http.HttpSession;
 
-@RestController
+import java.util.List;
+
+@Controller
 public class ChatController {
 
     @Autowired
@@ -65,7 +69,9 @@ public class ChatController {
 
                     // DB에 thread_id 저장
                     ThreadEntity threadEntity = new ThreadEntity(thread_id, loginUser.getEmail());
+                    System.out.println("ThreadEntity: " + threadEntity);
                     threadService.saveThreadId(threadEntity);
+                
                 } else {
                     // 실패한 경우 로그 출력
                     System.err.println("Thread 생성 실패: " + response.getStatusCode());
@@ -75,32 +81,52 @@ public class ChatController {
         } catch (Exception e) {
             // 예외 발생 시 스택 추적 출력
             e.printStackTrace();
+            return "main";
         }
 
         // 3. chat.html 템플릿으로 이동
         return "chat";
+        
     }
     }
 
-
-    // session.loginUser.email을 통해 thread_id 가져오기
-    @PostMapping("/load_thread_id")
-    public String loadThreadId(HttpSession session) {
+    // get 방식의 thread_id를 통해 이전 채팅으로 돌아가기
+    @GetMapping("/rechat")
+    public String returnToChat(@RequestParam("thread_id") String thread_id, HttpSession session) {
         // 1. 세션에서 로그인 유저 확인
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         if (loginUser == null) {
-            return "로그인이 필요합니다.";
+            // 로그인 유저가 없으면 로그인 페이지로 리다이렉트
+            return "redirect:/login";
         }
 
-        // 2. 이메일로 thread_id 조회
+        // 2. 세션에 thread_id 저장
+        session.setAttribute("thread_id", thread_id);
+
+        // 2-1. thread_id로 DB에서 채팅 내역 조회
+        List<String> tbl_chat = threadService.getChatByThreadId(thread_id);
+        // 2-2. 세션에 tbl_chat 저장
+        session.setAttribute("tbl_chat", tbl_chat);
+        // 3. chat.html 템플릿으로 리다이렉트
+        return "redirect:/chat?thread_id=" + thread_id;
+    }
+
+
+    // session.loginUser.email을 통해 모든 thread_id 반환하기(비동기)
+    @GetMapping("/get_all_thread_id")
+    @ResponseBody
+    public List<ThreadEntity> getAllThreadId(HttpSession session) {
+        // 1. 세션에서 로그인 유저 확인
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        if (loginUser == null) {
+            return List.of(); // 로그인 안 된 경우 빈 리스트 반환
+        }
+
+        // 2. 이메일로 thread 목록 조회
         String email = loginUser.getEmail();
-        String threadId = threadService.getThreadIdByEmail(email);
-        // 3. thread_id가 없으면 새로 생성
-        if (threadId == null) {
-            return "해당 이메일에 대한 thread_id가 없습니다.";
-        }
+        List<ThreadEntity> threads = threadService.getAllThreadByEmail(email);
 
-        // 4. thread_id를 반환
-        return threadId;
+        // 3. 리스트를 JSON으로 자동 변환하여 반환
+        return threads;
     }
 }
