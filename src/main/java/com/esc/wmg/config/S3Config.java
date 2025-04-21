@@ -10,15 +10,17 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 @Configuration
 public class S3Config {
-    
-    @Value("${cloud.aws.credentials.access-key}")
-    private String accessKey;
 
-    @Value("${cloud.aws.credentials.secret-key}")
-    private String secretKey;
+    Dotenv dotenv = Dotenv.configure().load();
+    
+    private String accessKey = dotenv.get("ACCESS_KEY");;
+
+    private String secretKey = dotenv.get("SECRET_KEY");;
 
     @Value("${cloud.aws.region.static}")
     private String region;
