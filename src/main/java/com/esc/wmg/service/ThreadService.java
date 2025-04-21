@@ -15,6 +15,7 @@ public class ThreadService {
 
     @Autowired
     private ThreadRepository threadRepository;
+    @Autowired
     private ChatRepository chatRepository;
 
     // thread_id 저장
@@ -30,9 +31,8 @@ public class ThreadService {
         return threadRepository.findAllByEmail(email);
     }
 
+    // thread_id로 ChatEntity 조회
     public List<ChatEntity> getChatByThreadId(String thread_id) {
-        // TODO Auto-generated method stub
         return chatRepository.findAllByThreadId(thread_id);
     }
-
 }

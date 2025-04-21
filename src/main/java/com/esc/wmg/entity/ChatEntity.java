@@ -35,7 +35,7 @@ public class ChatEntity {
      * thread_id가 같은 채팅 메시지들은 같은 쓰레드에 속함
      * 따라서 thread_id를 통해 같은 쓰레드에 속하는 메시지들을 그룹화할 수 있음
      */
-    private String thread_id;
+    private String threadId;
 
     @NonNull
     @Column(name = "chatter")
