@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 # 실행코드 : uvicorn api_server:app --reload --port 8000
 # 환경 변수 로드
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-assistant_id = os.getenv("ASSISTANT_ID")
+client = OpenAI(api_key=os.getenv("openai_api_key"))
+assistant_id = os.getenv("assistant_id")
 app = FastAPI()
 
 # CORS 설정
