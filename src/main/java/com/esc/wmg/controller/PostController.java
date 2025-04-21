@@ -1,5 +1,8 @@
 package com.esc.wmg.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,15 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.esc.wmg.entity.PostEntity;
 import com.esc.wmg.repository.PostRepository;
+import com.esc.wmg.service.ImageService;
 
 @Controller
 public class PostController {
 
     @Autowired
     PostRepository repository;
+
+    @Autowired
+    ImageService imageService;
+
+    public PostController(ImageService imageService) {
+        this.imageService = imageService;
+    }
 
     // 조회수 증가 기능
     @GetMapping("/postContent")
@@ -34,13 +46,21 @@ public class PostController {
 
     // 게시판 글 업로드 기능
     @PostMapping("/postWriting")
-    public String postdWriting(PostEntity post) {
-        if (post == null) {
-            throw new IllegalArgumentException("post is null");
-        }
-        repository.save(post); 
-        return "redirect:/post";
+    public String postWriting(PostEntity post, MultipartRequest request) throws Exception {
+    
+        // 파일 업로드 처리 (S3로 전송)
+        String s3Url = imageService.imageUpload(request);
+        
+        post.setPost_file(s3Url);
+
+        // 게시글 저장
+        repository.save(post);
+    
+        // 게시글 작성 완료 후 게시판 페이지로 리디렉션
+        return "redirect:/post"; // 게시글 목록 페이지로 리디렉션
     }
+    
+    
 
     // 게시판 글작성 페이지 이동
     @GetMapping("/postWrite")
@@ -67,7 +87,7 @@ public class PostController {
         } else {
             postPage = repository.findAll(pageable);
         }
-
+        
         model.addAttribute("post_list", postPage.getContent()); // 게시글 10개
         model.addAttribute("currentPage", page); // 현재 페이지
         model.addAttribute("totalPages", postPage.getTotalPages()); // 전체 페이지 수

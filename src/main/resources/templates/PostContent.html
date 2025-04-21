@@ -38,36 +38,21 @@
           <div class="notice-meta">
             <span th:class="|tag-${post.post_category == '공지사항' ? 'notice' :
             post.post_category == '일반' ? 'general' :
-            post.post_category == 'FAQ' ? 'faq' : 'default'}|"
-            th:text="${post.post_category}"></span>
-          
+            post.post_category == 'FAQ' ? 'faq' : 'default'}|" th:text="${post.post_category}"></span>
+
             <span class="notice-date" th:text="${#temporals.format(post.created_at, 'yyyy-MM-dd')}"></span>
           </div>
+          <div class="post_update">수정</div>
           <h2 class="notice-title" th:text="${post.post_title}"></h2>
         </div>
 
         <div class="notice-content">
           <p th:text="${post.post_content}"></p>
-
           <br>
+          <div th:if="${post.post_file != null}">
+            <img class="post-content-img" th:src="${post.post_file}" alt="첨부 이미지">
+          </div>
           <br>
-
-          <!-- <div>
-            <h1 th:text="${post.postTitle}"></h1>
-            <p th:text="${post.postContent}"></p>
-            <div th:if="${post.postFile != null}">
-              <p>
-                첨부파일: 
-                <a th:href="@{/uploads/{file}(file=${post.postFile})}" 
-                   th:text="${post.postFile}" 
-                   target="_blank"></a>
-              </p>
-            </div>
-          </div> -->
-        
-          <br>
-          <br>
-      
         </div>
 
         <div class="notice-footer">

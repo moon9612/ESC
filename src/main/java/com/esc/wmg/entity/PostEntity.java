@@ -64,8 +64,14 @@ public class PostEntity {
     @Column(name = "post_email", nullable = false)
     private String post_email;
 
-    public void setPost_file(String fileName) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+    public String getPost_file() {
+        return post_file;
     }
+    
+    public void setPost_file(String post_file) {
+        this.post_file = post_file;
+    }
+
 
 }
