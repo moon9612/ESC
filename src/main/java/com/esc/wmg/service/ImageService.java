@@ -35,6 +35,11 @@ public class ImageService {
 
         MultipartFile file = request.getFile("upload");
 
+        // 이미지가 업로드되지 않은 경우 (null 또는 비어있음)
+        if (file == null || file.isEmpty()) {
+            return null; // 이미지 없이도 게시글 등록 가능
+        }
+
         String fileName = file.getOriginalFilename();
         String ext = fileName.substring(fileName.indexOf("."));
 
