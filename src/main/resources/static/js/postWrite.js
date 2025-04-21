@@ -20,7 +20,6 @@ window.onload = function () {
     option.addEventListener('click', function () {
       const value = this.getAttribute('data-value');
       const label = this.textContent;
-
       document.getElementById('selected-category').textContent = label;
       document.getElementById('category').value = value;
     });
