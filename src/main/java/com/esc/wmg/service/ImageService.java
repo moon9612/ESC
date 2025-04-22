@@ -13,6 +13,8 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.esc.wmg.config.S3Config;
 
+import ch.qos.logback.core.model.Model;
+
 @Service
 public class ImageService {
 
@@ -38,6 +40,7 @@ public class ImageService {
         }
 
         String fileName = file.getOriginalFilename();
+
         String ext = fileName.substring(fileName.indexOf("."));
 
         String uuidFileName = UUID.randomUUID() + ext;
@@ -48,8 +51,10 @@ public class ImageService {
 
         s3Config.amazonS3Client().putObject(new PutObjectRequest(bucket, uuidFileName, localFile)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
+
         String s3Url = s3Config.amazonS3Client().getUrl(bucket, uuidFileName).toString();
 
+        // 로컬 임시 파일 삭제
         localFile.delete();
 
         return s3Url;

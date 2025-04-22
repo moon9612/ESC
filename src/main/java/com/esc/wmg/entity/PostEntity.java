@@ -3,6 +3,7 @@ package com.esc.wmg.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,8 +50,8 @@ public class PostEntity {
     private LocalDateTime created_at;
 
     @NonNull
-    @CreationTimestamp
-    @Column(name = "updated_at", updatable = false)
+    @UpdateTimestamp
+    @Column(name = "updated_at", updatable = true)
     private LocalDateTime updated_at;
 
     @Column(name = "post_views")
