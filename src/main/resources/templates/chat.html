@@ -357,12 +357,23 @@
 
         const data = await res.json();
         const rawResponse = data.answer;
-        // bot의 응답을 db에 저장
-        try {
+
+        //  \n 줄바꿈을 <br>로 변환 + 링크 자동 감지
+        const formattedResponse = rawResponse
+          .replace(/\n/g, "<br>")
+          .replace(
+            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
+            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
+          );
+        //  ** 내용 **을 <strong>로 변환
+        const strongResponse = formattedResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+          // bot의 응답을 db에 저장
+          try {
           const res = await fetch("http://localhost:8087/save_bot_message", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: rawResponse,
+            body: JSON.stringify({ message: strongResponse,
                                   thread_id: THREAD_ID })
           });
           if (!res.ok) throw new Error("Failed to save bot_message");
@@ -371,13 +382,6 @@
         }
 
 
-        // ✅ \n 줄바꿈을 <br>로 변환 + 링크 자동 감지
-        const formattedResponse = rawResponse
-          .replace(/\n/g, "<br>")
-          .replace(
-            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
-            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
-          );
 
         const loadingEl = container.querySelector(".message.bot.loading");
         if (loadingEl) {
