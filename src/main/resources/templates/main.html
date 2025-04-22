@@ -8,29 +8,13 @@
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <script th:src="@{/js/main.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 
 <body>
     <div class="page-wrapper">
         <!-- Header -->
-        <header>
-            <a href="#" class="logo">
-                <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
-                    alt="팀 ESC 로고" />
-                <span>팀 ESC</span>
-            </a>
-            <nav>
-                <div th:if="${session.loginUser == null}">
-                    <ul>
-                        <li><a href="login">로그인</a></li>
-                    </ul>
-                </div>
-                <div th:if="${session.loginUser != null}">
-                    <ul>
-                        <li><a href="logout">로그아웃</a></li>
-                    </ul>
-                </div>
-            </nav>
+        <header th:replace="~{fragment/header :: header}">
         </header>
         <section class="scroll-section full-screen-section main">
 
@@ -50,7 +34,7 @@
                     매출증대는 물론 비용까지 절약할 수 있는<br />
                     멤버스 PG 서비스를 경험해 보세요.
                 </p>
-                <button class="cta-button">서비스 시작하기</button>
+                <a th:href="@{goChat}"><button class="cta-button">서비스 시작하기</button></a>
             </div>
             <div class="hero-box image-box">
                 <img src="https://readdy.ai/api/search-image?query=professional%2520person%2520holding%2520smartphone%2520with%2520payment%2520app%2520interface%2520displayed%2520on%2520screen%252C%2520clean%2520white%2520desk%2520background%2520with%2520minimal%2520office%2520items%252C%2520soft%2520natural%2520lighting%252C%2520high%2520quality%2520professional%2520photography&width=600&height=500&seq=123&orientation=portrait"
@@ -200,8 +184,7 @@
         </section>
 
         <!-- FAQ 섹션 -->
-        <section class="scroll-sectio
-        n faq-section">
+        <section class="scroll-section faq-section">
             <div class="container">
                 <h2>
                     FAQ

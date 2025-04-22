@@ -28,7 +28,10 @@ public class ImageService {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-    private String localLocation = "C:\\Users\\smhrd\\Desktop\\실전프로젝트_스프링부트\\ESC\\src\\main\\resources\\static\\s3\\";
+    private String localLocation = "C:\\Users\\smhrd\\Desktop\\실전 코드\\wmg\\src\\main\\resources\\static\\s3\\";
+    // private String localLocation = "C:\\Users\\smhrd\\Desktop\\실전프로젝트_스프링부트\\ESC\\src\\main\\resources\\static\\s3\\";
+    // private final String localLocation =
+    // new File(System.getProperty("user.dir"), "src/main/resources/static/s3/").getAbsolutePath();
 
     public String imageUpload(MultipartRequest request) throws IOException {
 
