@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <header class="header" th:replace="~{fragment/header :: header}">
-        <!-- <div class="header-container">
+    <header class="header">
+        <div class="header-container">
             <a href="#" class="logo">
                 <div class="logo-icon"><i class="ri-user-3-line"></i></div>
                 <span class="logo-text">ESC</span>
@@ -29,27 +29,35 @@
                     </ul>
                 </div>
             </nav>
-        </div> -->
+        </div>
     </header>
 
     <main class="container">
         <div class="board-header">
-            <h1>공지사항</h1>
-            <p>멤버스PG의 최신 소식과 공지사항을 확인하세요.</p>
+            <h1>게시판</h1>
+            <p>팀ESC 최신 소식과 공지사항을 확인하세요.</p>
         </div>
 
         <div class="board-filters">
+            <!-- 카테고리 선택 -->
             <div class="filter-group">
-                <select id="category">
-                    <option value="all">전체</option>
-                    <option value="notice">공지사항</option>
-                    <option value="event">이벤트</option>
-                    <option value="update">업데이트</option>
-                </select>
-                <div class="search-wrapper">
-                    <input type="text" placeholder="검색어를 입력하세요" />
-                    <i class="ri-search-line search-icon"></i>
-                </div>
+                <form method="GET" action="/post">
+                    <select name="category" id="category" onchange="this.form.submit()">
+                        <option value="all" th:selected="${category} == 'all'">전체</option>
+                        <option value="공지사항" th:selected="${category} == '공지사항'">공지사항</option>
+                        <option value="일반" th:selected="${category} == '일반'">일반</option>
+                        <option value="FAQ" th:selected="${category} == 'FAQ'">FAQ</option>
+                    </select>
+                </form>
+
+                <!-- 게시글 검색 -->
+                <form th:action="@{/post}" method="get">
+                    <div class="search-wrapper">
+                        <input type="text" placeholder="검색어를 입력하세요" name="searchPost" th:value="${searchPost}" />
+                        <i class="ri-search-line search-icon"></i>
+                        <button type="submit" th:text="검색" style="display:none"></button>
+                    </div>
+                </form>
             </div>
             <a href="postWrite" class="write-button"><i class="ri-add-line"></i> 글쓰기</a>
         </div>
@@ -79,23 +87,43 @@
                 <div th:text="${post.post_idx}"></div>
                 <div>
                     <span th:text="${post.post_category}" th:class="|badge ${post.post_category == '공지사항' ? 'notice' :
-                            post.post_category == '업데이트' ? 'update' :
-                            post.post_category == '이벤트' ? 'event' :
-                            post.post_category == '안내' ? 'guide' :
-                            post.post_category == 'FAQ' ? 'faq' :
-                            'default'}|">
+                               post.post_category == '일반' ? 'general' :
+                               post.post_category == 'FAQ' ? 'faq' :
+                               'default'}|">
                     </span>
                 </div>
-                
                 <div>
-                    <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="title-link" th:text="${post.post_title}"></a>
+                    <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="title-link"
+                        th:text="${post.post_title}"></a>
                 </div>
                 <div th:text="${post.post_email}"></div>
                 <div th:text="${post.post_views}"></div>
                 <div th:text="${#temporals.format(post.created_at, 'yyyy.MM.dd')}"></div>
             </div>
-
         </div>
+
+        <div class="pagination-container">
+            <!-- 이전 페이지 버튼 -->
+            <a th:if="${currentPage > 0}" th:href="@{/post(page=${currentPage - 1})}">
+                <button class="pagination-btn arrow-btn">
+                    <i class="ri-arrow-left-s-line"></i>
+                </button>
+            </a>
+
+            <!-- 페이지 번호 버튼 -->
+            <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:text="${pageNum + 1}"
+                th:class="|pagination-btn ${pageNum == currentPage ? 'active' : ''}|"
+                th:href="@{/post(page=${pageNum}, category=${category})}">
+            </a>
+
+            <!-- 다음 페이지 버튼 -->
+            <a th:if="${currentPage < totalPages - 1}" th:href="@{/post(page=${currentPage + 1})}">
+                <button class="pagination-btn arrow-btn">
+                    <i class="ri-arrow-right-s-line"></i>
+                </button>
+            </a>
+        </div>
+
     </main>
 </body>
 
