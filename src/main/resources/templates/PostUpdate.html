@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>글 수정하기</title>
+    <link rel="stylesheet" th:href="@{/css/PostUpdate.css}" />
+    <script th:src="@{/js/PostUpdate.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="ri-user-3-line"></i></div>
+                <span class="logo-text">ESC</span>
+            </a>
+            <nav>
+                <div th:if="${session.loginUser == null}">
+                    <ul>
+                        <li><a href="login">로그인</a></li>
+                    </ul>
+                </div>
+                <div th:if="${session.loginUser != null}">
+                    <ul>
+                        <li><a href="logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <div class="page-header">
+            <h1>글 작성하기</h1>
+            <a href="post" class="back-link" data-readdy="true">
+                <i class="ri-arrow-left-line"></i> 목록으로 돌아가기
+            </a>
+        </div>
+
+        <div class="form-wrapper">
+            <form id="post-form" action="postUpdate" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="post_idx" th:value="${post.post_idx}">
+                <!-- 숨겨진 input 필드 추가 -->
+                <input type="hidden" id="category" name="post_category">
+
+                <!-- 기존 카테고리 선택 UI -->
+                <div class="form-group">
+                    <label for="category">카테고리 <span class="required">*</span></label>
+                    <div class="custom-select">
+                        <button type="button" id="category-button" class="select-button">
+                            <span id="selected-category" th:text="${post.post_category}">카테고리 선택</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <div class="custom-select-options">
+                            <div class="custom-select-option" data-value="일반">일반</div>
+                            <div class="custom-select-option" data-value="FAQ">FAQ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 작성자 -->
+                <div class="form-group">
+                    <label for="title">작성자 <span class="required">*</span></label>
+                    <input type="text" id="post_email" name="post_email"
+                        th:value="${#strings.substringBefore(session.loginUser.email, '@')}" readonly />
+                </div>
+
+                <!-- 제목 입력 -->
+                <div class="form-group">
+                    <label for="title">제목 <span class="required">*</span></label>
+                    <input type="text" id="post_title" name="post_title" th:value="${post.post_title}" />
+                </div>
+
+                <!-- 내용 에디터 -->
+                <div class="form-group">
+                    <label>내용 <span class="required">*</span></label>
+                    <div class="editor-container">
+                        <div class="editor-toolbar">
+                            <button type="button" title="굵게"><i class="ri-bold"></i></button>
+                            <button type="button" title="기울임"><i class="ri-italic"></i></button>
+                            <button type="button" title="밑줄"><i class="ri-underline"></i></button>
+                            <button type="button" title="취소선"><i class="ri-strikethrough"></i></button>
+                            <div class="toolbar-divider"></div>
+                            <button type="button" title="글머리 기호"><i class="ri-list-unordered"></i></button>
+                            <button type="button" title="번호 매기기"><i class="ri-list-ordered"></i></button>
+                            <div class="toolbar-divider"></div>
+                            <button type="button" title="링크"><i class="ri-link"></i></button>
+                            <button type="button" title="이미지"><i class="ri-image-line"></i></button>
+                            <button type="button" title="표"><i class="ri-table-line"></i></button>
+                            <div class="toolbar-divider"></div>
+                            <button type="button" title="정렬"><i class="ri-align-left"></i></button>
+                            <button type="button" title="들여쓰기"><i class="ri-indent-increase"></i></button>
+                            <button type="button" title="내어쓰기"><i class="ri-indent-decrease"></i></button>
+                        </div>
+                        <!-- <div id="editor" class="editor-content" contenteditable="true"></div> -->
+                        <textarea name="post_content" id="post_content" th:text="${post.post_content}"></textarea>
+                    </div>
+                </div>
+
+                <!-- 첨부파일 -->
+                <div class="form-group">
+                    <label>첨부파일</label>
+                    <div class="file-upload-area">
+                        <div id="file-list">
+                            <!-- 기존 파일이 있는 경우 파일 이름과 다운로드 링크 표시 -->
+                            <div th:if="${post.post_file}">
+                                <a th:href="${post.post_file}" download>기존 파일: <span th:text="${post.post_file}"></span>
+                                </a>
+                                <!-- 기존 파일 정보를 hidden으로 같이 전송 -->
+                                <input type="hidden" name="existingFile" th:value="${post.post_file}" />
+                            </div>
+                        </div>
+                        <div class="file-content-head">
+                            <div class="file-icon"><i class="ri-upload-cloud-line ri-2x"></i></div>
+                            <p>파일 업로드</p>
+                        </div>
+                        <button type="button" class="custom-file-upload">
+                            파일 선택
+                            <input type="file" id="file-upload" name="upload" />
+                        </button>
+
+                        <p class="file-info">최대 파일 크기: 10MB</p>
+                    </div>
+                </div>
+
+
+                <!-- 버튼 그룹 -->
+                <div class="button-group">
+                    <a href="post" class="btn cancel" data-readdy="true">취소</a>
+                    <button type="submit" class="btn submit">수정완료</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">© 2025 Members PG. All rights reserved.</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI 권리보장 매니저</title>
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
   <style>
     * {
       box-sizing: border-box;
@@ -52,6 +53,9 @@
       justify-content: center;
       padding: 1rem;
       background: #e2e8f0;
+      align-content: stretch;
+      height: 100vh; /* 추가: 전체 높이 고정 */
+      min-height: 0; /* 추가: flexbox 스크롤 문제 방지 */
     }
 
     .chat-wrapper {
@@ -63,6 +67,8 @@
       display: flex;
       overflow: hidden;
       min-height: 600px;
+      height: 90vh; /* 추가: 전체 높이 고정 */
+      min-height: 0; /* 추가 */
     }
 
     .chat-section {
@@ -70,6 +76,7 @@
       display: flex;
       flex-direction: column;
       border-right: 1px solid #e5e7eb;
+      min-height: 0; /* 추가 */
     }
 
     .chat-header {
@@ -85,6 +92,8 @@
       padding: 1rem;
       overflow-y: auto;
       background-color: #f8fafc;
+      min-height: 0; /* 추가 */
+      max-height: 100%; /* 추가 */
     }
 
     .message {
@@ -229,22 +238,6 @@
       font-weight: 500;
     }
 
-    footer {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      background: #f9fafb;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr) 160px;
-      border-top: 1px solid #e5e7eb;
-      font-size: 0.85rem;
-      gap: 15rem;
-    }
-
-    .footer-title {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
 
     .loading .bubble {
       color: #6b7280;
@@ -254,41 +247,52 @@
 </head>
 
 <body>
-  <header>
-    <div class="logo">AI 권리보장 매니저</div>
-    <button class="login-btn">로그인</button>
-    <button id="history-btn" class="login-btn">대화 기록 보기</button>
-  </header>
-  <main>
-    <div class="chat-wrapper">
-      <section class="chat-section">
-        <div class="chat-header">AI 챗봇 상담</div>
-        <div class="chat-messages">
-          <div class="message bot">
-            <div class="avatar">🤖</div>
-            <div class="name">챗봇</div>
-            <div class="bubble">안녕하세요! 무엇을 도와드릴까요?</div>
+  <div>
+    <header th:replace="~{fragment/header :: header}">
+      <!-- <div class="logo">AI 권리보장 매니저</div>
+      <button class="login-btn">로그인</button>
+      <button id="history-btn" class="login-btn">대화 기록 보기</button> -->
+    </header>
+  </div>    
+    <main>
+      <div class="chat-wrapper">
+        <section class="chat-section">
+          <div class="chat-header">AI 챗봇 상담
+            <div th:if="${session.thread_id == null}">
+              <div th:text="쓰레드 없음"></div>
+            </div>
+            <div th:if="${session.thread_id != null}">
+              <div  class="thread_id" th:text="${session.thread_id}"></div>
+            </div>
           </div>
-        </div>
-        <div class="chat-input">
-          <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
-          <button id="send-btn">전송</button>
-        </div>
-      </section>
-      <aside>
-        <div class="panel">
-          <strong>내 사례</strong>
-          <div class="case-item">
-            <strong>유급휴가 문의</strong><small>2일 전</small>
-            연차휴가 계산에 대한 질문...
+          <div class="chat-messages">
+            <div class="message bot">
+              <div class="avatar">🤖</div>
+              <div class="name">챗봇</div>
+              <div class="bubble">저는 고용 관련 문제를 전문적으로 상담하고 법적 조언을 제공하는 노무사입니다.<br>
+                여러분의 근로 상황과 문제를 이해하고, 해결 방안을 함께 모색합니다.<br>
+                고용 관련 질문이나 문제가 있으시다면 말씀해 주시면 도움이 되겠습니다.</div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
+            <button id="send-btn">전송</button>
+          </div>
+        </section>
+        <aside>
+          <div class="panel" id="my-case-panel">
+            <strong>내 사례</strong>
+            <div class="case-item">
+              <strong>유급휴가 문의</strong><small>2일 전</small>
+              연차휴가 계산에 대한 질문...
             <br><a href="#">계속하다 →</a>
+            </div>
+            <div class="case-item">
+              <strong>초과 근무 보상</strong><small>1주일 전</small>
+              초과근무 수당 권리에 대해 논의하고 싶습니다...
+              <br><a href="#">계속하다 →</a>
+            </div>
           </div>
-          <div class="case-item">
-            <strong>초과 근무 보상</strong><small>1주일 전</small>
-            초과근무 수당 권리에 대해 논의하고 싶습니다...
-            <br><a href="#">계속하다 →</a>
-          </div>
-        </div>
         <div class="panel">
           <strong>자원</strong>
           <div class="resource-item"><strong>노동권리 가이드</strong><small>중요한 권리 정리</small></div>
@@ -298,36 +302,19 @@
       </aside>
     </div>
   </main>
-  <footer>
-    <div>
-      <div class="footer-title">About</div>
-      <div>Our Mission</div>
-      <div>How It Works</div>
-      <div>Privacy Policy</div>
-    </div>
-    <div>
-      <div class="footer-title">Resources</div>
-      <div>Help Center</div>
-      <div>Blog</div>
-      <div>FAQs</div>
-    </div>
-    <div>
-      <div class="footer-title">Contact</div>
-      <div>Support</div>
-      <div>Partners</div>
-      <div>Feedback</div>
-    </div>
-    <div>
-      <div class="footer-title">Follow Us</div>
-      <div>🐦 🟦 🔗</div>
-    </div>
-  </footer>
-
   <script>
+    const THREAD_ID = document.querySelector(".thread_id").innerText;
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const container = document.querySelector(".chat-messages");
+    
+    // 자동 스크롤 함수
+    function scrollToBottom() {
+      const container = document.querySelector(".chat-messages");
+      container.scrollTop = container.scrollHeight;
+    }
 
+    // 메시지 전송 함수
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;
@@ -343,22 +330,58 @@
           <div class="bubble">로딩 중...</div>
         </div>
       `;
+      scrollToBottom(); // 메시지 추가 후 스크롤
 
       input.value = "";
-
+      // 비동기 요청을 통해 DB에 메시지를 저장합니다.
       try {
-        // const res = await fetch("http://localhost:8087/api/chat", {
+        const res = await fetch("http://localhost:8087/save_user_message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message,
+                                thread_id: THREAD_ID})
+        });
+        if (!res.ok) throw new Error("Failed to save user_message");
+      } catch (error) {
+        console.error("Error saving user_message:", error);
+      }
+      
+      // 비동기 요청을 통해 챗봇의 응답을 가져옵니다.
+      try {
         const res = await fetch("http://localhost:8000/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
+          body: JSON.stringify({ message: message,
+                                thread_id: THREAD_ID })
         });
 
         const data = await res.json();
         const rawResponse = data.answer;
 
-        // ✅ \n 줄바꿈을 <br>로 변환
-        const formattedResponse = rawResponse.replace(/\n/g, "<br>");
+        //  \n 줄바꿈을 <br>로 변환 + 링크 자동 감지
+        const formattedResponse = rawResponse
+          .replace(/\n/g, "<br>")
+          .replace(
+            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
+            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
+          );
+        //  ** 내용 **을 <strong>로 변환
+        const strongResponse = formattedResponse.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+          // bot의 응답을 db에 저장
+          try {
+          const res = await fetch("http://localhost:8087/save_bot_message", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: strongResponse,
+                                  thread_id: THREAD_ID })
+          });
+          if (!res.ok) throw new Error("Failed to save bot_message");
+        } catch (error) {
+          console.error("Error saving bot_message:", error);
+        }
+
+
 
         const loadingEl = container.querySelector(".message.bot.loading");
         if (loadingEl) {
@@ -381,6 +404,7 @@
           `;
         }
       }
+
     }
 
     sendBtn.addEventListener("click", sendMessage);
@@ -391,23 +415,97 @@
       }
     });
 
-    // 전체 대화 내용 기억하기
-    const historyBtn = document.getElementById("history-btn");
-    historyBtn.addEventListener("click", async () => {
+
+    // 비동기 방식으로 이전 thread_id 가져오기
+    async function getAllThread() {
       try {
-        const res = await fetch("http://localhost:8000/get_history");
-        const data = await res.json();
-
-        // ✅ 알림창에 띄우기 (또는 modal 등으로 출력 가능)
-        alert(data.history);
-      } catch (err) {
-        alert("대화 기록을 불러오는 중 오류가 발생했습니다.");
-        console.error(err);
+        const response = await fetch("http://localhost:8087/get_all_thread_id", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        // 예시: [{thread_id, room_title, thread_at, room_info}, ...]
+        renderMyCases(data);
+      } catch (error) {
+        console.error("Error fetching thread ID:", error);
       }
-    });
+    }
 
+    // 사례 목록을 패널에 렌더링
+    function renderMyCases(threads) {
+      const panel = document.getElementById("my-case-panel");
+      // 기존 내용(제목 strong)만 남기고 모두 삭제
+      panel.querySelectorAll(".case-item").forEach(e => e.remove());
 
+      threads.forEach(thread => {
+        const date = new Date(thread.thread_at);
+        const now = new Date();
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / (1000 * 60));
+        const diffHour = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
+        let dateText = "";
+        if (thread.thread_id === THREAD_ID){
+          dateText = "현재 대화 중";
+        } else {
+        if (diffDay === 0) {
+          if (diffHour === 0) {
+            if (diffMin < 1) dateText = "방금 전";
+            else dateText = `${diffMin}분 전`;
+          } else {
+            dateText = `${diffHour}시간 전`;
+          }
+        } else if (diffDay === 1) {
+          dateText = "어제";
+        } else {
+          dateText = `${diffDay}일 전`;
+        }
+        }
+        // form 방식으로 렌더링
+        panel.innerHTML += `
+          <div class="case-item">
+            <strong>${thread.room_title || "제목 없음"}</strong>
+            <small>${dateText}</small>
+            ${thread.room_info ? thread.room_info.substring(0, 30) + "..." : ""}
+            <form action="rechat?thread_id=${thread.thread_id}" method="get" style="display:inline;">
+              <input type="hidden" name="thread_id" value="${thread.thread_id}">
+              <button type="submit" style="background:none;border:none;color:#2563eb;cursor:pointer;padding:0;">계속하다 →</button>
+            </form>
+          </div>
+        `;
+      });
+    }
+
+    // 페이지 로드 시 호출
+    getAllThread();
+    loadPreviousChat();
+    // 페이지 로드 시 단 한번 이전 대화 내역 불러오기
+    async function loadPreviousChat() {
+      try {
+        const response = await fetch(`http://localhost:8087/get_previous_chat?thread_id=${THREAD_ID}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        // 예시: [{message, chatter}, ...]
+        data.forEach(chat => {
+          // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
+
+          const messageClass = chat.chatter === "bot" ? "bot" : "user";
+          container.innerHTML += `
+            <div class="message ${messageClass}">
+              <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
+              <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
+              <div class="bubble">${chat.chat_content}</div>
+            </div>
+          `;
+        });
+        scrollToBottom(); // 이전 대화 불러온 후 스크롤
+      } catch (error) {
+        console.error("Error loading previous chat:", error);
+      }
+    } 
   </script>
 
 </body>

@@ -1,11 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JMS 서비스 - 공지사항 상세</title>
+  <link rel="stylesheet" th:href="@{/css/postContent.css}" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
+
 <body>
-    게시글 제작중
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <span class="logo-main">logo</span>
+        <span class="logo-sub">Esc</span>
+      </a>
+      <nav>
+        <ul class="nav-list">
+
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="back-nav">
+        <a href="post" class="back-button">
+          <i class="ri-arrow-left-s-line"></i>
+          <h1>뒤로가기</h1>
+        </a>
+      </div>
+
+      <div class="notice-card">
+        <div class="notice-header">
+          <div class="notice-meta">
+            <span th:class="|tag-${post.post_category == '공지사항' ? 'notice' :
+            post.post_category == '일반' ? 'general' :
+            post.post_category == 'FAQ' ? 'faq' : 'default'}|" th:text="${post.post_category}"></span>
+
+            <span class="notice-date" th:text="${#temporals.format(post.created_at, 'yyyy-MM-dd')}"></span>
+          </div>
+          <div th:if="${loginUser != null and #strings.substringBefore(session.loginUser.email, '@') == post.post_email}">
+            <div class="post_update">
+              <a th:href="@{/goPostUpdate(post_idx=${post.post_idx})}"
+                class="post-update-link">수정</a>
+            </div>
+            <div class="post_delete">
+              <a th:href="@{/goPostDelete(post_idx=${post.post_idx})}"
+                class="post-delete-link">삭제</a>
+            </div>
+          </div>
+          <h2 class="notice-title" th:text="${post.post_title}"></h2>
+        </div>
+
+        <div class="notice-content">
+          <p th:text="${post.post_content}"></p>
+          <br>
+
+          <!-- 첨부 파일이 있을 경우 -->
+          <div th:if="${post.post_file != null}">
+
+            <!-- 이미지 파일 (.jpg, .jpeg, .png, .gif)일 경우 -->
+            <div
+              th:if="${post.post_file.endsWith('.jpg') or post.post_file.endsWith('.jpeg') or post.post_file.endsWith('.png') or post.post_file.endsWith('.gif')}">
+              <img class="post-content-img" th:src="${post.post_file}" alt="첨부 이미지">
+            </div>
+
+            <!-- switch-case 구문을 사용하여 파일 유형에 따라 처리 -->
+            <div th:switch="${post.post_file}">
+              <!-- 이미지가 아닌 파일은 다운로드 링크 제공 -->
+              <div th:case="*">
+                <a th:href="${post.post_file}" download>다운로드</a>
+              </div>
+            </div>
+          </div>
+
+          <br>
+        </div>
+
+
+        <div class="notice-footer">
+          <div class="footer-left">
+            <a href="post" class="btn">
+              <i class="ri-list-unordered"></i>
+              목록으로
+            </a>
+          </div>
+          <div class="footer-right">
+            <a th:href="@{/postContent(post_idx=${post.post_idx - 1})}" class="btn">
+              <i class="ri-arrow-left-s-line"></i>
+              이전 글
+            </a>
+            <a th:href="@{/postContent(post_idx=${post.post_idx + 1})}" class="btn">
+              다음 글
+              <i class="ri-arrow-right-s-line"></i>
+            </a>
+          </div>
+        </div>
+      </div>
 </body>
+
 </html>

@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-wrapper">
-      <form id="post-form" action="postWriting" method="post">
+      <form id="post-form" action="postWriting" method="post" enctype="multipart/form-data">
         <!-- 숨겨진 input 필드 추가 -->
         <input type="hidden" id="category" name="post_category">
 
@@ -54,10 +54,7 @@
               <i class="ri-arrow-down-s-line"></i>
             </button>
             <div class="custom-select-options">
-              <div class="custom-select-option" data-value="공지사항">공지사항</div>
-              <div class="custom-select-option" data-value="이벤트">이벤트</div>
-              <div class="custom-select-option" data-value="업데이트">업데이트</div>
-              <div class="custom-select-option" data-value="안내">안내</div>
+              <div class="custom-select-option" data-value="일반">일반</div>
               <div class="custom-select-option" data-value="FAQ">FAQ</div>
             </div>
           </div>
@@ -106,26 +103,17 @@
         <div class="form-group">
           <label>첨부파일</label>
           <div class="file-upload-area">
-            <div class="file-icon"><i class="ri-upload-cloud-line ri-2x"></i></div>
-            <p>파일을 여기에 끌어다 놓거나</p>
+            <div id="file-list"></div>
+            <div class="file-content-head">
+              <div class="file-icon"><i class="ri-upload-cloud-line ri-2x"></i></div>
+              <p>파일 업로드</p>
+            </div>
             <button type="button" class="custom-file-upload">
               파일 선택
-              <input type="file" id="file-upload" multiple />
+              <input type="file" id="file-upload" name="upload"/>
             </button>
+    
             <p class="file-info">최대 파일 크기: 10MB</p>
-          </div>
-          <div id="file-list"></div>
-        </div>
-
-        <!-- 옵션 -->
-        <div class="form-group checkbox-group">
-          <div>
-            <div id="important-checkbox" class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
-            <label>중요 공지로 등록</label>
-          </div>
-          <div>
-            <div id="secret-checkbox" class="custom-checkbox" onclick="toggleCheckbox(this)"></div>
-            <label>비밀글로 등록</label>
           </div>
         </div>
 
