@@ -418,15 +418,30 @@
       panel.querySelectorAll(".case-item").forEach(e => e.remove());
 
       threads.forEach(thread => {
-        // 날짜 포맷 예시 (thread.thread_at이 ISO 문자열일 경우)
         const date = new Date(thread.thread_at);
         const now = new Date();
-        let dateText = "";
-        const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
-        if (diff === 0) dateText = "오늘";
-        else if (diff === 1) dateText = "어제";
-        else dateText = `${diff}일 전`;
+        const diffMs = now - date;
+        const diffMin = Math.floor(diffMs / (1000 * 60));
+        const diffHour = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
+        let dateText = "";
+        if (thread.thread_id === THREAD_ID){
+          dateText = "현재 대화 중";
+        } else {
+        if (diffDay === 0) {
+          if (diffHour === 0) {
+            if (diffMin < 1) dateText = "방금 전";
+            else dateText = `${diffMin}분 전`;
+          } else {
+            dateText = `${diffHour}시간 전`;
+          }
+        } else if (diffDay === 1) {
+          dateText = "어제";
+        } else {
+          dateText = `${diffDay}일 전`;
+        }
+        }
         // form 방식으로 렌더링
         panel.innerHTML += `
           <div class="case-item">
