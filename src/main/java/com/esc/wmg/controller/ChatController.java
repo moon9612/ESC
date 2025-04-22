@@ -68,7 +68,6 @@ public class ChatController {
 
                 // 외부 서버에 POST 요청 보내기
                 ResponseEntity<String> response = restTemplate.postForEntity(threadApiUrl, request, String.class);
-
                 // 2-2. thread_id  생성 응답이 성공이면 thread_id 추출 → 세션에 저장
                 if (response.getStatusCode().is2xxSuccessful()) {
                     JSONObject json = new JSONObject(response.getBody());
@@ -81,7 +80,6 @@ public class ChatController {
                     threadEntity = new ThreadEntity(threadId, loginUser.getEmail());
                     System.out.println("ThreadEntity: " + threadEntity);
                     threadService.saveThreadId(threadEntity);
-
                     // 3. chat.html 템플릿으로 이동
                     return "redirect:/chat?thread_id=" + threadEntity.getThread_id();
                 } else {
@@ -107,6 +105,7 @@ public class ChatController {
         } catch (Exception e) {
             // 예외 발생 시 스택 추적 출력
             e.printStackTrace();
+            System.out.println("에러");
             return "main";
         }     
     }
