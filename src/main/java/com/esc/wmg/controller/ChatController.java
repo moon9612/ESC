@@ -9,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.esc.wmg.entity.UserEntity;
+import com.esc.wmg.repository.ChatRepository;
 import com.esc.wmg.entity.ChatEntity;
 import com.esc.wmg.entity.ThreadEntity;
 import com.esc.wmg.service.ThreadService;
@@ -21,12 +23,19 @@ import com.esc.wmg.service.ThreadService;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ChatController {
 
+    private final ChatRepository chatRepository;
+
     @Autowired
     private ThreadService threadService;
+
+    ChatController(ChatRepository chatRepository) {
+        this.chatRepository = chatRepository;
+    }
 
     // 1. 로그인 확인 + 2. 세션에서 theadId 가져오기(2-1. 없으면 생성, 2-2 세션에 저장) + 3.채팅 페이지로 이동
     @GetMapping("/goChat")
@@ -60,7 +69,7 @@ public class ChatController {
                 // 외부 서버에 POST 요청 보내기
                 ResponseEntity<String> response = restTemplate.postForEntity(threadApiUrl, request, String.class);
 
-                // 2-2. 응답이 성공이면 thread_id 추출 → 세션에 저장
+                // 2-2. thread_id  생성 응답이 성공이면 thread_id 추출 → 세션에 저장
                 if (response.getStatusCode().is2xxSuccessful()) {
                     JSONObject json = new JSONObject(response.getBody());
                     String threadId = json.getString("thread_id");
@@ -72,6 +81,7 @@ public class ChatController {
                     threadEntity = new ThreadEntity(threadId, loginUser.getEmail());
                     System.out.println("ThreadEntity: " + threadEntity);
                     threadService.saveThreadId(threadEntity);
+
                     // 3. chat.html 템플릿으로 이동
                     return "redirect:/chat?thread_id=" + threadEntity.getThread_id();
                 } else {
@@ -148,5 +158,61 @@ public class ChatController {
 
         // 3. 리스트를 JSON으로 자동 변환하여 반환
         return threads;
+    }
+
+
+    // thread_id를 통해 채팅 내역 반환하기(비동기)
+    @GetMapping("/get_chat_history")
+    @ResponseBody
+    public List<ChatEntity> getChatHistory(@RequestParam("thread_id") String thread_id) {
+
+        // 1. thread_id로 채팅 내역 조회
+        List<ChatEntity> chatHistory = threadService.getChatByThreadId(thread_id);
+
+        // 2. 리스트를 JSON으로 자동 변환하여 반환
+        return chatHistory;
+    }
+    // 유저의 입력 메시지 DB 저장하기(비동기)
+    @PostMapping("/save_user_message")
+    @ResponseBody
+    public String saveUserMessage(@RequestBody Map<String, Object> payload, HttpSession session) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        // 1. 요청에서 데이터 추출
+        String threadId = (String) payload.get("thread_id");
+        String message = (String) payload.get("message");
+        String chatter = loginUser.getEmail();
+
+        // 2. ChatEntity 생성 및 저장
+        ChatEntity chat = new ChatEntity(
+            threadId,           // threadId
+            chatter,              // chatter
+            message          // chat_content
+        );
+        // chat_idx, created_at은 자동 생성
+
+        chatRepository.save(chat);
+
+        return "ok";
+    }
+    // 봇의 응답 메시지 DB 저장하기(비동기)
+    @PostMapping("/save_bot_message")
+    @ResponseBody
+    public String saveBotMessage(@RequestBody Map<String, Object> payload, HttpSession session) {
+
+        // 1. 요청에서 데이터 추출
+        String threadId = (String) payload.get("thread_id");
+        String message = (String) payload.get("message");
+        String chatter = "bot";
+        // 2. ChatEntity 생성 및 저장
+        ChatEntity chat = new ChatEntity(
+            threadId,           // threadId
+            chatter,              // chatter
+            message          // chat_content
+        );
+        // chat_idx, created_at은 자동 생성
+
+        chatRepository.save(chat);
+
+        return "ok";
     }
 }

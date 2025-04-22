@@ -53,7 +53,7 @@ public class ChatEntity {
      */
     private String chat_content;
 
-    @NonNull
+
     @Column(name = "cont_keyword")
     /**
      * 사용 미정
@@ -62,7 +62,7 @@ public class ChatEntity {
      */
     private String cont_keyword;
 
-    @NonNull
+
     @Column(name = "chat_emoticon")
     /**
      * 사용 미정
@@ -70,7 +70,7 @@ public class ChatEntity {
      */
     private String chat_emoticon;
 
-    @NonNull
+
     @Column(name = "chat_file")
     /**
      * 사용 미정
@@ -79,7 +79,6 @@ public class ChatEntity {
      */
     private String chat_file;
 
-    @NonNull
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     /**
