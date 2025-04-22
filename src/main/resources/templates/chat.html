@@ -444,7 +444,32 @@
 
     // 페이지 로드 시 호출
     getAllThread();
+    loadPreviousChat();
+    // 페이지 로드 시 단 한번 이전 대화 내역 불러오기
+    async function loadPreviousChat() {
+      try {
+        const response = await fetch(`http://localhost:8087/get_previous_chat?thread_id=${THREAD_ID}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        // 예시: [{message, chatter}, ...]
+        data.forEach(chat => {
+          // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
 
+          const messageClass = chat.chatter === "bot" ? "bot" : "user";
+          container.innerHTML += `
+            <div class="message ${messageClass}">
+              <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
+              <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
+              <div class="bubble">${chat.chat_content}</div>
+            </div>
+          `;
+        });
+      } catch (error) {
+        console.error("Error loading previous chat:", error);
+      }
+    } 
   </script>
 
 </body>

@@ -215,4 +215,13 @@ public class ChatController {
 
         return "ok";
     }
+    // 채팅 내역 불러오기(비동기)
+    @GetMapping("/get_previous_chat")
+    @ResponseBody
+    public List<ChatEntity> getPreviousChat(@RequestParam("thread_id") String thread_id) {
+        // 1. thread_id로 DB에서 채팅 내역 조회
+        List<ChatEntity> chatHistory = threadService.getChatByThreadId(thread_id);
+        // 2. 리스트를 JSON으로 자동 변환하여 반환
+        return chatHistory;
+    }
 }
