@@ -184,8 +184,8 @@ public class ChatController {
         // 2. ChatEntity 생성 및 저장
         ChatEntity chat = new ChatEntity(
             threadId,           // threadId
-            chatter,              // chatter
-            message          // chat_content
+            chatter,           // chatter
+            message           // chat_content
         );
         // chat_idx, created_at은 자동 생성
 

@@ -53,7 +53,9 @@
       justify-content: center;
       padding: 1rem;
       background: #e2e8f0;
-      align-content:stretch;
+      align-content: stretch;
+      height: 100vh; /* 추가: 전체 높이 고정 */
+      min-height: 0; /* 추가: flexbox 스크롤 문제 방지 */
     }
 
     .chat-wrapper {
@@ -65,6 +67,8 @@
       display: flex;
       overflow: hidden;
       min-height: 600px;
+      height: 90vh; /* 추가: 전체 높이 고정 */
+      min-height: 0; /* 추가 */
     }
 
     .chat-section {
@@ -72,6 +76,7 @@
       display: flex;
       flex-direction: column;
       border-right: 1px solid #e5e7eb;
+      min-height: 0; /* 추가 */
     }
 
     .chat-header {
@@ -87,6 +92,8 @@
       padding: 1rem;
       overflow-y: auto;
       background-color: #f8fafc;
+      min-height: 0; /* 추가 */
+      max-height: 100%; /* 추가 */
     }
 
     .message {
@@ -300,6 +307,14 @@
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const container = document.querySelector(".chat-messages");
+    
+    // 자동 스크롤 함수
+    function scrollToBottom() {
+      const container = document.querySelector(".chat-messages");
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // 메시지 전송 함수
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;
@@ -315,6 +330,7 @@
           <div class="bubble">로딩 중...</div>
         </div>
       `;
+      scrollToBottom(); // 메시지 추가 후 스크롤
 
       input.value = "";
       // 비동기 요청을 통해 DB에 메시지를 저장합니다.
@@ -481,6 +497,7 @@
             </div>
           `;
         });
+        scrollToBottom(); // 이전 대화 불러온 후 스크롤
       } catch (error) {
         console.error("Error loading previous chat:", error);
       }
