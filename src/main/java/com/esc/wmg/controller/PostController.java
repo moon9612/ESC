@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.esc.wmg.entity.PostEntity;
 import com.esc.wmg.entity.UserEntity;
-import com.esc.wmg.model.User;
 import com.esc.wmg.repository.PostRepository;
 import com.esc.wmg.service.ImageService;
 
@@ -82,16 +81,20 @@ public class PostController {
     // 조회수 증가 기능
     @GetMapping("/postContent")
     public String postContent(@RequestParam("post_idx") long idx, Model model, HttpSession session) {
-
         repository.views(idx); // 먼저 조회수 +1
 
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
 
         PostEntity post = repository.findById(idx)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
         model.addAttribute("post", post);
         model.addAttribute("loginUser", loginUser);
+
         return "PostContent";
     }
 
@@ -110,7 +113,13 @@ public class PostController {
 
     // 게시판 글작성 페이지 이동
     @GetMapping("/postWrite")
-    public String boardWrite() {
+    public String boardWrite(HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("loginUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         return "postWrite";
     }
 

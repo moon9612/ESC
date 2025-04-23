@@ -13,7 +13,6 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.esc.wmg.config.S3Config;
 
-import ch.qos.logback.core.model.Model;
 
 @Service
 public class ImageService {
@@ -61,6 +60,6 @@ public class ImageService {
         localFile.delete();
 
         return s3Url;
-
     }
+
 }

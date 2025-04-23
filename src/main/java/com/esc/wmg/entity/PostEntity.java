@@ -27,6 +27,7 @@ public class PostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_idx")
     private long post_idx;
 
     @NonNull

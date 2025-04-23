@@ -1,6 +1,11 @@
 package com.esc.wmg.controller;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +26,12 @@ public class UserController {
     @PostMapping("/userSelect")
     public String userSelect(UserEntity entity, HttpSession session, Model model) {
         UserEntity loginUser = repository.findByEmailAndPw(entity.getEmail(), entity.getPw());
-    
+
         if (loginUser != null) {
             session.setAttribute("loginUser", loginUser);
-            return "redirect:/"; 
+            return "redirect:/";
         } else {
-            return "login"; 
+            return "login";
         }
     }
 
@@ -36,7 +41,6 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
-    
 
     // 회원가입 기능
     @PostMapping("/userInsert")
