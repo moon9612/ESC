@@ -358,6 +358,19 @@
         const data = await res.json();
         const rawResponse = data.answer;
 
+        // bot의 응답을 db에 저장
+        try {
+          const res = await fetch("http://localhost:8087/save_bot_message", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: data,
+                                  thread_id: THREAD_ID })
+          });
+          if (!res.ok) throw new Error("Failed to save bot_message");
+        } catch (error) {
+          console.error("Error saving bot_message:", error);
+        }
+
         //  OpenAI API의 응답을 HTML로 변환
         const formattedResponse = rawResponse
           //  \n 줄바꿈을 <br>로 변환
@@ -380,18 +393,7 @@
           )
           ;
         
-          // bot의 응답을 db에 저장
-          try {
-          const res = await fetch("http://localhost:8087/save_bot_message", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: formattedResponse,
-                                  thread_id: THREAD_ID })
-          });
-          if (!res.ok) throw new Error("Failed to save bot_message");
-        } catch (error) {
-          console.error("Error saving bot_message:", error);
-        }
+          
 
 
 
