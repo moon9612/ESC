@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>기타 진정서</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
+            background-color: #e2e8f0;
+            padding: 40px 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 50px 60px;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #cbd5e1;
+            margin-bottom: 40px;
+        }
+
+        td {
+            padding: 12px;
+            vertical-align: middle;
+            text-align: left;
+            border: 1px solid #cbd5e1;
+            background-color: white;
+        }
+
+        td.label {
+            font-weight: bold;
+            background-color: #f8fafc;
+            color: #334155;
+            text-align: center;
+        }
+
+        textarea,
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
+
+        textarea:focus,
+        select:focus {
+            border-color: #3b82f6;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+            text-align: center;
+            padding-top: 36px;
+        }
+
+        .radio-box {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        .radio-box label {
+            font-weight: normal;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .upload-zone {
+            border: 2px dashed #94a3b8;
+            padding: 30px;
+            text-align: center;
+            color: #475569;
+            margin-top: 10px;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            font-size: 0.95rem;
+        }
+
+        .info {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .red {
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .btn-box {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-box button {
+            padding: 10px 28px;
+            font-size: 15px;
+            margin: 0 6px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, border 0.3s ease;
+        }
+
+
+        .btn-box button:nth-child(1) {
+            background-color: white;
+            color: #003366;
+            border: 2px solid #003366;
+        }
+
+
+        .btn-box button:nth-child(2) {
+            background-color: #003366;
+            color: white;
+            border: 2px solid #003366;
+        }
+
+
+        .btn-box button:nth-child(3) {
+            background-color: #555;
+            color: white;
+            border: 2px solid #555;
+        }
+
+        .btn-box button:hover {
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+
+        select,
+        select option {
+            font-size: 14px;
+            font-weight: bold;
+            font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+
+        .radio-box label {
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .required {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <header th:replace="~{fragment/header :: header}"></header>
+        <form>
+            <h2>기타 진정서 작성 및 첨부</h2>
+            <table>
+                <tr>
+                    <td class="label">진정 종류</td>
+                    <td>
+                        <div class="radio-box">
+                            <label><input type="radio" name="claimType" value="임금체불"> 임금체불 진정서</label>
+                            <label><input type="radio" name="claimType" value="기타" checked> 기타 진정서</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">내용 <span class="required">*</span></td>
+                    <td><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">관할 고용노동관서 <span class="required">*</span></td>
+                    <td>
+                        <select name="laborOffice" required>
+                            <option value="">선택하세요</option>
+                            <option value="광주지방고용노동청" selected>서울지방고용노동청</option>
+                            <option value="서울지방고용노동청서울강남지청">서울지방고용노동청서울강남지청</option>
+                            <option value="서울지방고용노동청서울동부지청">서울지방고용노동청서울동부지청</option>
+                            <option value="서울지방고용노동청서울서부지청">서울지방고용노동청서울서부지청</option>
+                            <option value="서울지방고용노동청서울남부지청">서울지방고용노동청서울남부지청</option>
+                            <option value="서울지방고용노동청서울북부지청">서울지방고용노동청서울북부지청</option>
+                            <option value="서울지방고용노동청서울관약지청">서울지방고용노동청서울관약지청</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">첨부파일</td>
+                    <td>
+                        <div class="upload-zone">
+                            여기를 클릭하거나 파일을 드래그 하세요.
+                            <input type="file" name="attachments" multiple
+                                accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
+                        </div>
+                        <div class="info red">
+                            ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
+                            ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
+                            ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="btn-box">
+                <button type="button">이전</button>
+                <button type="submit">제출</button>
+                <button type="button">임시저장</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
