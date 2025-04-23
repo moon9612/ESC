@@ -372,31 +372,9 @@
         }
 
         //  OpenAI API의 응답을 HTML로 변환
-        const formattedResponse = rawResponse
-          //  \n 줄바꿈을 <br>로 변환
-          .replace(/\n/g, "<br>")
-          //  ** 내용 **을 <strong>로 변환
-          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
-          //  //  * 내용 *을 <em>로 변환
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          //  --- 을 <hr>로 변환 (가로줄)
-          .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
-          // #^n을 Hn으로 변환
-          .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
-          .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
-          .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
+        const formattedResponse = convertToHtmlFromAiText(rawResponse);
 
-          // 링크 변환
-          .replace(
-            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
-            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
-          )
-          ;
-        
-          
-
-
-
+        // 로딩 중 메시지를 챗봇의 응답으로 교체
         const loadingEl = container.querySelector(".message.bot.loading");
         if (loadingEl) {
           loadingEl.outerHTML = `
@@ -496,6 +474,7 @@
     // 페이지 로드 시 호출
     getAllThread();
     loadPreviousChat();
+
     // 페이지 로드 시 단 한번 이전 대화 내역 불러오기
     async function loadPreviousChat() {
       try {
@@ -522,6 +501,29 @@
         console.error("Error loading previous chat:", error);
       }
     } 
+    //  OpenAI API의 응답을 HTML로 변환 함수
+    function convertToHtmlFromAiText(rawResponse) {
+            const formattedResponse = rawResponse
+              // \n 줄바꿈을 <br>로 변환
+              .replace(/\n/g, "<br>")
+              // ** 내용 **을 <strong>로 변환
+              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+              // * 내용 *을 <em>로 변환
+              .replace(/\*(.*?)\*/g, '<em>$1</em>')
+              // --- 을 <hr>로 변환 (가로줄)
+              .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
+              // #^n을 Hn으로 변환
+              .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
+              .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
+              .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
+              // 링크 변환
+              .replace(
+                /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
+                '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
+              );
+
+            return formattedResponse;
+          }
   </script>
 
 </body>
