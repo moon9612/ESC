@@ -10,8 +10,10 @@ from dotenv import load_dotenv
 # 실행코드 : uvicorn api_server:app --reload --port 8000
 # 환경 변수 로드
 load_dotenv()
-client = OpenAI(api_key=os.getenv("openai_api_key"))
-assistant_id = os.getenv("assistant_id")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+assistant_go_id = os.getenv("ASSISTANT_GO_ID")
+assistant_san_id = os.getenv("ASSISTANT_INDUSTRIAL_ACCIDENT_ID")
+assistant_petition_id = os.getenv("ASSISTANT_PETITION_ID")
 app = FastAPI()
 
 # CORS 설정
@@ -52,9 +54,9 @@ class MessageRequest(BaseModel):
 #     return {"message": "Hello World!"}
 
 
-# 1. 대화 처리 엔드포인트
-@app.post("/ask")
-async def ask(request: MessageRequest):
+# 고용노동 대화 처리 엔드포인트
+@app.post("/ask_go")
+async def ask_go(request: MessageRequest):
     # 요청에서 thread_id와 message를 가져옵니다.
     thread_id = request.thread_id
     message = request.message
@@ -70,7 +72,7 @@ async def ask(request: MessageRequest):
         # 실행 생성
         run = client.beta.threads.runs.create(
             thread_id=thread_id,
-            assistant_id=assistant_id
+            assistant_id=assistant_go_id
         )
 
         # 실행 상태 확인
@@ -92,14 +94,94 @@ async def ask(request: MessageRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"오류 발생: {str(e)}")
 
-# ✅ 2. 대화 기록 조회
-@app.get("/get_history")
-async def get_history():
-    global thread_id
-    messages = client.beta.threads.messages.list(thread_id=thread_id, order="asc")
-    conversation = []
-    for msg in messages.data:
-        content = msg.content[0].text.value.strip()
-        speaker = "🤖 챗봇" if msg.role == "assistant" else "🙂 사용자"
-        conversation.append(f"{speaker}: {content}")
-    return {"history": "\n\n".join(conversation)}
+# 산재 대화 처리 엔드포인트
+@app.post("/ask_san")
+async def ask_go(request: MessageRequest):
+    # 요청에서 thread_id와 message를 가져옵니다.
+    thread_id = request.thread_id
+    message = request.message
+
+    try:
+        # 메시지 생성
+        client.beta.threads.messages.create(
+            thread_id=thread_id,
+            role="user",
+            content=message
+        )
+
+        # 실행 생성
+        run = client.beta.threads.runs.create(
+            thread_id=thread_id,
+            assistant_id=assistant_san_id
+        )
+
+        # 실행 상태 확인
+        while True:
+            result = client.beta.threads.runs.retrieve(
+                thread_id=thread_id,
+                run_id=run.id
+            )
+            if result.status == "completed":
+                break
+            time.sleep(0.3)
+
+        # 응답 메시지 가져오기
+        response = client.beta.threads.messages.list(thread_id=thread_id)
+        answer = response.data[0].content[0].text.value
+
+        return {"answer": answer}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"오류 발생: {str(e)}")
+
+# 문서 작성 도움 요청 처리 엔드포인트
+@app.post("/ask_petition")
+async def ask_go(request: MessageRequest):
+    # 요청에서 thread_id와 message를 가져옵니다.
+    thread_id = request.thread_id
+    message = request.message
+
+    try:
+        # 메시지 생성
+        client.beta.threads.messages.create(
+            thread_id=thread_id,
+            role="user",
+            content=message
+        )
+
+        # 실행 생성
+        run = client.beta.threads.runs.create(
+            thread_id=thread_id,
+            assistant_id=assistant_san_id
+        )
+
+        # 실행 상태 확인
+        while True:
+            result = client.beta.threads.runs.retrieve(
+                thread_id=thread_id,
+                run_id=run.id
+            )
+            if result.status == "completed":
+                break
+            time.sleep(0.3)
+
+        # 응답 메시지 가져오기
+        response = client.beta.threads.messages.list(thread_id=thread_id)
+        answer = response.data[0].content[0].text.value
+
+        return {"answer": answer}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"오류 발생: {str(e)}")
+
+# #  대화 기록 조회
+# @app.get("/get_history")
+# async def get_history():
+#     global thread_id
+#     messages = client.beta.threads.messages.list(thread_id=thread_id, order="asc")
+#     conversation = []
+#     for msg in messages.data:
+#         content = msg.content[0].text.value.strip()
+#         speaker = "🤖 챗봇" if msg.role == "assistant" else "🙂 사용자"
+#         conversation.append(f"{speaker}: {content}")
+#     return {"history": "\n\n".join(conversation)}
