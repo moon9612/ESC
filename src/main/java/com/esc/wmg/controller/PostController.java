@@ -16,7 +16,6 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.esc.wmg.entity.PostEntity;
 import com.esc.wmg.entity.UserEntity;
-import com.esc.wmg.model.User;
 import com.esc.wmg.repository.PostRepository;
 import com.esc.wmg.service.ImageService;
 
@@ -110,7 +109,13 @@ public class PostController {
 
     // 게시판 글작성 페이지 이동
     @GetMapping("/postWrite")
-    public String boardWrite() {
+    public String boardWrite(HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("loginUser");
+
+        if (user == null) {
+            return "redirect:/login";
+        }
+
         return "postWrite";
     }
 
