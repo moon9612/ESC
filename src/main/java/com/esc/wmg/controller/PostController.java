@@ -81,7 +81,6 @@ public class PostController {
     // 조회수 증가 기능
     @GetMapping("/postContent")
     public String postContent(@RequestParam("post_idx") long idx, Model model, HttpSession session) {
-
         repository.views(idx); // 먼저 조회수 +1
 
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
@@ -91,6 +90,7 @@ public class PostController {
 
         model.addAttribute("post", post);
         model.addAttribute("loginUser", loginUser);
+
         return "PostContent";
     }
 
