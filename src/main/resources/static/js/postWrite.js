@@ -7,7 +7,7 @@ window.onload = function () {
   // 기본값 설정 (기본적으로 "일반" 선택)
   document.getElementById('selected-category').textContent = '일반';
   document.getElementById('category').value = '일반';
-  
+
   // 드롭다운 열기
   document.getElementById("category-button").addEventListener("click", () => {
     document.querySelector(".custom-select").classList.toggle("open");
@@ -27,18 +27,6 @@ window.onload = function () {
       document.querySelector(".custom-select").classList.remove("open");
     });
   });
-<<<<<<< HEAD
-  document.querySelectorAll('.custom-select-option').forEach(option => {
-    option.addEventListener('click', function () {
-      const value = this.getAttribute('data-value');
-      const label = this.textContent;
-      document.getElementById('selected-category').textContent = label;
-      document.getElementById('category').value = value;
-    });
-  });
-
-=======
->>>>>>> cyj
 
   // 파일 선택 시 처리하는 함수
   document.getElementById('file-upload').addEventListener('change', function (event) {
