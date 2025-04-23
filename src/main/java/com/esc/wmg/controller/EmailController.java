@@ -5,13 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.esc.wmg.service.MailService;
+import com.esc.wmg.service.sendMailService;
 
 @Controller
 public class EmailController {
 
     @Autowired
-    private MailService sendEmailService;
+    private sendMailService sendEmailService;
 
     @GetMapping("/sendEmail")
     public String sendEmail(@RequestParam String recipient,

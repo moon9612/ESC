@@ -1,6 +1,7 @@
 package com.esc.wmg.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +16,17 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    UserRepository repository;
+    private UserRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 로그인 기능
     @PostMapping("/userSelect")
     public String userSelect(UserEntity entity, HttpSession session, Model model) {
-        UserEntity loginUser = repository.findByEmailAndPw(entity.getEmail(), entity.getPw());
+        UserEntity loginUser = repository.findByEmail(entity.getEmail());
 
-        if (loginUser != null) {
+        if (loginUser != null && passwordEncoder.matches(entity.getPw(), loginUser.getPw())) {
             session.setAttribute("loginUser", loginUser);
             return "redirect:/";
         } else {
@@ -40,7 +44,8 @@ public class UserController {
     // 회원가입 기능
     @PostMapping("/userInsert")
     public String userInsert(UserEntity entity) {
-        System.out.println(entity.toString());
+        String encodePw = passwordEncoder.encode(entity.getPw());
+        entity.setPw(encodePw);
         repository.save(entity);
         return "redirect:/";
     }
