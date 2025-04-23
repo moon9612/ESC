@@ -15,4 +15,7 @@ public interface ThreadRepository extends JpaRepository<ThreadEntity, String> {
 
     // 이메일로 ThreadEntity 전체 조회
     List<ThreadEntity> findAllByEmail(String email);
+
+    // 이메일로 ThreadEntity 전체 조회 (최신순 정렬)
+    List<ThreadEntity> findAllByEmailOrderByThreadAtDesc(String email);
 }

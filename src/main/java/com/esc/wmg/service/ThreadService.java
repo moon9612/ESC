@@ -18,7 +18,7 @@ public class ThreadService {
     @Autowired
     private ChatRepository chatRepository;
 
-    // thread_id 저장
+    // threadId 저장
     public void saveThreadId(ThreadEntity thread) {
         if (thread == null) {
             throw new IllegalArgumentException("thread is null");
@@ -26,13 +26,13 @@ public class ThreadService {
         threadRepository.save(thread);
     }   
 
-    // 이메일로 ThreadEntity 전체 조회
+    // 이메일로 ThreadEntity 전체 조회 (최신순)
     public List<ThreadEntity> getAllThreadByEmail(String email) {
-        return threadRepository.findAllByEmail(email);
+        return threadRepository.findAllByEmailOrderByThreadAtDesc(email);
     }
 
-    // thread_id로 ChatEntity 조회
-    public List<ChatEntity> getChatByThreadId(String thread_id) {
-        return chatRepository.findAllByThreadId(thread_id);
+    // threadId로 ChatEntity 조회
+    public List<ChatEntity> getChatByThreadId(String threadId) {
+        return chatRepository.findAllByThreadId(threadId);
     }
 }

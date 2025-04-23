@@ -27,7 +27,7 @@ public class ThreadEntity {
     @Id
     @NonNull
     @Column(name = "thread_id", nullable = false, length = 50)
-    private String thread_id;
+    private String threadId;
 
     // fk - 사용자 이메일 (tbl_user 참조)
     @NonNull
@@ -36,11 +36,11 @@ public class ThreadEntity {
 
     // 방 제목
     @Column(name = "room_title", length = 500)
-    private String room_title;
+    private String roomTitle;
 
     // 방 소개글
     @Column(name = "room_info", columnDefinition = "TEXT")
-    private String room_info;
+    private String roomInfo;
 
     // 최대 인원 수
     @Column(name = "room_limit")
@@ -57,6 +57,6 @@ public class ThreadEntity {
     // thread 생성 시간
     @CreationTimestamp
     @Column(name = "thread_at", updatable = false)
-    private LocalDateTime thread_at;
+    private LocalDateTime threadAt;
 
 }

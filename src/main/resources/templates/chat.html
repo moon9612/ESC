@@ -348,7 +348,7 @@
       
       // 비동기 요청을 통해 챗봇의 응답을 가져옵니다.
       try {
-        const res = await fetch("http://localhost:8000/ask_go", {
+        const res = await fetch("http://localhost:8000/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: message,
@@ -450,29 +450,30 @@
       panel.querySelectorAll(".case-item").forEach(e => e.remove());
 
       threads.forEach(thread => {
-        const date = new Date(thread.thread_at);
+        const date = new Date(thread.threadAt);
         const now = new Date();
         const diffMs = now - date;
         const diffMin = Math.floor(diffMs / (1000 * 60));
         const diffHour = Math.floor(diffMs / (1000 * 60 * 60));
         const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        const safeDiffDay = diffDay < 0 ? 0 : diffDay; // 음수 보정
 
         let dateText = "";
-        if (thread.thread_id === THREAD_ID){
+        if (thread.threadId === THREAD_ID) {
           dateText = "현재 대화 중";
         } else {
-        if (diffDay === 0) {
-          if (diffHour === 0) {
-            if (diffMin < 1) dateText = "방금 전";
-            else dateText = `${diffMin}분 전`;
+          if (safeDiffDay === 0) {
+            if (diffHour === 0) {
+              if (diffMin < 1) dateText = "방금 전";
+              else dateText = `${diffMin}분 전`;
+            } else {
+              dateText = `${diffHour}시간 전`;
+            }
+          } else if (safeDiffDay === 1) {
+            dateText = "어제";
           } else {
-            dateText = `${diffHour}시간 전`;
+            dateText = `${safeDiffDay}일 전`;
           }
-        } else if (diffDay === 1) {
-          dateText = "어제";
-        } else {
-          dateText = `${diffDay}일 전`;
-        }
         }
         // form 방식으로 렌더링
         panel.innerHTML += `
