@@ -21,12 +21,12 @@ public class UserController {
     @PostMapping("/userSelect")
     public String userSelect(UserEntity entity, HttpSession session, Model model) {
         UserEntity loginUser = repository.findByEmailAndPw(entity.getEmail(), entity.getPw());
-    
+
         if (loginUser != null) {
             session.setAttribute("loginUser", loginUser);
-            return "redirect:/"; 
+            return "redirect:/";
         } else {
-            return "login"; 
+            return "login";
         }
     }
 
@@ -36,7 +36,6 @@ public class UserController {
         session.invalidate();
         return "redirect:/";
     }
-    
 
     // 회원가입 기능
     @PostMapping("/userInsert")
