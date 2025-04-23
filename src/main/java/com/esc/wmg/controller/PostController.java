@@ -85,6 +85,10 @@ public class PostController {
 
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
 
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
         PostEntity post = repository.findById(idx)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
@@ -109,7 +113,12 @@ public class PostController {
 
     // 게시판 글작성 페이지 이동
     @GetMapping("/postWrite")
-    public String boardWrite() {
+    public String boardWrite(HttpSession session) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
         return "postWrite";
     }
 

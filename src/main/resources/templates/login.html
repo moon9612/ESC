@@ -16,10 +16,10 @@
       <div class="logo">ESC</div>
       <div class="logo-subtitle">당신의 상담 매니저</div>
     </div>
-    
+
     <!-- 로그인 실패 메시지 출력 -->
-    
-    <form id="loginForm" action="userSelect" method="post">
+
+    <form id="loginForm" action="userSelect" method="post" th:action="@{/userSelect}" th:object="${loginForm}">
       <div class="form-group">
         <input type="text" id="email" name="email" class="form-input" placeholder="이메일 주소" />
         <label for="email" class="form-label">이메일 주소</label>
@@ -41,6 +41,8 @@
         </label>
         <span class="checkbox-label">로그인 상태 유지</span>
       </div>
+      <!-- CSRF 토큰 자동 추가 -->
+      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       <button type="submit" class="btn" id="loginBtn">로그인</button>
       <div class="links-container">
         <a href="#" class="link" id="forgotPasswordLink">비밀번호를 잊으셨나요?</a>
@@ -60,7 +62,7 @@
       </div>
     </form>
   </div>
-  
+
   <div class="container" id="forgotPasswordContainer" style="display: none;">
     <a href="#" class="back-btn" id="backToLoginFromForgot">
       <i class="ri-arrow-left-line"></i> 로그인으로 돌아가기
