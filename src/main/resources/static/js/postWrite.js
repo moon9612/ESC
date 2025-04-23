@@ -4,28 +4,29 @@ function toggleCheckbox(element) {
 }
 
 window.onload = function () {
-  // 드롭다운
+  // 기본값 설정 (기본적으로 "일반" 선택)
+  document.getElementById('selected-category').textContent = '일반';
+  document.getElementById('category').value = '일반';
+  
+  // 드롭다운 열기
   document.getElementById("category-button").addEventListener("click", () => {
     document.querySelector(".custom-select").classList.toggle("open");
   });
 
+  // 카테고리 선택 시 값 설정
   document.querySelectorAll(".custom-select-option").forEach(option => {
     option.addEventListener("click", () => {
-      const selected = document.getElementById("selected-category");
-      selected.textContent = option.textContent.trim();
+      const value = option.getAttribute('data-value');
+      const label = option.textContent.trim();
+
+      // 선택된 카테고리 텍스트와 input 값 업데이트
+      document.getElementById('selected-category').textContent = label;
+      document.getElementById('category').value = value;
+
+      // 드롭다운 닫기
       document.querySelector(".custom-select").classList.remove("open");
     });
   });
-  document.querySelectorAll('.custom-select-option').forEach(option => {
-    option.addEventListener('click', function () {
-      const value = this.getAttribute('data-value');
-      const label = this.textContent;
-
-      document.getElementById('selected-category').textContent = label;
-      document.getElementById('category').value = value;
-    });
-  });
-
 
   // 파일 선택 시 처리하는 함수
   document.getElementById('file-upload').addEventListener('change', function (event) {
@@ -44,7 +45,7 @@ window.onload = function () {
     if (file) {
       const fileItem = document.createElement('div');
       fileItem.classList.add('file-item');
-  
+
       const fileName = document.createElement('span');
       fileName.classList.add('file-name');
       fileName.textContent = file.name; // 파일 이름 표시
