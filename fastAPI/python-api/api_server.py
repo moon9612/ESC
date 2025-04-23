@@ -170,8 +170,8 @@ async def ask_san(req: MessageRequest):
     return {"answer": ans}
 
 # 진정서 항목들을 검토 assistant에게 보내 피드백을 받을 때 호출
-@app.post("/review_input")
-async def review_input(data: PetitionData):
+@app.post("/review_doucument")
+async def review_doucument(data: PetitionData):
     payload = json.dumps(data.extra_fields, ensure_ascii=False)
     raw = await call_assistant(data.thread_id, payload, assistant_review_id)
     return json.loads(raw)
