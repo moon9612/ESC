@@ -85,6 +85,10 @@ public class PostController {
 
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
 
+        if (loginUser == null) {
+            return "redirect:/login";
+        }
+
         PostEntity post = repository.findById(idx)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
