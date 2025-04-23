@@ -348,7 +348,7 @@
       
       // 비동기 요청을 통해 챗봇의 응답을 가져옵니다.
       try {
-        const res = await fetch("http://localhost:8000/ask", {
+        const res = await fetch("http://localhost:8000/ask_go", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: message,
@@ -404,6 +404,7 @@
             </div>
           `;
         }
+        scrollToBottom();// 챗봇 응답 작성 후 스크롤
       } catch (err) {
         console.error(err);
         const loadingEl = container.querySelector(".message.bot.loading");
@@ -464,25 +465,25 @@
         } else {
           if (safeDiffDay === 0) {
             if (diffHour === 0) {
-              if (diffMin < 1) dateText = "방금 전";
-              else dateText = `${diffMin}분 전`;
+              if (diffMin < 1) dateText = "방금 전 생성됨";
+              else dateText = `${diffMin}분 전 생성됨`;
             } else {
-              dateText = `${diffHour}시간 전`;
+              dateText = `${diffHour}시간 전 생성됨`;
             }
           } else if (safeDiffDay === 1) {
-            dateText = "어제";
+            dateText = "어제 생성됨";
           } else {
-            dateText = `${safeDiffDay}일 전`;
+            dateText = `${safeDiffDay}일 전 생성됨`;
           }
         }
         // form 방식으로 렌더링
         panel.innerHTML += `
           <div class="case-item">
-            <strong>${thread.room_title || "제목 없음"}</strong>
+            <strong>${thread.roomTitle || "제목 없음"}</strong>
             <small>${dateText}</small>
-            ${thread.room_info ? thread.room_info.substring(0, 30) + "..." : ""}
-            <form action="rechat?thread_id=${thread.thread_id}" method="get" style="display:inline;">
-              <input type="hidden" name="thread_id" value="${thread.thread_id}">
+            ${thread.roomInfo ? thread.roomInfo.substring(0, 30) + "..." : ""}
+            <form action="rechat?thread_id=${thread.threadId}" method="get" style="display:inline;">
+              <input type="hidden" name="thread_id" value="${thread.threadId}">
               <button type="submit" style="background:none;border:none;color:#2563eb;cursor:pointer;padding:0;">계속하다 →</button>
             </form>
           </div>
