@@ -155,7 +155,7 @@ public class ChatController {
 
                     return "redirect:/chat?thread_id=" + newThreadId;
                 } else {
-                    System.err.println("[X] /create_thread 응답 실패: " + response.getStatusCode());
+                    System.err.println("[X-7] /create_thread 응답 실패: " + response.getStatusCode());
                     return "main";
                 }
             } else {
@@ -174,7 +174,7 @@ public class ChatController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("[X] 예외 발생 → main으로 리다이렉트");
+            System.out.println("[X-9] 예외 발생 → main으로 리다이렉트");
             return "main";
         }
     }
