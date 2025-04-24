@@ -359,7 +359,6 @@
     function detectChanges() {
     const form = document.querySelector("form");
     const inputs = form.querySelectorAll("input, select, textarea");
-
     inputs.forEach(input => {
       input.addEventListener("change", () => {
         const payload = {
@@ -385,8 +384,11 @@
     });
     }
 
-    // 페이지 로드 시 호출
-    detectChanges();
+    // 페이지 로드 시 detectChanges 함수 호출
+    window.addEventListener("load", () => {
+      detectChanges();
+    });
+
   </script>
 </body>
 
