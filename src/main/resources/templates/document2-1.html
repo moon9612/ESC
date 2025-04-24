@@ -206,7 +206,7 @@
   </style>
 </head>
 
-<>
+<body>
   <div class="form-container">
     <header th:replace="~{fragment/header :: header}"></header>
     <form>
@@ -358,19 +358,20 @@
         message: "진정서 항목 수정 요청",
         extra_fields: { [input.name]: input.value }
       };
-
-      fetch("http://localhost:8000/review_doucument", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.json())
-      .then(result => {
-        alert("AI 검토 결과: " + JSON.stringify(result, null, 2));
-      })
-      .catch(err => {
-        alert("검토 요청 실패: " + err.message);
-      });
+      // 요청 전에 payload를 콘솔에 출력
+      console.log(" [변경 감지]서버로 전송되는 데이터:", payload);
+      // fetch("http://localhost:8000/review_doucument", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(payload)
+      // })
+      // .then(res => res.json())
+      // .then(result => {
+      //   alert("AI 검토 결과: " + JSON.stringify(result, null, 2));
+      // })
+      // .catch(err => {
+      //   alert("검토 요청 실패: " + err.message);
+      // });
     });
   });
   }
