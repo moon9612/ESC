@@ -363,7 +363,7 @@
           const res = await fetch("http://localhost:8087/save_bot_message", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: data,
+            body: JSON.stringify({ message: rawResponse,
                                   thread_id: THREAD_ID })
           });
           if (!res.ok) throw new Error("Failed to save bot_message");
@@ -488,11 +488,13 @@
           // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
 
           const messageClass = chat.chatter === "bot" ? "bot" : "user";
+          // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
+          // chat_content html로 변환
           container.innerHTML += `
             <div class="message ${messageClass}">
               <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
               <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
-              <div class="bubble">${chat.chat_content}</div>
+              <div class="bubble">${convertToHtmlFromAiText(chat.chat_content)}</div>
             </div>
           `;
         });
