@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <title>진정서</title>
@@ -61,8 +62,10 @@
     input[type="text"],
     input[type="email"],
     input[type="tel"],
+    input[type="date"],
     input[type="number"],
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 10px 14px;
       border: 1px solid #cbd5e1;
@@ -71,13 +74,28 @@
       text-align: left;
       box-sizing: border-box;
       transition: border 0.3s ease;
+      resize: none;
+    }
+    
+    textarea[name="workDetail"],
+    textarea[name="claimDetail"] {
+      min-height: 120px;
+      height: 120px;
+      resize: none;
     }
 
     input:focus {
       border: 1px solid #3b82f6;
       outline: none;
     }
-
+    
+    input[type="text"][name="wageDate"] {
+      width: 60px;
+      min-width: 40px;
+      display: inline-block;
+      margin: 0 4px;
+      text-align: center;
+    }
     .radio-box {
       display: flex;
       justify-content: center;
@@ -147,14 +165,95 @@
       color: red;
       font-weight: bold;
     }
+
+    .step {
+      position: relative;
+      z-index: 1;
+      padding: 0 5%;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+
+    .step ol li {
+      float: left;
+      max-width: 33.33333%;
+      width: 260px;
+      text-align: center;
+    }
+
+    .step ol {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .step ol li p {
+      position: relative;
+      padding-top: 30px;
+      line-height: 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .step ol li p:after {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 0;
+      /* p의 맨 위 */
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      background: #888;
+      /* 원이 span과 p 텍스트의 중간에 오도록 margin-top 조정 */
+      margin-top: 2px;
+      z-index: 1;
+    }
+
+    /* 현재 단계만 파란색 원으로 표시 */
+    .step ol li.active-step p:after {
+      background: #2563eb;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="form-container">
     <header th:replace="~{fragment/header :: header}"></header>
+    <div class="step">
+      <ol>
+        <li id="step1" data-step="1"><span>STEP 01</span>
+          <p>등록인</p>
+        </li>
+        <li id="step2" data-step="2"><span>STEP 02</span>
+          <p>피진정인(사업주)</p>
+        </li>
+        <li id="step3" data-step="3"><span>STEP 03</span>
+          <p>진정내용</p>
+        </li>
+        <li id="step4" data-step="4"><span>STEP 04</span>
+          <p>파일첨부</p>
+        </li>
+      </ol>
+    </div>
+    <form>
       <!-- 제출자 정보 -->
-      <div>
+      <div class="stepContainer step1">
         <h2>제출자 정보</h2>
         <table>
           <tr>
@@ -210,13 +309,11 @@
           </tr>
         </table>
         <div class="btn-box">
-          <button type="button">이전</button>
-          <button type="submit">제출</button>
-          <button type="button">임시저장</button>
+          <button type="button" onclick="pageMove(2)">다음</button>
         </div>
       </div>
       <!-- 피진정인 정보 -->
-      <div>
+      <div class="stepContainer step2">
         <h2>피진정인(사업주) 정보</h2>
         <table>
           <tr>
@@ -257,127 +354,118 @@
             <td colspan="2"><input type="number" name="employeeCount"></td>
           </tr>
         </table>
-
         <div class="btn-box">
-          <button type="button">이전</button>
-          <button type="submit">제출</button>
-          <button type="button">임시저장</button>
+          <button type="button" onclick="pageMove(1)">이전</button>
+          <button type="button" onclick="pageMove(3)">다음</button>
         </div>
-        </div>
-        <div class="notice">
-          <strong>※ 개인정보처리 안내:</strong> 민원처리를 위해 수집되는 정보는 관련 법령에 따라 안전하게 처리되며, 주민등록번호는 암호화되어 저장됩니다.
-        </div>
-      <!-- 기본 진정서 -->
-      <div>
-        <h2>기본 진정서 작성</h2>
+      </div>
+      <div class="stepContainer step3">
+        <h2>진정서 작성</h2>
         <table>
+          <!-- 임금체불 진정서/기타 진정서 선택 라디오박스 -->
           <tr>
             <td class="label">진정 종류</td>
             <td colspan="3">
-              <div class="radio-box">
-                <label><input type="radio" name="claimType" value="임금체불" checked> 임금체불 진정서</label>
-                <label><input type="radio" name="claimType" value="기타"> 기타 진정서</label>
+              <div class="radio-box" >
+                <label>
+                  <input type="radio" name="docType" value="wage" checked onclick="showDocType('wage')"> 임금체불 진정서
+                </label>
+                <label>
+                  <input type="radio" name="docType" value="etc" onclick="showDocType('etc')"> 기타 진정서
+                </label>
               </div>
             </td>
           </tr>
-          <tr>
-            <td class="label">입사일 <span class="required">*</span></td>
-            <td><input type="date" name="startDate" required></td>
-            <td class="label">퇴직여부 <span class="required">*</span></td>
-            <td>
-              <div class="radio-box">
-                <label><input type="radio" name="leftJob" value="퇴직" checked> 퇴직</label>
-                <label><input type="radio" name="leftJob" value="재직"> 재직</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">체불임금총액</td>
-            <td>
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <input type="text" name="unpaidWage">
-                <span>원</span>
-              </div>
-            </td>
-            <td class="label">퇴사일 <span class="required">*</span><br>(마지막 근로일의 다음날)</td>
-            <td><input type="date" name="endDate" required></td>
-          </tr>
-          <tr>
-            <td class="label">체불퇴직금액</td>
-            <td>
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <input type="text" name="retirementWage">
-                <span>원</span>
-              </div>
-            </td>
-            <td class="label">기타체불금액</td>
-            <td>
-              <div style="display: flex; align-items: center; gap: 6px;">
-                <input type="text" name="etcWage">
-                <span>원</span>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">업무 종사 내용 <span class="required">*</span></td>
-            <td colspan="3"><textarea name="workDetail" required
-                placeholder="신청인이 재직 중 맡은 업무의 내용을 기재해주세요. &#10 예) OO판매 영업 / 행사 진행 스태프 / OO제품 개발자 / 홀서빙 등"></textarea></td>
-          </tr>
-          <tr>
-            <td class="label">임금지급일</td>
-            <td>
-              <div class="monthly-day-input">
-                <span>매월 </span>
-                <input type="text" name="wageDate" maxlength="2" pattern="[0-9]*" inputmode="numeric" required placeholder="1-31사이의 날짜를 입력하세요.">
-                <span>일</span>
-              </div>
-            </td>
-            <td class="label">근로계약방법</td>
-            <td>
-              <div class="radio-box">
-                <label><input type="radio" name="leftJob" value="서면" checked> 서면</label>
-                <label><input type="radio" name="leftJob" value="구두"> 구두</label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="label">내용 <span class="required">*</span></td>
-            <td colspan="3"><textarea name="claimDetail" required
-                placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea></td>
-          </tr>
+          <!-- 임금체불 진정서 폼 -->
+          <tbody id="etcRpstY">
+            <tr>
+              <td class="label">입사일 <span class="required">*</span></td>
+              <td><input type="date" name="startDate" required></td>
+              <td class="label">퇴직여부 <span class="required">*</span></td>
+              <td>
+                <div class="radio-box">
+                  <label><input type="radio" name="leftJob" value="퇴직" checked> 퇴직</label>
+                  <label><input type="radio" name="leftJob" value="재직"> 재직</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">체불임금총액</td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <input type="text" name="unpaidWage">
+                  <span>원</span>
+                </div>
+              </td>
+              <td class="label">퇴사일 <span class="required">*</span><br>(마지막 근로일의 다음날)</td>
+              <td><input type="date" name="endDate" required></td>
+            </tr>
+            <tr>
+              <td class="label">체불퇴직금액</td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <input type="text" name="retirementWage">
+                  <span>원</span>
+                </div>
+              </td>
+              <td class="label">기타체불금액</td>
+              <td>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <input type="text" name="etcWage">
+                  <span>원</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">업무 종사 내용 <span class="required">*</span></td>
+              <td colspan="3"><textarea name="workDetail" required
+                  placeholder="신청인이 재직 중 맡은 업무의 내용을 기재해주세요. &#10 예) OO판매 영업 / 행사 진행 스태프 / OO제품 개발자 / 홀서빙 등"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">임금지급일</td>
+              <td>
+                <div class="monthly-day-input">
+                  <span>매월 </span>
+                  <input type="text" name="wageDate" maxlength="2" pattern="[0-9]*" inputmode="numeric" required
+                    placeholder="1-31사이의 날짜를 입력하세요.">
+                  <span>일</span>
+                </div>
+              </td>
+              <td class="label">근로계약방법</td>
+              <td>
+                <div class="radio-box">
+                  <label><input type="radio" name="contractType" value="서면" checked> 서면</label>
+                  <label><input type="radio" name="contractType" value="구두"> 구두</label>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="label">내용 <span class="required">*</span></td>
+              <td colspan="3"><textarea name="claimDetail" required
+                  placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea></td>
+            </tr>
+          </tbody>
+          <!-- 기타 진정서 폼 -->
+          <tbody id="etcRpstN" style="display:none;">
+            <tr>
+              <td class="label">내용 <span class="required">*</span></td>
+              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+            </tr>
+          </tbody>
         </table>
         <div class="btn-box">
-          <button type="button">이전</button>
-          <button type="submit">제출</button>
-          <button type="button">임시저장</button>
+          <button type="button" onclick="pageMove(2)">이전</button>
+          <button type="button" onclick="pageMove(4)">다음</button>
         </div>
       </div>
-      <!-- 기타 진정서 -->
-      <div>
-        <h2>기타 진정서 작성</h2>
-        <table>
-            <tr>
-                <td class="label">진정 종류</td>
-                <td>
-                    <div class="radio-box">
-                        <label><input type="radio" name="claimType" value="임금체불"> 임금체불 진정서</label>
-                        <label><input type="radio" name="claimType" value="기타" checked> 기타 진정서</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td class="label">내용 <span class="required">*</span></td>
-                <td><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
-            </tr>
-        </table>
-      </div>
-      <div>
+      <div class="stepContainer step4">
         <h2>첨부파일</h2>
         <table>
-        <tr>
-          <td class="label">관할 고용노동관서 <span class="required">*</span></td>
-          <td>
-            <select name="laborOffice" required>
+          <tr>
+            <td class="label">관할 고용노동관서 <span class="required">*</span></td>
+            <td>
+              <select name="laborOffice" required>
                 <option value="">선택하세요</option>
                 <option value="광주지방고용노동청" selected>서울지방고용노동청</option>
                 <option value="서울지방고용노동청서울강남지청">서울지방고용노동청서울강남지청</option>
@@ -387,34 +475,61 @@
                 <option value="서울지방고용노동청서울북부지청">서울지방고용노동청서울북부지청</option>
                 <option value="서울지방고용노동청서울관약지청">서울지방고용노동청서울관약지청</option>
               </select>
-          </td>
-        </tr>
-                <tr>
-                  <td class="label">첨부파일</td>
-                  <td>
-                    <div class="upload-zone">
-                      여기를 클릭하거나 파일을 드래그 하세요.
-                      <input type="file" name="attachments" multiple
-                      accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
-                    </div>
-                    <div class="info red">
-                      ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
-                      ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
-                      ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
-                  </div>
-              </td>
-        </tr>
+            </td>
+          </tr>
+          <tr>
+            <td class="label">첨부파일</td>
+            <td>
+              <div class="upload-zone">
+                여기를 클릭하거나 파일을 드래그 하세요.
+                <input type="file" name="attachments" multiple
+                  accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
+              </div>
+              <div class="info red"></div>
+              ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
+              ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
+              ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
+      </div>
+      </td>
+      </tr>
       </table>
 
       <div class="btn-box">
-          <button type="button" onclick="window.top.location.href='/'">메인</button>
-          <button type="button" onclick="window.top.location.href='/index'">이전</button>
-          <button type="submit">제출</button>
+        <button type="button" onclick="pageMove(3)">이전</button>
+        <button type="submit">제출</button>
       </div>
+  </div>
   </form>
-    <div th:replace="~{fragment/mimichat :: chatbot}"></div>
+  <div th:replace="~{fragment/mimichat :: chatbot}"></div>
   </div>
-  </div>
+  <script>
+    function pageMove(step) {
+      // stepContainer 표시/숨김
+      document.querySelectorAll('.stepContainer').forEach((container, idx) => {
+        container.style.display = 'none';
+      });
+      const target = document.querySelector('.step' + step);
+      if (target) target.style.display = 'block';
+
+      // step 표시 갱신
+      document.querySelectorAll('.step ol li').forEach(li => {
+        li.classList.remove('active-step'); // 기존 active-step 제거
+        if (li.getAttribute('data-step') == step) {
+          li.classList.add('active-step'); // 현재 단계에만 active-step 추가
+        }
+      });
+    }
+    // 라디오박스 선택에 따라 문서 폼 전환
+    function showDocType(type) {
+      document.getElementById('etcRpstY').style.display = (type === 'wage') ? '' : 'none';
+      document.getElementById('etcRpstN').style.display = (type === 'etc') ? '' : 'none';
+    }
+    // 페이지 로드시 기본값 반영
+    window.onload = function () {
+      pageMove(1);
+      showDocType(document.querySelector('input[name="docType"]:checked').value);
+    };
+  </script>
 </body>
 
 </html>
