@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <head>
     <meta charset="UTF-8" />
@@ -21,7 +21,7 @@
             padding: 50px 60px;
             border-radius: 20px;
             max-width: 900px;
-            width: 100%;
+            width: 80%;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
@@ -232,12 +232,21 @@
             </table>
 
             <div class="btn-box">
-                <button type="button">이전</button>
+                <button type="button" onclick="window.top.location.href='/'">메인</button>
+                <button type="button" onclick="window.top.location.href='/index'">이전</button>
                 <button type="submit">제출</button>
-                <button type="button">임시저장</button>
             </div>
         </form>
     </div>
+    <script>
+        document.getElementById('wageRadio').addEventListener('change', () => {
+            window.location.href = '/index2-1?t=' + new Date().getTime();
+        });
+
+        document.getElementById('etcRadio').addEventListener('change', () => {
+            window.location.href = '/index2-2?t=' + new Date().getTime();
+        });
+    </script>
 </body>
 
 </html>

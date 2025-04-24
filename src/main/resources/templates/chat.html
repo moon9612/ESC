@@ -282,16 +282,11 @@
         <aside>
           <div class="panel" id="my-case-panel">
             <strong>내 사례</strong>
-            <div class="case-item">
-              <strong>유급휴가 문의</strong><small>2일 전</small>
-              연차휴가 계산에 대한 질문...
+            <!-- <div class="case-item">
+              <strong>제목 </strong>
+              <small>작성일자</small>
             <br><a href="#">계속하다 →</a>
-            </div>
-            <div class="case-item">
-              <strong>초과 근무 보상</strong><small>1주일 전</small>
-              초과근무 수당 권리에 대해 논의하고 싶습니다...
-              <br><a href="#">계속하다 →</a>
-            </div>
+            </div> -->
           </div>
         <div class="panel">
           <strong>자원</strong>
@@ -314,11 +309,11 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    // 메시지 전송 함수
+    // 채팅 보내기 + 요청 db저장하기 + 챗봇 응답요청, 응답 받기 + 응답 db저장하기 + html 변환하기 + 출력하기
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;
-
+      // 요청시 로딩 메시지 추가
       container.innerHTML += `
         <div class="message user">
           <div class="avatar">🙂</div>
@@ -330,7 +325,8 @@
           <div class="bubble">로딩 중...</div>
         </div>
       `;
-      scrollToBottom(); // 메시지 추가 후 스크롤
+      // 메시지 추가 후 스크롤
+      scrollToBottom(); 
 
       input.value = "";
       // 비동기 요청을 통해 DB에 메시지를 저장합니다.
@@ -363,7 +359,7 @@
           const res = await fetch("http://localhost:8087/save_bot_message", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: data,
+            body: JSON.stringify({ message: rawResponse,
                                   thread_id: THREAD_ID })
           });
           if (!res.ok) throw new Error("Failed to save bot_message");
@@ -409,7 +405,7 @@
     });
 
 
-    // 비동기 방식으로 이전 thread_id 가져오기
+    // 비동기 방식으로 이전 thread_id(대화목록) 가져오기
     async function getAllThread() {
       try {
         const response = await fetch("http://localhost:8087/get_all_thread_id", {
@@ -424,7 +420,7 @@
       }
     }
 
-    // 사례 목록을 패널에 렌더링
+    // 대화 목록을 패널에 렌더링
     function renderMyCases(threads) {
       const panel = document.getElementById("my-case-panel");
       // 기존 내용(제목 strong)만 남기고 모두 삭제
@@ -471,10 +467,7 @@
       });
     }
 
-    // 페이지 로드 시 호출
-    getAllThread();
-    loadPreviousChat();
-
+    
     // 페이지 로드 시 단 한번 이전 대화 내역 불러오기
     async function loadPreviousChat() {
       try {
@@ -486,45 +479,63 @@
         // 예시: [{message, chatter}, ...]
         data.forEach(chat => {
           // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
-
+          
           const messageClass = chat.chatter === "bot" ? "bot" : "user";
+          // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
+          // chat_content html로 변환
           container.innerHTML += `
-            <div class="message ${messageClass}">
-              <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
-              <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
-              <div class="bubble">${chat.chat_content}</div>
+          <div class="message ${messageClass}">
+            <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
+            <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
+            <div class="bubble">${convertToHtmlFromAiText(chat.chat_content)}</div>
             </div>
-          `;
-        });
-        scrollToBottom(); // 이전 대화 불러온 후 스크롤
-      } catch (error) {
+            `;
+          });
+          scrollToBottom(); // 이전 대화 불러온 후 스크롤
+        } catch (error) {
         console.error("Error loading previous chat:", error);
       }
     } 
     //  OpenAI API의 응답을 HTML로 변환 함수
     function convertToHtmlFromAiText(rawResponse) {
-            const formattedResponse = rawResponse
-              // \n 줄바꿈을 <br>로 변환
-              .replace(/\n/g, "<br>")
-              // ** 내용 **을 <strong>로 변환
-              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
-              // * 내용 *을 <em>로 변환
-              .replace(/\*(.*?)\*/g, '<em>$1</em>')
-              // --- 을 <hr>로 변환 (가로줄)
-              .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
-              // #^n을 Hn으로 변환
-              .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
-              .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
-              .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
-              // 링크 변환
-              .replace(
-                /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
-                '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
-              );
+      const formattedResponse = rawResponse
+      // #^n을 Hn으로 변환
+      .replace(/^#### (.*)$/gm, '<h4>$1</h4>') // H4
+      .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
+      .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
+      .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
+      // ** 내용 **을 <strong>로 변환
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+        // * 내용 *을 <em>로 변환
+          .replace(/\*(.*?)\*/g, '<em>$1</em>')
+          // --- 을 <hr>로 변환 (가로줄)
+          .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
+          // 링크 변환
+          .replace(
+            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
+            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
+          )
+          // \n 줄바꿈을 <br>로 변환
+          .replace(/\n/g, "<br>")
+          ;
+          return formattedResponse;
+    }
+    // // 페이지 로드 시 호출
+    // getAllThread();
+    // loadPreviousChat();
 
-            return formattedResponse;
-          }
-  </script>
+    // // 페이지(html,css,js) 로드 시 함수 호출
+    // window.addEventListener("load", () => {
+    //   getAllThread();
+    //   loadPreviousChat();
+    // });
+    // html 로드 시 함수 호출
+    document.addEventListener("DOMContentLoaded", () => {
+      getAllThread();
+      loadPreviousChat();
+    });
+    
+    </script>
 
 </body>
 
