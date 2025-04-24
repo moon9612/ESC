@@ -119,11 +119,17 @@ public class UserController {
 
     // 회원가입 기능
     @PostMapping("/userInsert")
-    public String userInsert(UserEntity entity
-    ) {
+    public String userInsert(@RequestParam("email") String email, UserEntity entity, RedirectAttributes redirectAttributes) {
+
+        if (repository.findByEmail(email) != null) {
+            redirectAttributes.addFlashAttribute("fail", "사용할 수 없는 이메일 주소입니다.");
+            return "redirect:/login";  // 다시 회원가입 페이지로 리다이렉트
+        }
+
         String encodePw = passwordEncoder.encode(entity.getPw());
         entity.setPw(encodePw);
         repository.save(entity);
+        redirectAttributes.addFlashAttribute("signUp", "회원ㄱ ㅏ 입 성공!");
         return "redirect:/";
     }
 
