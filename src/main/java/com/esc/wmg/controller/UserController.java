@@ -96,19 +96,12 @@ public class UserController {
 
     // 로그인 기능
     @PostMapping("/userSelect")
-<<<<<<< HEAD
-    public String userSelect(UserEntity entity, HttpSession session, Model model) {
-        UserEntity loginUser = repository.findByEmailAndPw(entity.getEmail(), entity.getPw());
-
-        if (loginUser != null) {
-=======
     public String userSelect(UserEntity entity, HttpSession session,
             Model model
     ) {
         UserEntity loginUser = repository.findByEmail(entity.getEmail());
 
         if (loginUser != null && passwordEncoder.matches(entity.getPw(), loginUser.getPw())) {
->>>>>>> cyj
             session.setAttribute("loginUser", loginUser);
             return "redirect:/";
         } else {

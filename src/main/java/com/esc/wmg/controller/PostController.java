@@ -114,20 +114,11 @@ public class PostController {
     // 게시판 글작성 페이지 이동
     @GetMapping("/postWrite")
     public String boardWrite(HttpSession session) {
-<<<<<<< HEAD
-        UserEntity user = (UserEntity) session.getAttribute("loginUser");
-
-        if (user == null) {
-            return "redirect:/login";
-        }
-
-=======
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
 
         if (loginUser == null) {
             return "redirect:/login";
         }
->>>>>>> cyj
         return "postWrite";
     }
 
