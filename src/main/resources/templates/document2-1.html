@@ -331,53 +331,62 @@
     </form>
   </div>
   <script>
-  function formToJson(form) {
-  const data = {};
-  new FormData(form).forEach((value, key) => {
-    // 여러 값이 있는 경우 배열로 처리
-    if (data[key]) {
-      if (Array.isArray(data[key])) data[key].push(value);
-      else data[key] = [data[key], value];
-    } else {
-      data[key] = value;
-    }
-  });
-  return data;
-  }
-
-
-  // form 내부 항목의 수정점을 감지하는 함수
-  function detectChanges() {
-  const form = document.querySelector("form");
-  const inputs = form.querySelectorAll("input, select, textarea");
-
-  inputs.forEach(input => {
-    input.addEventListener("change", () => {
-      const payload = {
-        thread_id: window.THREAD_ID || "test-thread-id",
-        message: "진정서 항목 수정 요청",
-        extra_fields: { [input.name]: input.value }
-      };
-      // 요청 전에 payload를 콘솔에 출력
-      console.log(" [변경 감지]서버로 전송되는 데이터:", payload);
-      // fetch("http://localhost:8000/review_doucument", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(payload)
-      // })
-      // .then(res => res.json())
-      // .then(result => {
-      //   alert("AI 검토 결과: " + JSON.stringify(result, null, 2));
-      // })
-      // .catch(err => {
-      //   alert("검토 요청 실패: " + err.message);
-      // });
+    document.getElementById('wageRadio').addEventListener('click', () => {
+      window.location.href = '/index2-1?t=' + new Date().getTime(); // URL 강제 갱신
     });
-  });
-  }
 
-  // 페이지 로드 시 호출
-  detectChanges();
+    document.getElementById('etcRadio').addEventListener('click', () => {
+      window.location.href = '/index2-2?t=' + new Date().getTime();
+    });
+
+
+    function formToJson(form) {
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      // 여러 값이 있는 경우 배열로 처리
+      if (data[key]) {
+        if (Array.isArray(data[key])) data[key].push(value);
+        else data[key] = [data[key], value];
+      } else {
+        data[key] = value;
+      }
+    });
+    return data;
+    }
+
+
+    // form 내부 항목의 수정점을 감지하는 함수
+    function detectChanges() {
+    const form = document.querySelector("form");
+    const inputs = form.querySelectorAll("input, select, textarea");
+
+    inputs.forEach(input => {
+      input.addEventListener("change", () => {
+        const payload = {
+          thread_id: window.THREAD_ID || "test-thread-id",
+          message: "진정서 항목 수정 요청",
+          extra_fields: { [input.name]: input.value }
+        };
+        // 요청 전에 payload를 콘솔에 출력
+        console.log(" [변경 감지]서버로 전송되는 데이터:", payload);
+        // fetch("http://localhost:8000/review_doucument", {
+        //   method: "POST",
+        //   headers: { "Content-Type": "application/json" },
+        //   body: JSON.stringify(payload)
+        // })
+        // .then(res => res.json())
+        // .then(result => {
+        //   alert("AI 검토 결과: " + JSON.stringify(result, null, 2));
+        // })
+        // .catch(err => {
+        //   alert("검토 요청 실패: " + err.message);
+        // });
+      });
+    });
+    }
+
+    // 페이지 로드 시 호출
+    detectChanges();
   </script>
 </body>
 
