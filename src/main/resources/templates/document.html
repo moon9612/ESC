@@ -360,28 +360,24 @@
         </div>
       </div>
       <div class="stepContainer step3">
-        <!-- 임금체불 진정서/기타 진정서 선택 라디오박스 -->
         <h2>진정서 작성</h2>
-        <div class="radio-box" style="margin-bottom:20px;">
-          <label>
-            <input type="radio" name="docType" value="wage" checked onclick="showDocType('wage')"> 임금체불 진정서
-          </label>
-          <label>
-            <input type="radio" name="docType" value="etc" onclick="showDocType('etc')"> 기타 진정서
-          </label>
-        </div>
-        <!-- 임금체불 진정서 -->
-        <div class="rowTable on scrollX" id="etcRpstY">
-          <table>
-            <tr>
-              <td class="label">진정 종류</td>
-              <td colspan="3">
-                <div class="radio-box">
-                  <label><input type="radio" name="claimType" value="임금체불" checked> 임금체불 진정서</label>
-                  <label><input type="radio" name="claimType" value="기타"> 기타 진정서</label>
-                </div>
-              </td>
-            </tr>
+        <table>
+          <!-- 임금체불 진정서/기타 진정서 선택 라디오박스 -->
+          <tr>
+            <td class="label">진정 종류</td>
+            <td colspan="3">
+              <div class="radio-box" >
+                <label>
+                  <input type="radio" name="docType" value="wage" checked onclick="showDocType('wage')"> 임금체불 진정서
+                </label>
+                <label>
+                  <input type="radio" name="docType" value="etc" onclick="showDocType('etc')"> 기타 진정서
+                </label>
+              </div>
+            </td>
+          </tr>
+          <!-- 임금체불 진정서 폼 -->
+          <tbody id="etcRpstY">
             <tr>
               <td class="label">입사일 <span class="required">*</span></td>
               <td><input type="date" name="startDate" required></td>
@@ -439,8 +435,8 @@
               <td class="label">근로계약방법</td>
               <td>
                 <div class="radio-box">
-                  <label><input type="radio" name="leftJob" value="서면" checked> 서면</label>
-                  <label><input type="radio" name="leftJob" value="구두"> 구두</label>
+                  <label><input type="radio" name="contractType" value="서면" checked> 서면</label>
+                  <label><input type="radio" name="contractType" value="구두"> 구두</label>
                 </div>
               </td>
             </tr>
@@ -449,26 +445,15 @@
               <td colspan="3"><textarea name="claimDetail" required
                   placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea></td>
             </tr>
-          </table>
-        </div>
-        <!-- 기타 진정서 -->
-        <div class="rowTable on scrollX" id="etcRpstN" style="display:none;">
-          <table>
-            <tr>
-              <td class="label">진정 종류</td>
-              <td>
-                <div class="radio-box">
-                  <label><input type="radio" name="claimType" value="임금체불"> 임금체불 진정서</label>
-                  <label><input type="radio" name="claimType" value="기타" checked> 기타 진정서</label>
-                </div>
-              </td>
-            </tr>
+          </tbody>
+          <!-- 기타 진정서 폼 -->
+          <tbody id="etcRpstN" style="display:none;">
             <tr>
               <td class="label">내용 <span class="required">*</span></td>
-              <td><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
             </tr>
-          </table>
-        </div>
+          </tbody>
+        </table>
         <div class="btn-box">
           <button type="button" onclick="pageMove(2)">이전</button>
           <button type="button" onclick="pageMove(4)">다음</button>
@@ -536,8 +521,8 @@
     }
     // 라디오박스 선택에 따라 문서 폼 전환
     function showDocType(type) {
-      document.getElementById('etcRpstY').style.display = (type === 'wage') ? 'block' : 'none';
-      document.getElementById('etcRpstN').style.display = (type === 'etc') ? 'block' : 'none';
+      document.getElementById('etcRpstY').style.display = (type === 'wage') ? '' : 'none';
+      document.getElementById('etcRpstN').style.display = (type === 'etc') ? '' : 'none';
     }
     // 페이지 로드시 기본값 반영
     window.onload = function () {
