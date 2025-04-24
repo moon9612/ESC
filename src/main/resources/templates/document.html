@@ -62,8 +62,10 @@
     input[type="text"],
     input[type="email"],
     input[type="tel"],
+    input[type="date"],
     input[type="number"],
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 10px 14px;
       border: 1px solid #cbd5e1;
@@ -72,13 +74,28 @@
       text-align: left;
       box-sizing: border-box;
       transition: border 0.3s ease;
+      resize: none;
+    }
+    
+    textarea[name="workDetail"],
+    textarea[name="claimDetail"] {
+      min-height: 120px;
+      height: 120px;
+      resize: none;
     }
 
     input:focus {
       border: 1px solid #3b82f6;
       outline: none;
     }
-
+    
+    input[type="text"][name="wageDate"] {
+      width: 60px;
+      min-width: 40px;
+      display: inline-block;
+      margin: 0 4px;
+      text-align: center;
+    }
     .radio-box {
       display: flex;
       justify-content: center;
@@ -153,7 +170,7 @@
       position: relative;
       z-index: 1;
       padding: 0 5%;
-      margin-bottom: 60px;
+      margin-bottom: 20px;
       text-align: center;
     }
 
@@ -162,15 +179,6 @@
       list-style: none;
     }
 
-    .step:before {
-      display: block;
-      content: "";
-      position: absolute;
-      top: 45px;
-      left: 0;
-      border-top: 2px solid #888;
-      width: 100%;
-    }
 
     .step ol li {
       float: left;
@@ -188,33 +196,39 @@
 
     .step ol li p {
       position: relative;
-      padding-top: 48px;
+      padding-top: 30px;
       line-height: 20px;
       font-size: 15px;
       font-weight: 700;
       color: #000;
-    }
-
-    .step ol li span {
-      display: block;
-      line-height: 24px;
-      font-size: 15px;
-      font-weight: 700;
-      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .step ol li p:after {
       display: block;
       content: "";
       position: absolute;
-      top: 12px;
+      top: 0;
+      /* p의 맨 위 */
       left: 50%;
-      margin-left: -10px;
+      transform: translateX(-50%);
       border-radius: 50%;
       width: 20px;
       height: 20px;
       background: #888;
+      /* 원이 span과 p 텍스트의 중간에 오도록 margin-top 조정 */
+      margin-top: 2px;
+      z-index: 1;
     }
+
+    /* 현재 단계만 파란색 원으로 표시 */
+    .step ol li.active-step p:after {
+      background: #2563eb;
+    }
+
   </style>
 </head>
 
@@ -223,16 +237,16 @@
     <header th:replace="~{fragment/header :: header}"></header>
     <div class="step">
       <ol>
-        <li id="step1" class=""><span>STEP 01</span>
+        <li id="step1" data-step="1"><span>STEP 01</span>
           <p>등록인</p>
         </li>
-        <li id="step2" class=""><span>STEP 02</span>
+        <li id="step2" data-step="2"><span>STEP 02</span>
           <p>피진정인(사업주)</p>
         </li>
-        <li id="step3" class="curr"><span>STEP 03</span>
-          <p>진정내용</p><span class="hide">현재 단계</span>
+        <li id="step3" data-step="3"><span>STEP 03</span>
+          <p>진정내용</p>
         </li>
-        <li id="step4" class=""><span>STEP 04</span>
+        <li id="step4" data-step="4"><span>STEP 04</span>
           <p>파일첨부</p>
         </li>
       </ol>
@@ -295,9 +309,7 @@
           </tr>
         </table>
         <div class="btn-box">
-          <button type="button">이전</button>
-          <button type="submit">제출</button>
-          <button type="button">임시저장</button>
+          <button type="button" onclick="pageMove(2)">다음</button>
         </div>
       </div>
       <!-- 피진정인 정보 -->
@@ -342,11 +354,24 @@
             <td colspan="2"><input type="number" name="employeeCount"></td>
           </tr>
         </table>
+        <div class="btn-box">
+          <button type="button" onclick="pageMove(1)">이전</button>
+          <button type="button" onclick="pageMove(3)">다음</button>
+        </div>
       </div>
       <div class="stepContainer step3">
-        <!-- 기본 진정서 -->
+        <!-- 임금체불 진정서/기타 진정서 선택 라디오박스 -->
+        <h2>진정서 작성</h2>
+        <div class="radio-box" style="margin-bottom:20px;">
+          <label>
+            <input type="radio" name="docType" value="wage" checked onclick="showDocType('wage')"> 임금체불 진정서
+          </label>
+          <label>
+            <input type="radio" name="docType" value="etc" onclick="showDocType('etc')"> 기타 진정서
+          </label>
+        </div>
+        <!-- 임금체불 진정서 -->
         <div class="rowTable on scrollX" id="etcRpstY">
-          <h2>기본 진정서 작성</h2>
           <table>
             <tr>
               <td class="label">진정 종류</td>
@@ -427,8 +452,7 @@
           </table>
         </div>
         <!-- 기타 진정서 -->
-        <div class="rowTable on scrollX" id="etcRpstN">
-          <h2>기타 진정서 작성</h2>
+        <div class="rowTable on scrollX" id="etcRpstN" style="display:none;">
           <table>
             <tr>
               <td class="label">진정 종류</td>
@@ -446,12 +470,11 @@
           </table>
         </div>
         <div class="btn-box">
-          <button type="button">이전</button>
-          <button type="submit">제출</button>
-          <button type="button">임시저장</button>
+          <button type="button" onclick="pageMove(2)">이전</button>
+          <button type="button" onclick="pageMove(4)">다음</button>
         </div>
       </div>
-      <div>
+      <div class="stepContainer step4">
         <h2>첨부파일</h2>
         <table>
           <tr>
@@ -477,25 +500,51 @@
                 <input type="file" name="attachments" multiple
                   accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
               </div>
-              <div class="info red">
-                ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
-                ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
-                ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
-              </div>
-            </td>
-          </tr>
-        </table>
+              <div class="info red"></div>
+              ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
+              ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
+              ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
+      </div>
+      </td>
+      </tr>
+      </table>
 
-        <div class="btn-box">
-          <button type="button">메인</button>
-          <button type="button">이전</button>
-          <button type="button">임시저장</button>
-          <button type="submit">제출</button>
-        </div>
-    </form>
-    <div th:replace="~{fragment/mimichat :: chatbot}"></div>
+      <div class="btn-box">
+        <button type="button" onclick="pageMove(3)">이전</button>
+        <button type="submit">제출</button>
+      </div>
   </div>
+  </form>
+  <div th:replace="~{fragment/mimichat :: chatbot}"></div>
   </div>
+  <script>
+    function pageMove(step) {
+      // stepContainer 표시/숨김
+      document.querySelectorAll('.stepContainer').forEach((container, idx) => {
+        container.style.display = 'none';
+      });
+      const target = document.querySelector('.step' + step);
+      if (target) target.style.display = 'block';
+
+      // step 표시 갱신
+      document.querySelectorAll('.step ol li').forEach(li => {
+        li.classList.remove('active-step'); // 기존 active-step 제거
+        if (li.getAttribute('data-step') == step) {
+          li.classList.add('active-step'); // 현재 단계에만 active-step 추가
+        }
+      });
+    }
+    // 라디오박스 선택에 따라 문서 폼 전환
+    function showDocType(type) {
+      document.getElementById('etcRpstY').style.display = (type === 'wage') ? 'block' : 'none';
+      document.getElementById('etcRpstN').style.display = (type === 'etc') ? 'block' : 'none';
+    }
+    // 페이지 로드시 기본값 반영
+    window.onload = function () {
+      pageMove(1);
+      showDocType(document.querySelector('input[name="docType"]:checked').value);
+    };
+  </script>
 </body>
 
 </html>
