@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>진정서</title>
+  <link rel="stylesheet" th:href="@{/css/header.css}">
   <style>
     body {
       font-family: 'Noto Sans KR', '맑은 고딕', sans-serif;
@@ -579,6 +580,8 @@
     window.addEventListener("load", () => {
       // form 내부 항목의 수정점을 감지하는 함수
       detectChanges();
+      pageMove(1);
+      showDocType(document.querySelector('input[name="docType"]:checked').value);
     });
   </script>
 </body>
