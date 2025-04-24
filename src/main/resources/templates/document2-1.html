@@ -331,48 +331,6 @@
     </form>
   </div>
   <script>
-  async function check(params) {
-    const claimType = document.querySelector('input[name="claimType"]:checked').value;
-    const startDate = document.querySelector('input[name="startDate"]').value;  
-    const leftJob = document.querySelector('input[name="leftJob"]:checked').value;
-    const unpaidWage = document.querySelector('input[name="unpaidWage"]').value;
-    const endDate = document.querySelector('input[name="endDate"]').value;
-    const retirementWage = document.querySelector('input[name="retirementWage"]').value;
-    const etcWage = document.querySelector('input[name="etcWage"]').value;
-    const workDetail = document.querySelector('textarea[name="workDetail"]').value;
-    const wageDate = document.querySelector('input[name="wageDate"]').value;
-    const contractType = document.querySelector('input[name="contractType"]:checked').value;
-    const claimDetail = document.querySelector('textarea[name="claimDetail"]').value;
-    const laborOffice = document.querySelector('select[name="laborOffice"]').value;
-    const attachments = document.querySelector('input[name="attachments"]').files;
-
-    try {
-          const res = await fetch("http://localhost:8080/a", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                                  "claimType": claimType ,                // 진정 종류 (ex:임금체불, 기타 등)
-                                  "startDate": startDate,              // 입사일 (YYYY-MM-DD 형식)
-                                  "leftJob": leftJob,                      // 퇴직 여부 ("퇴직" 또는 "재직")
-                                  "unpaidWage":unpaidWage,                // 체불 임금 총액 (숫자 문자열, 단위 생략)
-                                  "endDate":endDate,                // 퇴사일 (마지막 근무일의 다음 날)
-                                  "retirementWage":retirementWage,             // 체불 퇴직금액
-                                  "etcWage":etcWage,                    // 기타 체불 금액
-                                  "workDetail":workDetail, // 수행한 업무 내용 (간단명료하게)
-                                  "wageDate":wageDate,                       // 매월 지급일 (1~31 사이 숫자)
-                                  "contractType":contractType,                 // 근로계약 체결 방식 ("서면" 또는 "구두")
-                                  "claimDetail":claimDetail, // 진정 내용 (사유, 경위 등 자세히)
-                                  "laborOffice":laborOffice,     // 관할 고용노동청 이름
-                                  "attachments":attachments                     // 첨부파일 (업로드 후 서버 저장 경로 또는 URL)
-                                }
-                                )
-          });
-          if (!res.ok) throw new Error("Failed to save bot_message");
-        } catch (error) {
-          console.error("Error saving bot_message:", error);
-        }
-
-  }
   
   </script>
 </body>
