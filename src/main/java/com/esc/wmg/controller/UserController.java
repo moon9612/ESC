@@ -1,6 +1,7 @@
 package com.esc.wmg.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.esc.wmg.entity.UserEntity;
 import com.esc.wmg.repository.UserRepository;
+import com.esc.wmg.service.EmailSenderService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class UserController {
@@ -20,6 +26,41 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmailSenderService senderService;
+
+    //비밀번호 찾기 페이지
+    @GetMapping("/resetPw")
+    public String resetPw() {
+        return "ResetPassword";
+    }
+
+    // 비밀번호 찾기 기능 - 인증 메일 발송
+    @PostMapping("/sendEmail")
+    public String findPassword(@RequestParam("email") String email) throws MessagingException {
+
+        String htmlContent = """
+                <div style="max-width: 600px;">
+                  <div style="background-color: rgb(33, 47, 61); border-bottom: 2px solid rgb(86, 101, 115);  color: rgb(234, 236, 238); font-size: 28px; font-weight:bold; padding: 20px 30px;">
+                    ESC
+                  </div>
+                  <div style="line-height: 133%; padding: 30px;">
+                    <span>안녕하세요! <b>고용상담 챗봇 플랫폼</b>입니다.</span><br><br>
+                    <span>해당 이메일 주소로 비밀번호 재설정을 요청하여 인증할 수 있는 링크를 발송하였습니다. 본인이 요청한 것이 맞다면 아래 링크를 클릭하여 이메일 인증을 완료한 뒤 비밀번호를 재설정해 주시기 바랍니다.</span><br><br>
+                    <a href="http://localhost:8087/resetPw"
+                       style="background-color: rgb(33, 47, 61); border-radius: 0.375rem; color: rgb(234, 236, 238);display: inline-block; padding: 0.75rem 1rem; text-decoration: none; user-select: none"
+                       target="_blank">인증하기</a><br><br>
+                    <span>혹시 본인이 요청한 적 없다면 이 이메일을 폐기해 주시기 바랍니다.</span><br><br>
+                    <span>감사합니다.</span>
+                  </div>
+                </div>
+                """;
+
+        senderService.sendHtmlEmail(email, "[고용 상담 서비스] 인증 메일입니다.", htmlContent);
+
+        return "redirect:/login";
+    }
 
     // 로그인 기능
     @PostMapping("/userSelect")

@@ -23,33 +23,33 @@ window.onload = function () {
     loginContainer.style.display = "block";
     window.scrollTo(0, 0);
   });
-  // 비밀번호 찾기 폼 검증
-  const forgotPasswordForm = document.getElementById("forgotPasswordForm");
-  const forgotEmail = document.getElementById("forgotEmail");
-  const forgotEmailError = document.getElementById("forgotEmailError");
-  const forgotEmailSuccess = document.getElementById("forgotEmailSuccess");
-  forgotPasswordForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!forgotEmail.value.trim()) {
-      forgotEmailError.textContent = "이메일 주소를 입력해주세요.";
-      forgotEmailError.classList.add("show");
-      forgotEmailSuccess.classList.remove("show");
-    } else if (!isValidEmail(forgotEmail.value)) {
-      forgotEmailError.textContent = "유효한 이메일 주소를 입력해주세요.";
-      forgotEmailError.classList.add("show");
-      forgotEmailSuccess.classList.remove("show");
-    } else {
-      forgotEmailError.classList.remove("show");
-      forgotEmailSuccess.classList.add("show");
-      // 여기에 비밀번호 재설정 이메일 전송 로직 추가
-      setTimeout(() => {
-        forgotPasswordForm.reset();
-        forgotEmailSuccess.classList.remove("show");
-        forgotPasswordContainer.style.display = "none";
-        loginContainer.style.display = "block";
-      }, 3000);
-    }
-  });
+  // // 비밀번호 찾기 폼 검증
+  // const forgotPasswordForm = document.getElementById("forgotPasswordForm");
+  // const forgotEmail = document.getElementById("forgotEmail");
+  // const forgotEmailError = document.getElementById("forgotEmailError");
+  // const forgotEmailSuccess = document.getElementById("forgotEmailSuccess");
+  // forgotPasswordForm.addEventListener("submit", function (e) {
+  //   e.preventDefault();
+  //   if (!forgotEmail.value.trim()) {
+  //     forgotEmailError.textContent = "이메일 주소를 입력해주세요.";
+  //     forgotEmailError.classList.add("show");
+  //     forgotEmailSuccess.classList.remove("show");
+  //   } else if (!isValidEmail(forgotEmail.value)) {
+  //     forgotEmailError.textContent = "유효한 이메일 주소를 입력해주세요.";
+  //     forgotEmailError.classList.add("show");
+  //     forgotEmailSuccess.classList.remove("show");
+  //   } else {
+  //     forgotEmailError.classList.remove("show");
+  //     forgotEmailSuccess.classList.add("show");
+  //     // 여기에 비밀번호 재설정 이메일 전송 로직 추가
+  //     setTimeout(() => {
+  //       forgotPasswordForm.reset();
+  //       forgotEmailSuccess.classList.remove("show");
+  //       forgotPasswordContainer.style.display = "none";
+  //       loginContainer.style.display = "block";
+  //     }, 3000);
+  //   }
+  // });
   signupLink.addEventListener("click", function (e) {
     e.preventDefault();
     loginContainer.style.display = "none";
@@ -78,7 +78,7 @@ window.onload = function () {
       }, 600);
     });
   });
-  
+
   // 회원가입 비밀번호 강도 체크
   const signupPassword = document.getElementById("signupPassword");
   const strengthMeter = document.getElementById("strengthMeter");

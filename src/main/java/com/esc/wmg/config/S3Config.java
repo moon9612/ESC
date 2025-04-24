@@ -11,15 +11,14 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-
 @Configuration
 public class S3Config {
 
     Dotenv dotenv = Dotenv.configure().load();
-    
-    private String accessKey = dotenv.get("ACCESS_KEY");;
 
-    private String secretKey = dotenv.get("SECRET_KEY");;
+    private String accessKey = dotenv.get("ACCESS_KEY");
+
+    private String secretKey = dotenv.get("SECRET_KEY");
 
     @Value("${cloud.aws.region.static}")
     private String region;

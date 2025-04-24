@@ -34,13 +34,6 @@
           비밀번호를 입력해주세요.
         </div>
       </div>
-      <div class="checkbox-container">
-        <label class="custom-checkbox">
-          <input type="checkbox" id="rememberMe" />
-          <span class="checkmark"></span>
-        </label>
-        <span class="checkbox-label">로그인 상태 유지</span>
-      </div>
       <!-- CSRF 토큰 자동 추가 -->
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       <button type="submit" class="btn" id="loginBtn">로그인</button>
@@ -48,7 +41,7 @@
         <a href="#" class="link" id="forgotPasswordLink">비밀번호를 잊으셨나요?</a>
         <a href="#" class="link" id="signupLink">회원가입</a>
       </div>
-      <div class="divider">또는</div>
+      <!-- <div class="divider">또는</div>
       <div class="social-login">
         <button type="button" class="social-btn kakao">
           <i class="ri-kakao-talk-fill"></i>
@@ -59,7 +52,7 @@
         <button type="button" class="social-btn google">
           <i class="ri-google-fill"></i>
         </button>
-      </div>
+      </div> -->
     </form>
   </div>
 
