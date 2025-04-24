@@ -76,6 +76,14 @@
         비밀번호 재설정 링크 전송
       </button>
     </form>
+    <!-- 오류 메시지가 있을 때 alert 띄우기 -->
+    <script th:if="${error != null}">
+      alert('[[${ error }]]');
+    </script>
+
+    <script th:if="${success != null}">
+      alert('[[${ success }]]');
+    </script>
   </div>
   <div class="container" id="signupContainer" style="display: none;">
     <a href="#" class="back-btn" id="backToLogin">
