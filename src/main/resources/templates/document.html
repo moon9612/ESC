@@ -230,12 +230,16 @@
     .step ol li.active-step p:after {
       background: #2563eb;
     }
+
+    .stepContainer {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
   <div class="form-container">
-    <header th:replace="~{fragment/header :: header}"></header>
+    <!-- <header th:replace="~{fragment/header :: header}"></header> -->
     <div class="step">
       <ol>
         <li id="step1" data-step="1"><span>STEP 01</span>
@@ -254,7 +258,7 @@
     </div>
     <form>
       <!-- 제출자 정보 -->
-      <div class="stepContainer step1">
+      <div class="stepContainer step-1">
         <h2>제출자 정보</h2>
         <table>
           <tr>
@@ -314,7 +318,7 @@
         </div>
       </div>
       <!-- 피진정인 정보 -->
-      <div class="stepContainer step2">
+      <div class="stepContainer step-2">
         <h2>피진정인(사업주) 정보</h2>
         <table>
           <tr>
@@ -360,7 +364,7 @@
           <button type="button" onclick="pageMove(3)">다음</button>
         </div>
       </div>
-      <div class="stepContainer step3">
+      <div class="stepContainer step-3">
         <h2>진정서 작성</h2>
         <table>
           <!-- 임금체불 진정서/기타 진정서 선택 라디오박스 -->
@@ -460,7 +464,7 @@
           <button type="button" onclick="pageMove(4)">다음</button>
         </div>
       </div>
-      <div class="stepContainer step4">
+      <div class="stepContainer step-4">
         <h2>첨부파일</h2>
         <table>
           <tr>
@@ -501,7 +505,7 @@
       </div>
   </div>
   </form>
-  <div th:replace="~{fragment/mimichat :: chatbot}"></div>
+  <!-- <div th:replace="~{fragment/mimichat :: chatbot}"></div> -->
   </div>
   <script>
     function pageMove(step) {
@@ -509,9 +513,9 @@
       document.querySelectorAll('.stepContainer').forEach((container, idx) => {
         container.style.display = 'none';
       });
-      const target = document.querySelector('.step' + step);
+      const target = document.querySelector(`.stepContainer.step-${step}`); // 클래스명 정확히 지정
       if (target) target.style.display = 'block';
-
+  
       // step 표시 갱신
       document.querySelectorAll('.step ol li').forEach(li => {
         li.classList.remove('active-step'); // 기존 active-step 제거
@@ -520,33 +524,13 @@
         }
       });
     }
+  
     // 라디오박스 선택에 따라 문서 폼 전환
     function showDocType(type) {
       document.getElementById('etcRpstY').style.display = (type === 'wage') ? '' : 'none';
       document.getElementById('etcRpstN').style.display = (type === 'etc') ? '' : 'none';
     }
-    // 페이지 로드시 기본값 반영
-    window.onload = function () {
-      pageMove(1);
-      showDocType(document.querySelector('input[name="docType"]:checked').value);
-    };
-
-
-    function formToJson(form) {
-      const data = {};
-      new FormData(form).forEach((value, key) => {
-        // 여러 값이 있는 경우 배열로 처리
-        if (data[key]) {
-          if (Array.isArray(data[key])) data[key].push(value);
-          else data[key] = [data[key], value];
-        } else {
-          data[key] = value;
-        }
-      });
-      return data;
-    }
-
-
+  
     // form 내부 항목의 수정점을 감지하는 함수
     function detectChanges() {
       const form = document.querySelector("form");
@@ -575,15 +559,16 @@
         });
       });
     }
-
-    // 페이지 로드 시 detectChanges 함수 호출
-    window.addEventListener("load", () => {
-      // form 내부 항목의 수정점을 감지하는 함수
-      detectChanges();
-      pageMove(1);
-      showDocType(document.querySelector('input[name="docType"]:checked').value);
+  
+    // 페이지 로드 시 detectChanges + step 표시 + 문서 유형 표시
+    document.addEventListener("DOMContentLoaded", () => {
+      detectChanges(); // form 내부 항목의 수정점을 감지하는 함수
+      const docType = document.querySelector('input[name="docType"]:checked');
+      if (docType) showDocType(docType.value);
+      pageMove(1); // 첫 페이지로 이동
     });
   </script>
+  
 </body>
 
 </html>
