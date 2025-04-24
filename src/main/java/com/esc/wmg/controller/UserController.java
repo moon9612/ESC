@@ -83,7 +83,7 @@ public class UserController {
                 <a href="http://localhost:8087/ResetPassword"
                    style="background-color: rgb(33, 47, 61); border-radius: 0.375rem; color: rgb(234, 236, 238); display: inline-block; padding: 0.75rem 1rem; text-decoration: none; user-select: none"
                    target="_blank">인증하기</a><br><br>
-                <span>혹시 본인이 요청한 적 없다면 이 이메일을 폐기해 주시기 바랍니다.</span><br><br>
+                <span>혹시 본인이 요청한 적 없다면 이 이메일을 삭제해 주시기 바랍니다.</span><br><br>
                 <span>감사합니다.</span>
               </div>
             </div>
@@ -119,11 +119,17 @@ public class UserController {
 
     // 회원가입 기능
     @PostMapping("/userInsert")
-    public String userInsert(UserEntity entity
-    ) {
+    public String userInsert(@RequestParam("email") String email, UserEntity entity, RedirectAttributes redirectAttributes) {
+
+        if (repository.findByEmail(email) != null) {
+            redirectAttributes.addFlashAttribute("fail", "사용할 수 없는 이메일 주소입니다.");
+            return "redirect:/login";  // 다시 회원가입 페이지로 리다이렉트
+        }
+
         String encodePw = passwordEncoder.encode(entity.getPw());
         entity.setPw(encodePw);
         repository.save(entity);
+        redirectAttributes.addFlashAttribute("signUp", "회원ㄱ ㅏ 입 성공!");
         return "redirect:/";
     }
 
