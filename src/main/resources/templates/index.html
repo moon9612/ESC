@@ -76,17 +76,16 @@
 </head>
 
 <body>
-  <header th:replace="~{fragment/header :: header}"></header>
   <button id="chat-toggle-btn" onclick="openChat()">챗봇 문의</button>
   <div class="split-layout">
     <div id="left-frame" class="left-frame full">
-      <iframe th:src="@{/document}"></iframe>
+      <iframe src="/document"></iframe>
     </div>
 
     <div id="right-frame" class="right-frame">
       <div class="chat-header">
       </div>
-      <iframe th:src="@{/minichat}"></iframe>
+      <iframe src="/minichat"></iframe>
     </div>
   </div>
 
