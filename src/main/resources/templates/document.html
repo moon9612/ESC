@@ -314,6 +314,7 @@
           </tr>
         </table>
         <div class="btn-box">
+          <button type="button" onclick="review_docu(1)">검토받기</button>
           <button type="button" onclick="pageMove(2)">다음</button>
         </div>
       </div>
@@ -361,6 +362,7 @@
         </table>
         <div class="btn-box">
           <button type="button" onclick="pageMove(1)">이전</button>
+          <button type="button" onclick="review_docu(2)">검토받기</button>
           <button type="button" onclick="pageMove(3)">다음</button>
         </div>
       </div>
@@ -385,13 +387,17 @@
           <tbody id="etcRpstY">
             <tr>
               <td class="label">입사일 <span class="required">*</span></td>
-              <td><input type="date" name="startDate" required></td>
+              <td>
+                <input type="date" name="startDate" required>
+                <div class="field-feedback" data-field="startDate"></div>
+              </td>
               <td class="label">퇴직여부 <span class="required">*</span></td>
               <td>
                 <div class="radio-box">
                   <label><input type="radio" name="leftJob" value="퇴직" checked> 퇴직</label>
                   <label><input type="radio" name="leftJob" value="재직"> 재직</label>
                 </div>
+                <div class="field-feedback" data-field="leftJob"></div>
               </td>
             </tr>
             <tr>
@@ -401,9 +407,13 @@
                   <input type="text" name="unpaidWage">
                   <span>원</span>
                 </div>
+                <div class="field-feedback" data-field="unpaidWage"></div>
               </td>
               <td class="label">퇴사일 <span class="required">*</span><br>(마지막 근로일의 다음날)</td>
-              <td><input type="date" name="endDate" required></td>
+              <td>
+                <input type="date" name="endDate" required>
+                <div class="field-feedback" data-field="endDate"></div>
+              </td>
             </tr>
             <tr>
               <td class="label">체불퇴직금액</td>
@@ -412,6 +422,7 @@
                   <input type="text" name="retirementWage">
                   <span>원</span>
                 </div>
+                <div class="field-feedback" data-field="retirementWage"></div>
               </td>
               <td class="label">기타체불금액</td>
               <td>
@@ -419,12 +430,15 @@
                   <input type="text" name="etcWage">
                   <span>원</span>
                 </div>
+                <div class="field-feedback" data-field="etcWage"></div>
               </td>
             </tr>
             <tr>
               <td class="label">업무 종사 내용 <span class="required">*</span></td>
-              <td colspan="3"><textarea name="workDetail" required
+              <td colspan="3">
+                <textarea name="workDetail" required
                   placeholder="신청인이 재직 중 맡은 업무의 내용을 기재해주세요. &#10 예) OO판매 영업 / 행사 진행 스태프 / OO제품 개발자 / 홀서빙 등"></textarea>
+                <div class="field-feedback" data-field="workDetail"></div>
               </td>
             </tr>
             <tr>
@@ -436,6 +450,7 @@
                     placeholder="1-31사이의 날짜를 입력하세요.">
                   <span>일</span>
                 </div>
+                <div class="field-feedback" data-field="wageDate"></div>
               </td>
               <td class="label">근로계약방법</td>
               <td>
@@ -443,24 +458,29 @@
                   <label><input type="radio" name="contractType" value="서면" checked> 서면</label>
                   <label><input type="radio" name="contractType" value="구두"> 구두</label>
                 </div>
+                <div class="field-feedback" data-field="contractType"></div>
               </td>
             </tr>
             <tr>
               <td class="label">내용 <span class="required">*</span></td>
-              <td colspan="3"><textarea name="claimDetail" required
-                  placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea></td>
+              <td colspan="3">
+                <textarea name="claimDetail" required placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea>
+                <div class="field-feedback" data-field="claimDetail"></div>
+              </td>
             </tr>
           </tbody>
           <!-- 기타 진정서 폼 -->
           <tbody id="etcRpstN" style="display:none;">
             <tr>
               <td class="label">내용 <span class="required">*</span></td>
-              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea>
+              <div class="field-feedback" data-field="content"></div></td>
             </tr>
           </tbody>
         </table>
         <div class="btn-box">
           <button type="button" onclick="pageMove(2)">이전</button>
+          <button type="button" onclick="review_docu(3)">검토받기</button>
           <button type="button" onclick="pageMove(4)">다음</button>
         </div>
       </div>
@@ -501,12 +521,24 @@
 
       <div class="btn-box">
         <button type="button" onclick="pageMove(3)">이전</button>
+        <button type="button" onclick="review_docu(4)">검토받기</button>
         <button type="submit">제출</button>
       </div>
   </div>
   </form>
   </div>
+  <!-- <button id="chat-toggle-btn" onclick="openChat()">챗봇 문의</button>
+<div class="split-layout">
+  <div id="left-frame" class="left-frame full">
+    <iframe th:src="@{/document}"></iframe>
+  </div>
   
+  <div id="right-frame" class="right-frame">
+      <div class="chat-header">
+      </div>
+      <iframe th:src="@{/minichat}"></iframe>
+    </div>
+  </div> -->
   <script>
     function pageMove(step) {
       // stepContainer 표시/숨김
@@ -515,7 +547,7 @@
       });
       const target = document.querySelector(`.stepContainer.step-${step}`); // 클래스명 정확히 지정
       if (target) target.style.display = 'block';
-  
+
       // step 표시 갱신
       document.querySelectorAll('.step ol li').forEach(li => {
         li.classList.remove('active-step'); // 기존 active-step 제거
@@ -524,13 +556,116 @@
         }
       });
     }
-  
+
+    // 검토 받기 버튼
+    async function review_docu(step) {
+      // class="stepContainer step-${step}" 내부의 모든 input,select, textarea 항목 json으로 보내기
+      // 검토 요청 페이지만 불러오기
+      const stepContainer = document.querySelector(`.stepContainer.step-${step}`);
+      console.log("stepContainer 선택:", stepContainer);
+      // 검토 요청 페이지 내부 요소 선택
+      const inputs = stepContainer.querySelectorAll("input, select, textarea");
+      console.log("stepContainer 내부 데이터 선택:", inputs);
+      const selectedDocType = document.querySelector('input[name="docType"]:checked')?.value;
+      const selectedWageDate = document.querySelector('input[name="wageDate"]:checked')?.value.replace(/\"(.*?)\"/g, '매월 $1 일');
+      console.log("검토 요청 데이터:", selectedWageDate);
+      // 내부요소 name:value로 json에 담기
+
+      const extraFields = {};
+
+      inputs.forEach(input => {
+        const { name, type, checked, value } = input;
+        // 임금체불 진정서, 기타 진정서 항목 라디오 박스 선택에 따라 wage/기타 항목 필터링
+        if (selectedDocType === "wage" && name === "content") return;   // 기본 진정서 → content 제외
+        if (selectedDocType === "etc" && name !== "content" && name !== "claimType" && name !== "laborOffice") return;
+
+        // radio는 checked된 값만 반영
+        if (type === "radio") {
+          if (checked) {
+            extraFields[name] = value;
+          }
+        }
+        // checkbox는 배열로 누적 저장
+        else if (type === "checkbox") {
+          if (!extraFields[name]) {
+            extraFields[name] = [];  // 초기화
+          }
+          if (checked) {
+            extraFields[name].push(value);
+          }
+        }
+        // 그 외 일반 input, textarea, select 등은 그대로 저장
+        else {
+          extraFields[name] = value;
+        }
+      });
+      // JS에서 undefined/null 값을 가진 항목 제거
+      Object.keys(extraFields).forEach(key => {
+        if (extraFields[key] === undefined || extraFields[key] === null) {
+          delete extraFields[key];
+        }
+      });
+      console.log(" 검토 받는 extraFields :", extraFields);
+      const payload = {
+        thread_id: window.THREAD_ID || "test-thread-id",
+        message: "진정서 검토 요청",
+        extra_fields: extraFields
+      };
+      // 요청 전에 payload를 콘솔에 출력
+      console.log(" 검토 받는 payload :", payload);
+      try {
+        const res = await fetch("http://localhost:8000/review_document", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        const feedback = data.structured_feedback?.fields || {};
+        console.log("검토 요청 결과:", data);
+        // 모든 field-feedback div 초기화
+        document.querySelectorAll('.field-feedback').forEach(div => {
+          div.textContent = '';
+          div.style.color = '';
+        });
+
+        // valid가 false인 항목만 해당 div에 출력
+        Object.entries(feedback).forEach(([field, info]) => {
+          if (info.valid === false && info.feedback) {
+            const feedbackDiv = document.querySelector(`.field-feedback[data-field="${field}"]`);
+            if (feedbackDiv) {
+              // 기존 내용 지우기
+              feedbackDiv.innerHTML = "";
+
+              // feedback 출력
+              const feedbackMsg = document.createElement("div");
+              feedbackMsg.textContent = info.feedback;
+              feedbackMsg.style.color = info.severity === "error" ? "#dc2626" : "#f59e42";
+              feedbackDiv.appendChild(feedbackMsg);
+
+              // suggestion가 있으면 아래에 출력
+              if (info.suggestion) {
+                const suggestionMsg = document.createElement("div");
+                suggestionMsg.textContent = info.suggestion;
+                suggestionMsg.style.color = "#2563eb";
+                suggestionMsg.style.marginTop = "4px";
+                feedbackDiv.appendChild(suggestionMsg);
+              }
+            }
+          }
+        });
+        // (원한다면 summary 등도 alert로 표시)
+        // alert(data.structured_feedback.summary);
+      } catch (error) {
+        console.error("Error saving bot_message:", error);
+      }
+    }
+
     // 라디오박스 선택에 따라 문서 폼 전환
     function showDocType(type) {
       document.getElementById('etcRpstY').style.display = (type === 'wage') ? '' : 'none';
       document.getElementById('etcRpstN').style.display = (type === 'etc') ? '' : 'none';
     }
-  
+
     // form 내부 항목의 수정점을 감지하는 함수
     function detectChanges() {
       const form = document.querySelector("form");
@@ -559,16 +694,18 @@
         });
       });
     }
-  
+
+
+
     // 페이지 로드 시 detectChanges + step 표시 + 문서 유형 표시
     document.addEventListener("DOMContentLoaded", () => {
-      detectChanges(); // form 내부 항목의 수정점을 감지하는 함수
+      // detectChanges(); // form 내부 항목의 수정점을 감지하는 함수
       const docType = document.querySelector('input[name="docType"]:checked');
       if (docType) showDocType(docType.value);
       pageMove(1); // 첫 페이지로 이동
     });
   </script>
-  
+
 </body>
 
 </html>
