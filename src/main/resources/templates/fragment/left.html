@@ -1,0 +1,305 @@
+<div th:fragment="left">
+<div class="container">
+    <!-- 1단계 -->
+    <div class="section active" id="step1">
+        <h2>제출자 및 피진정인 정보</h2>
+        <form>
+            <table>
+                <tr>
+                    <td class="label">성명 <span class="required">*</span></td>
+                    <td colspan="2"><input type="text" name="submitterName" required></td>
+                    <td class="label">주민등록번호 <span class="required">*</span></td>
+                    <td colspan="2">
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" name="rrnFront" maxlength="6" required>
+                            <input type="text" name="rrnBack" maxlength="7" required>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">주소 <span class="required">*</span></td>
+                    <td colspan="5">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly>
+                            <button type="button" class="postcode-btn" onclick="execDaumPostcode()">우편 번호 찾기</button>
+                        </div>
+                        <input type="text" id="roadAddress" name="address" placeholder="도로명 주소" readonly
+                            style="margin-bottom: 8px;">
+                        <input type="text" id="detailAddress" name="addressDetail" placeholder="상세 주소 입력">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">전화번호</td>
+                    <td colspan="2"><input type="text" name="tel"></td>
+                    <td class="label">휴대전화 <span class="required">*</span></td>
+                    <td colspan="2"><input type="tel" name="submitterPhone" required></td>
+                </tr>
+                <tr>
+                    <td class="label">이메일 <span class="required">*</span></td>
+                    <td colspan="5"><input type="email" name="email"></td>
+                </tr>
+                <tr>
+                    <td class="label">민원 처리 상황 알림 <span class="required">*</span></td>
+                    <td colspan="5">
+                        <div class="radio-box">
+                            <label><input type="radio" name="notify" value="yes" checked> 수신함 (휴대전화, 이메일)</label>
+                            <label><input type="radio" name="notify" value="no"> 수신 안함</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">전자문서 통지 여부 <span class="required">*</span></td>
+                    <td colspan="5">
+                        <div class="radio-box">
+                            <label><input type="radio" name="documentAgree" value="yes" checked> 동의함</label>
+                            <label><input type="radio" name="documentAgree" value="no"> 동의 안함</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>피진정인(사업주) 정보</h2>
+            <table>
+                <tr>
+                    <td class="label">성명 <span class="required">*</span></td>
+                    <td colspan="2"><input type="text" name="employerName" required></td>
+                    <td class="label">휴대전화 <span class="required">*</span></td>
+                    <td colspan="2"><input type="tel" name="employerPhone" required></td>
+                </tr>
+                <tr>
+                    <td class="label">사업체 구분</td>
+                    <td colspan="5">
+                        <div class="radio-box">
+                            <label><input type="radio" name="workplaceType" value="사업장" checked> 사업장</label>
+                            <label><input type="radio" name="workplaceType" value="공사현장"> 공사현장</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">회사명 <span class="required">*</span></td>
+                    <td colspan="5"><input type="text" name="companyName" required></td>
+                </tr>
+                <tr>
+                    <td class="label">회사 주소<br>(실근무장소) <span class="required">*</span></td>
+                    <td colspan="5">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" id="companyPostcode" name="companyPostcode" placeholder="우편번호" readonly>
+                            <button type="button" class="postcode-btn" onclick="execCompanyPostcode()">우편 번호 찾기</button>
+                        </div>
+                        <input type="text" id="companyAddress" name="companyAddress" placeholder="도로명 주소" readonly
+                            style="margin-bottom: 8px;">
+                        <input type="text" id="companyDetail" name="companyDetail" placeholder="상세 주소">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">회사전화번호 <span class="required">*</span></td>
+                    <td colspan="2"><input type="text" name="companyTel" required></td>
+                    <td class="label">근로자수</td>
+                    <td colspan="2"><input type="number" name="employeeCount"></td>
+                </tr>
+            </table>
+
+            <div class="btn-box">
+                <button type="button" onclick="goToStep(1)">이전</button>
+                <button type="button" onclick="goToStep(2)">다음</button>
+                <!-- <button type="button">임시저장</button> -->
+            </div>
+
+            <div class="notice">
+                <strong>※ 개인정보처리 안내:</strong> 민원처리를 위해 수집되는 정보는 관련 법령에 따라 안전하게 처리되며, 주민등록번호는 암호화되어 저장됩니다.
+            </div>
+        </form>
+    </div>
+
+    <!-- 2단계 -->
+    <div class="section" id="step2">
+        <h2>기본 진정서 작성 및 첨부</h2>
+        <form>
+            <table>
+                <tr>
+                    <td class="label">진정 종류</td>
+                    <td colspan="3">
+                        <div class="radio-box">
+                            <label for="wageRadio2">
+                                <input type="radio" name="claimTypeStep2" value="기본체불" id="wageRadio2" checked>
+                                기본 진정서
+                            </label>
+                            <label for="etcRadio2">
+                                <input type="radio" name="claimTypeStep2" value="기타" id="etcRadio2"
+                                    onclick="goToStep(3)">
+                                기타 진정서
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">입사일 <span class="required">*</span></td>
+                    <td><input type="date" name="startDate" required></td>
+                    <td class="label">퇴직여부 <span class="required">*</span></td>
+                    <td>
+                        <div class="radio-box">
+                            <label><input type="radio" name="leftJob" value="퇴직" checked> 퇴직</label>
+                            <label><input type="radio" name="leftJob" value="재직"> 재직</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">체불임금총액</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="text" name="unpaidWage">
+                            <span>원</span>
+                        </div>
+                    </td>
+                    <td class="label">퇴사일 <span class="required">*</span><br>(마지막 근로일의 다음날)</td>
+                    <td><input type="date" name="endDate" required></td>
+                </tr>
+                <tr>
+                    <td class="label">체불퇴직금액</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="text" name="retirementWage">
+                            <span>원</span>
+                        </div>
+                    </td>
+                    <td class="label">기타체불금액</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <input type="text" name="etcWage">
+                            <span>원</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">업무 종사 내용 <span class="required">*</span></td>
+                    <td colspan="3"><textarea name="workDetail" required
+                            placeholder="신청인이 재직 중 맡은 업무의 내용을 기재해주세요. &#10 예) OO판매 영업 / 행사 진행 스태프 / OO제품 개발자 / 홀서빙 등"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">임금지급일</td>
+                    <td>
+                        <div class="monthly-day-input">
+                            <span>매월 </span>
+                            <input type="text" name="wageDate" maxlength="2" pattern="[0-9]*" inputmode="numeric"
+                                required placeholder="1-31사이의 날짜를 입력하세요.">
+                            <span>일</span>
+                        </div>
+                    </td>
+                    <td class="label">근로계약방법</td>
+                    <td>
+                        <div class="radio-box">
+                            <label><input type="radio" name="leftJob" value="서면" checked> 서면</label>
+                            <label><input type="radio" name="leftJob" value="구두"> 구두</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">내용 <span class="required">*</span></td>
+                    <td colspan="3"><textarea name="claimDetail" required
+                            placeholder="임금체불 내역 및 체불 경위에 대해 구체적으로 작성해 주세요."></textarea></td>
+                </tr>
+            </table>
+
+            <h2>관할 지방 고용노동관서 및 파일첨부</h2>
+            <table>
+                <tr>
+                    <td class="label">관할관서 <span class="required">*</span></td>
+                    <td>
+                        <select name="laborOffice" required>
+                            <option value="">선택하세요</option>
+                            <option value="광주지방고용노동청" selected>서울지방고용노동청</option>
+                            <option value="서울지방고용노동청서울강남지청">서울지방고용노동청서울강남지청</option>
+                            <option value="서울지방고용노동청서울동부지청">서울지방고용노동청서울동부지청</option>
+                            <option value="서울지방고용노동청서울서부지청">서울지방고용노동청서울서부지청</option>
+                            <option value="서울지방고용노동청서울남부지청">서울지방고용노동청서울남부지청</option>
+                            <option value="서울지방고용노동청서울북부지청">서울지방고용노동청서울북부지청</option>
+                            <option value="서울지방고용노동청서울관약지청">서울지방고용노동청서울관약지청</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">첨부파일</td>
+                    <td>
+                        <div class="upload-zone">
+                            여기를 클릭하거나 파일을 드래그 하세요.<br>
+                            <input type="file" name="attachments" multiple
+                                accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
+                        </div>
+                        <div class="info red">
+                            ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
+                            ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
+                            ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성하세요.
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-box">
+                <button type="button" onclick="goToStep(1)">이전</button>
+                <button type="submit">제출</button>
+            </div>
+        </form>
+    </div>
+    <!-- 3단계 -->
+    <div class="section" id="step3">
+        <h2>기타 진정서 작성 및 첨부</h2>
+        <form>
+            <table>
+                <tr>
+                    <td class="label">진정 종류</td>
+                    <td>
+                        <div class="radio-box">
+                            <label for="wageRadio3">
+                                <input type="radio" name="claimTypeStep3" value="기본체불" id="wageRadio3"
+                                    onclick="goToStep(2)">
+                                기본 진정서
+                            </label>
+                            <label for="etcRadio3">
+                                <input type="radio" name="claimTypeStep3" value="기타" id="etcRadio3">
+                                기타 진정서
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">내용 <span class="required">*</span></td>
+                    <td><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">관할 고용노동관서 <span class="required">*</span></td>
+                    <td>
+                        <select name="laborOffice" required>
+                            <option value="">선택하세요</option>
+                            <option value="광주지방고용노동청" selected>서울지방고용노동청</option>
+                            <option value="서울지방고용노동청서울강남지청">서울지방고용노동청서울강남지청</option>
+                            <option value="서울지방고용노동청서울동부지청">서울지방고용노동청서울동부지청</option>
+                            <option value="서울지방고용노동청서울서부지청">서울지방고용노동청서울서부지청</option>
+                            <option value="서울지방고용노동청서울남부지청">서울지방고용노동청서울남부지청</option>
+                            <option value="서울지방고용노동청서울북부지청">서울지방고용노동청서울북부지청</option>
+                            <option value="서울지방고용노동청서울관약지청">서울지방고용노동청서울관약지청</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">첨부파일</td>
+                    <td>
+                        <div class="upload-zone">
+                            여기를 클릭하거나 파일을 드래그 하세요.
+                            <input type="file" name="attachments" multiple
+                                accept=".hwp,.doc,.pdf,.txt,.xls,.gif,.jpg,.jpeg,.bmp,.zip" />
+                        </div>
+                        <div class="info red">
+                            ※ 업로드 허용 확장자: hwp, doc, pdf, txt, xls, gif, jpg, jpeg, bmp, zip<br>
+                            ※ 각 파일 크기: 최대 100MB, 최대 10개까지 가능<br>
+                            ※ 파일명은 한글, 영문, 숫자 (20자 이내)로만 구성
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="btn-box">
+                <button type="button" onclick="goToStep(1)">이전</button>
+                <button type="submit">제출</button>
+            </div>
+        </form>
+    </div>
+</div>

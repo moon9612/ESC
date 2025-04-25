@@ -1,0 +1,24 @@
+<div th:fragment="right">
+    <div class="chat-wrapper">
+        <section class="chat-section">
+            <div class="chat-header">
+                진정서 챗봇 상담
+                <button class="close-btn" onclick="parent.toggleChat()">×</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot">
+                    <div class="avatar">🤖</div>
+                    <div class="name">챗봇</div>
+                    <div class="bubble">
+                        저는 진정서 관련 문의를 전문적으로 상담하고 법적 조언을 제공하는 노무사입니다.<br>
+                        진정서 관련 문의를 말씀해 주시면 함께 해결해 드리겠습니다.
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="메시지를 입력하세요..." />
+                <button id="send-btn" type="button">전송</button>
+            </div>
+        </section>
+    </div>
+</div>
