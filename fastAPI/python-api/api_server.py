@@ -184,11 +184,11 @@ async def review_document(data: PetitionData):
     return json.loads(raw)
 
 # 검토 assistant가 제안한 수정을 사용자 수락 후 서버에 반영할 때 호출
-@app.post("/apply_feedback")
-async def apply_feedback(patch: ApplyPatch):
-    async with context_lock:
-        context_state.setdefault(patch.thread_id, {}).update(patch.patched_fields)
-    return {"status": "updated"}
+# @app.post("/apply_feedback")
+# async def apply_feedback(patch: ApplyPatch):
+#     async with context_lock:
+#         context_state.setdefault(patch.thread_id, {}).update(patch.patched_fields)
+#     return {"status": "updated"}
 
 # 저장된 항목 기반으로 자동 진정 내용 초안을 생성할 때 호출
 @app.post("/auto_template")
