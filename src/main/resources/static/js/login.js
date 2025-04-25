@@ -192,8 +192,6 @@ window.onload = function () {
   function validateSignupForm() {
     const isEmailValid =
       signupEmail.value.trim() && isValidEmail(signupEmail.value);
-    const isPasswordValid =
-      signupPassword.value.trim() && signupPassword.value.length >= 8;
     const isConfirmPasswordValid =
       confirmPassword.value === signupPassword.value;
     const isNameValid = nameInput.value.trim();
@@ -201,7 +199,6 @@ window.onload = function () {
       birthDateInput.value && !birthDateError.classList.contains("show");
     if (
       isEmailValid &&
-      isPasswordValid &&
       isConfirmPasswordValid &&
       isNameValid &&
       isBirthDateValid
@@ -211,17 +208,6 @@ window.onload = function () {
       signupBtn.classList.remove("active");
     }
   }
-
-  signupForm.addEventListener("submit", function (e) {
-    if (signupBtn.classList.contains("active")) {
-      alert("회원가입 성공!");
-      signupContainer.style.display = "none";
-      loginContainer.style.display = "block";
-      // 기본 동작 허용 → 폼 자동 전송
-    } else {
-      e.preventDefault(); // 조건 만족 안 하면 전송 막음
-    }
-  });
 
   //유틸리티 함수 
   function isValidEmail(email) {
