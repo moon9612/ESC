@@ -473,7 +473,8 @@
           <tbody id="etcRpstN" style="display:none;">
             <tr>
               <td class="label">내용 <span class="required">*</span></td>
-              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea></td>
+              <td colspan="3"><textarea name="content" required placeholder="내용을 구체적으로 입력해 주세요."></textarea>
+              <div class="field-feedback" data-field="content"></div></td>
             </tr>
           </tbody>
         </table>
@@ -652,10 +653,8 @@
             }
           }
         });
-
         // (원한다면 summary 등도 alert로 표시)
         // alert(data.structured_feedback.summary);
-
       } catch (error) {
         console.error("Error saving bot_message:", error);
       }
