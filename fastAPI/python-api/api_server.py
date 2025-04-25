@@ -24,6 +24,7 @@ import json
 import logging
 import os
 from typing import Dict
+from typing import Any
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -39,7 +40,6 @@ from dotenv import load_dotenv
 # ------------------------------------------------------------------
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
 assistant_go_id       = os.getenv("ASSISTANT_GO_ID")
 assistant_san_id      = os.getenv("ASSISTANT_INDUSTRIAL_ACCIDENT_ID")
 assistant_petition_id = os.getenv("ASSISTANT_PETITION_ID")
@@ -86,19 +86,23 @@ class MessageRequest(BaseModel):
     thread_id: str  # OpenAI Thread ID
     message: str
 
+# class PetitionData(BaseModel):
+#     thread_id: str
+#     message: str
+#     extra_fields: dict[str, str | list[str]] = Field(...)
 class PetitionData(BaseModel):
     thread_id: str
     message: str
-    extra_fields: Dict[str, str] = Field(...)
+    extra_fields: dict[str, Any]    
 
-    @field_validator("extra_fields")
-    @classmethod
-    def check_keys(cls, v):
-        must = {"name", "contact", "date"}
-        missing = must - v.keys()
-        if missing:
-            raise ValueError(f"필수 항목 누락: {', '.join(missing)}")
-        return v
+    # @field_validator("extra_fields")
+    # @classmethod
+    # def check_keys(cls, v):
+    #     must = {"name", "contact", "date"}
+    #     missing = must - v.keys()
+    #     if missing:
+    #         raise ValueError(f"필수 항목 누락: {', '.join(missing)}")
+    #     return v
 
 class ApplyPatch(BaseModel):
     thread_id: str
@@ -170,10 +174,13 @@ async def ask_san(req: MessageRequest):
     return {"answer": ans}
 
 # 진정서 항목들을 검토 assistant에게 보내 피드백을 받을 때 호출
-@app.post("/review_doucument")
-async def review_doucument(data: PetitionData):
+@app.post("/review_document")
+async def review_document(data: PetitionData):
     payload = json.dumps(data.extra_fields, ensure_ascii=False)
+    print("수정 요청 내용"+payload)
+    data.thread_id = 'thread_6HfSXTsvlPUvBvv79DXMtRCa'
     raw = await call_assistant(data.thread_id, payload, assistant_review_id)
+    print("raw", raw)
     return json.loads(raw)
 
 # 검토 assistant가 제안한 수정을 사용자 수락 후 서버에 반영할 때 호출
