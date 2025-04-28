@@ -25,7 +25,8 @@ import logging
 import os
 from typing import Dict
 from typing import Any
-
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from openai import OpenAI
@@ -45,6 +46,7 @@ assistant_san_id      = os.getenv("ASSISTANT_INDUSTRIAL_ACCIDENT_ID")
 assistant_petition_id = os.getenv("ASSISTANT_PETITION_ID")
 assistant_review_id   = os.getenv("ASSISTANT_REVIEW_ID")
 assistant_template_id = os.getenv("ASSISTANT_TEMPLATE_ID")
+assistant_mini_id = os.getenv("ASSISTANT_MINI_ID")
 
 required_ids = {
     "ASSISTANT_GO_ID": assistant_go_id,
@@ -52,6 +54,7 @@ required_ids = {
     "ASSISTANT_PETITION_ID": assistant_petition_id,
     "ASSISTANT_REVIEW_ID": assistant_review_id,
     "ASSISTANT_TEMPLATE_ID": assistant_template_id,
+    "ASSISTANT_MINI_ID": assistant_mini_id
 }
 for env_name, value in required_ids.items():
     if not value:
@@ -112,6 +115,12 @@ class TemplateRequest(BaseModel):
     thread_id: str
     template_type: str
 
+class ChatRequest(BaseModel):
+    thread_id: str
+    message: str
+    # assistant_id: str | None = None  # 없으면 템플릿용 기본 assistant 사용
+
+
 # ------------------------------------------------------------------
 # 3. 상태 저장소 ----------------------------------------------------
 # ------------------------------------------------------------------
@@ -122,6 +131,8 @@ context_state: Dict[str, Dict[str, str]] = {}
 # 동시 요청이 들어올 경우 상태 변경 충돌을 막기 위해 asyncio.Lock 사용
 context_lock = asyncio.Lock()
 
+# 
+templates = Jinja2Templates(directory="templates")  
 # ------------------------------------------------------------------
 # 4. GPT 호출 공통 함수 --------------------------------------------
 # ------------------------------------------------------------------
@@ -219,7 +230,26 @@ async def generate_document(data: PetitionData):
             "본문": body,
         }
     }
+# 진정서 도움 요청 챗봇 포인트
+@app.post("/ask_mini")
+async def ask_mini(req: ChatRequest):
+    assistant_id = assistant_mini_id
+    ans = await call_assistant(req.thread_id, req.message, assistant_id)
+    return {"answer": ans}
 
+
+# 진정서 항목 작성 도움 요청
+@app.get("/index", response_class=HTMLResponse)
+async def index(request: ChatRequest):
+    return templates.TemplateResponse(
+        "index.html", 
+        {
+        "request": request, 
+        "thread_id": request.thread_id,
+        "template_assistant_id": assistant_template_id, 
+        "feedback_assistant_id": assistant_review_id
+        }
+    )
 # ------------------------------------------------------------------
 # 6. 로깅 -----------------------------------------------------------
 # ------------------------------------------------------------------
