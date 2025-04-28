@@ -1,0 +1,14 @@
+package com.esc.wmg.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.esc.wmg.entity.CommentEntity;
+import java.util.List;
+
+
+@Repository
+public interface  CommentRepository extends JpaRepository<CommentEntity, Long>{
+
+    List<CommentEntity> findByPostIdx(long postIdx);
+}

@@ -42,14 +42,13 @@
 
             <span class="notice-date" th:text="${#temporals.format(post.created_at, 'yyyy-MM-dd')}"></span>
           </div>
-          <div th:if="${loginUser != null and #strings.substringBefore(session.loginUser.email, '@') == post.post_email}">
+          <div
+            th:if="${loginUser != null and #strings.substringBefore(session.loginUser.email, '@') == post.post_email}">
             <div class="post_update">
-              <a th:href="@{/goPostUpdate(post_idx=${post.post_idx})}"
-                class="post-update-link">수정</a>
+              <a th:href="@{/goPostUpdate(post_idx=${post.post_idx})}" class="post-update-link">수정</a>
             </div>
             <div class="post_delete">
-              <a th:href="@{/goPostDelete(post_idx=${post.post_idx})}"
-                class="post-delete-link">삭제</a>
+              <a th:href="@{/goPostDelete(post_idx=${post.post_idx})}" class="post-delete-link">삭제</a>
             </div>
           </div>
           <h2 class="notice-title" th:text="${post.post_title}"></h2>
@@ -76,10 +75,58 @@
               </div>
             </div>
           </div>
-
           <br>
         </div>
 
+        <!-- Engagement Metrics -->
+        <div class="engagement">
+          <div class="reactions">
+            <div class="reaction-icons">
+              <div class="reaction-icon like"><i class="ri-thumb-up-fill"></i></div>
+              <div class="reaction-icon love"><i class="ri-heart-fill"></i></div>
+            </div>
+            <span id="likeCount">87 reactions</span>
+          </div>
+          <div class="comments-shares">
+            <span>23 comments</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="action-button"><i class="ri-thumb-up-line"></i> Like</button>
+          <button class="action-button"><i class="ri-chat-1-line"></i> Comment</button>
+        </div>
+
+        <div class="comment-input-area">
+          <div class="profile-pic-small">
+            <div th:text="${loginUser != null ? loginUser.nick : 'Guest'}"></div> <!-- 로그인한 사용자의 닉네임, 로그인 안 되어 있으면 'Guest' -->
+          </div>
+          <div class="comment-box">
+            <form action="/sendComment" method="POST" id="comment-form">
+              <!-- 댓글 입력 영역 -->
+              <textarea name="cmt_comment" placeholder="댓글 입력..." class="comment-textarea" required></textarea>
+        
+              <!-- 게시글 번호 (hidden 필드로 전달) -->
+              <input type="hidden" name="postIdx" th:value="${post.post_idx}" />
+        
+              <!-- 로그인한 사용자 이메일 (로그인된 사용자 정보 활용) -->
+              <input type="hidden" name="email" th:value="${loginUser.email}" />
+        
+              <div class="comment-icons">
+                <button type="button"><i class="ri-emotion-line"></i></button> <!-- 이모티콘 버튼 -->
+                <button type="submit" class="send-button"><i class="ri-send-plane-fill"></i></button> <!-- 댓글 전송 버튼 -->
+              </div>
+            </form>
+          </div>
+        </div>
+        
+
+
+        <!-- 댓글 생성 박스 -->
+        <div class="comment-box">
+
+        </div>
 
         <div class="notice-footer">
           <div class="footer-left">
@@ -93,13 +140,73 @@
               <i class="ri-arrow-left-s-line"></i>
               이전 글
             </a>
-            <a  th:href="@{/postContent(post_idx=${post.post_idx})}" class="btn">
+            <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="btn">
               다음 글
               <i class="ri-arrow-right-s-line"></i>
             </a>
           </div>
         </div>
       </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          let isLiked = false;
+          const likeButton = document.getElementById("likeButton");
+          const likeCount = document.getElementById("likeCount");
+          let currentLikes = 87;
+          likeButton.addEventListener("click", function () {
+            isLiked = !isLiked;
+
+            if (isLiked) {
+              this.classList.remove("text-gray-600");
+              this.classList.add("text-primary");
+              this.querySelector("i").classList.remove("ri-thumb-up-line");
+              this.querySelector("i").classList.add("ri-thumb-up-fill");
+              currentLikes++;
+
+              this.classList.add("scale-110");
+              setTimeout(() => {
+                this.classList.remove("scale-110");
+              }, 200);
+            } else {
+              this.classList.remove("text-primary");
+              this.classList.add("text-gray-600");
+              this.querySelector("i").classList.remove("ri-thumb-up-fill");
+              this.querySelector("i").classList.add("ri-thumb-up-line");
+              currentLikes--;
+            }
+
+            likeCount.textContent = `${currentLikes} reactions`;
+          });
+          const textareas = document.querySelectorAll("textarea.auto-expand");
+          textareas.forEach((textarea) => {
+            textarea.addEventListener("input", function () {
+              this.style.height = "auto";
+              this.style.height = this.scrollHeight + "px";
+            });
+            textarea.addEventListener("focus", function () {
+              this.style.height = "auto";
+              this.style.height = this.scrollHeight + "px";
+            });
+          });
+          // Character counter
+          const commentInputs = document.querySelectorAll("textarea");
+          commentInputs.forEach((input) => {
+            input.addEventListener("input", function () {
+              // You could add character counter here if needed
+              const currentLength = this.value.length;
+              if (currentLength > 0) {
+                this.nextElementSibling
+                  .querySelector("button:last-child")
+                  .classList.add("text-primary");
+              } else {
+                this.nextElementSibling
+                  .querySelector("button:last-child")
+                  .classList.remove("text-primary");
+              }
+            });
+          });
+        });
+      </script>
 </body>
 
 </html>
