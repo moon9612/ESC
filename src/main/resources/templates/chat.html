@@ -54,8 +54,10 @@
       padding: 1rem;
       background: #e2e8f0;
       align-content: stretch;
-      height: 100vh; /* 추가: 전체 높이 고정 */
-      min-height: 0; /* 추가: flexbox 스크롤 문제 방지 */
+      height: 100vh;
+      /* 추가: 전체 높이 고정 */
+      min-height: 0;
+      /* 추가: flexbox 스크롤 문제 방지 */
     }
 
     .chat-wrapper {
@@ -67,8 +69,10 @@
       display: flex;
       overflow: hidden;
       min-height: 600px;
-      height: 90vh; /* 추가: 전체 높이 고정 */
-      min-height: 0; /* 추가 */
+      height: 90vh;
+      /* 추가: 전체 높이 고정 */
+      min-height: 0;
+      /* 추가 */
     }
 
     .chat-section {
@@ -76,7 +80,8 @@
       display: flex;
       flex-direction: column;
       border-right: 1px solid #e5e7eb;
-      min-height: 0; /* 추가 */
+      min-height: 0;
+      /* 추가 */
     }
 
     .chat-header {
@@ -92,8 +97,10 @@
       padding: 1rem;
       overflow-y: auto;
       background-color: #f8fafc;
-      min-height: 0; /* 추가 */
-      max-height: 100%; /* 추가 */
+      min-height: 0;
+      /* 추가 */
+      max-height: 100%;
+      /* 추가 */
     }
 
     .message {
@@ -253,41 +260,46 @@
       <button class="login-btn">로그인</button>
       <button id="history-btn" class="login-btn">대화 기록 보기</button> -->
     </header>
-  </div>    
-    <main>
-      <div class="chat-wrapper">
-        <section class="chat-section">
-          <div class="chat-header">AI 챗봇 상담
-            <div th:if="${session.thread_id == null}">
-              <div th:text="쓰레드 없음"></div>
-            </div>
-            <div th:if="${session.thread_id != null}">
-              <div  class="thread_id" th:text="${session.thread_id}"></div>
-            </div>
+  </div>
+  <main>
+    <div class="chat-wrapper">
+      <section class="chat-section">
+        <div class="chat-header">AI 챗봇 상담
+          <div th:if="${session.thread_id == null}">
+            <div th:text="쓰레드 없음"></div>
           </div>
-          <div class="chat-messages">
-            <div class="message bot">
-              <div class="avatar">🤖</div>
-              <div class="name">챗봇</div>
-              <div class="bubble">저는 고용 관련 문제를 전문적으로 상담하고 법적 조언을 제공하는 노무사입니다.<br>
-                여러분의 근로 상황과 문제를 이해하고, 해결 방안을 함께 모색합니다.<br>
-                고용 관련 질문이나 문제가 있으시다면 말씀해 주시면 도움이 되겠습니다.</div>
-            </div>
+          <div th:if="${session.thread_id != null}">
+            <div class="thread_id" th:text="${session.thread_id}"></div>
           </div>
-          <div class="chat-input">
-            <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
-            <button id="send-btn">전송</button>
+        </div>
+        <div class="chat-messages">
+          <div class="message bot">
+            <div class="avatar">🤖</div>
+            <div class="name">챗봇</div>
+            <div class="bubble">저는 고용 관련 문제를 전문적으로 상담하고 법적 조언을 제공하는 노무사입니다.<br>
+              여러분의 근로 상황과 문제를 이해하고, 해결 방안을 함께 모색합니다.<br>
+              고용 관련 질문이나 문제가 있으시다면 말씀해 주시면 도움이 되겠습니다.</div>
           </div>
-        </section>
-        <aside>
-          <div class="panel" id="my-case-panel">
-            <strong>내 사례</strong>
-            <!-- <div class="case-item">
-              <strong>제목 </strong>
-              <small>작성일자</small>
+        </div>
+        <div class="chat-input">
+          <input id="user-input" type="text" placeholder="메시지를 입력하세요..." />
+          <button id="send-btn">전송</button>
+        </div>
+      </section>
+      <aside>
+        <div class="panel" id="my-case-panel">
+          <strong>내 사례</strong>
+          <div class="case-item">
+            <strong>유급휴가 문의</strong><small>2일 전</small>
+            연차휴가 계산에 대한 질문...
             <br><a href="#">계속하다 →</a>
-            </div> -->
           </div>
+          <div class="case-item">
+            <strong>초과 근무 보상</strong><small>1주일 전</small>
+            초과근무 수당 권리에 대해 논의하고 싶습니다...
+            <br><a href="#">계속하다 →</a>
+          </div>
+        </div>
         <div class="panel">
           <strong>자원</strong>
           <div class="resource-item"><strong>노동권리 가이드</strong><small>중요한 권리 정리</small></div>
@@ -302,18 +314,18 @@
     const input = document.getElementById("user-input");
     const sendBtn = document.getElementById("send-btn");
     const container = document.querySelector(".chat-messages");
-    
+
     // 자동 스크롤 함수
     function scrollToBottom() {
       const container = document.querySelector(".chat-messages");
       container.scrollTop = container.scrollHeight;
     }
 
-    // 채팅 보내기 + 요청 db저장하기 + 챗봇 응답요청, 응답 받기 + 응답 db저장하기 + html 변환하기 + 출력하기
+    // 메시지 전송 함수
     async function sendMessage() {
       const message = input.value.trim();
       if (!message) return;
-      // 요청시 로딩 메시지 추가
+
       container.innerHTML += `
         <div class="message user">
           <div class="avatar">🙂</div>
@@ -325,8 +337,7 @@
           <div class="bubble">로딩 중...</div>
         </div>
       `;
-      // 메시지 추가 후 스크롤
-      scrollToBottom(); 
+      scrollToBottom(); // 메시지 추가 후 스크롤
 
       input.value = "";
       // 비동기 요청을 통해 DB에 메시지를 저장합니다.
@@ -334,21 +345,25 @@
         const res = await fetch("http://localhost:8087/save_user_message", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: message,
-                                thread_id: THREAD_ID})
+          body: JSON.stringify({
+            message: message,
+            thread_id: THREAD_ID
+          })
         });
         if (!res.ok) throw new Error("Failed to save user_message");
       } catch (error) {
         console.error("Error saving user_message:", error);
       }
-      
+
       // 비동기 요청을 통해 챗봇의 응답을 가져옵니다.
       try {
         const res = await fetch("http://localhost:8000/ask_go", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: message,
-                                thread_id: THREAD_ID })
+          body: JSON.stringify({
+            message: message,
+            thread_id: THREAD_ID
+          })
         });
 
         const data = await res.json();
@@ -359,8 +374,10 @@
           const res = await fetch("http://localhost:8087/save_bot_message", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: rawResponse,
-                                  thread_id: THREAD_ID })
+            body: JSON.stringify({
+              message: data,
+              thread_id: THREAD_ID
+            })
           });
           if (!res.ok) throw new Error("Failed to save bot_message");
         } catch (error) {
@@ -405,7 +422,7 @@
     });
 
 
-    // 비동기 방식으로 이전 thread_id(대화목록) 가져오기
+    // 비동기 방식으로 이전 thread_id 가져오기
     async function getAllThread() {
       try {
         const response = await fetch("http://localhost:8087/get_all_thread_id", {
@@ -420,7 +437,7 @@
       }
     }
 
-    // 대화 목록을 패널에 렌더링
+    // 사례 목록을 패널에 렌더링
     function renderMyCases(threads) {
       const panel = document.getElementById("my-case-panel");
       // 기존 내용(제목 strong)만 남기고 모두 삭제
@@ -467,7 +484,10 @@
       });
     }
 
-    
+    // 페이지 로드 시 호출
+    getAllThread();
+    loadPreviousChat();
+
     // 페이지 로드 시 단 한번 이전 대화 내역 불러오기
     async function loadPreviousChat() {
       try {
@@ -479,54 +499,51 @@
         // 예시: [{message, chatter}, ...]
         data.forEach(chat => {
           // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
-          
+
           const messageClass = chat.chatter === "bot" ? "bot" : "user";
-          // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
-          // chat_content html로 변환
           container.innerHTML += `
-          <div class="message ${messageClass}">
-            <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
-            <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
-            <div class="bubble">${convertToHtmlFromAiText(chat.chat_content)}</div>
+            <div class="message ${messageClass}">
+              <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
+              <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
+              <div class="bubble">${chat.chat_content}</div>
             </div>
-            `;
-          });
-          scrollToBottom(); // 이전 대화 불러온 후 스크롤
-        } catch (error) {
+          `;
+        });
+        scrollToBottom(); // 이전 대화 불러온 후 스크롤
+      } catch (error) {
         console.error("Error loading previous chat:", error);
       }
-    } 
+    }
     //  OpenAI API의 응답을 HTML로 변환 함수
     function convertToHtmlFromAiText(rawResponse) {
       const formattedResponse = rawResponse
-      // #^n을 Hn으로 변환
-      .replace(/^#### (.*)$/gm, '<h4>$1</h4>') // H4
-      .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
-      .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
-      .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
-      // ** 내용 **을 <strong>로 변환
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+        // \n 줄바꿈을 <br>로 변환
+        .replace(/\n/g, "<br>")
+        // ** 내용 **을 <strong>로 변환
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         // * 내용 *을 <em>로 변환
-          .replace(/\*(.*?)\*/g, '<em>$1</em>')
-          // --- 을 <hr>로 변환 (가로줄)
-          .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
-          // 링크 변환
-          .replace(
-            /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
-            '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
-          )
-          // \n 줄바꿈을 <br>로 변환
-          .replace(/\n/g, "<br>")
-          ;
-          return formattedResponse;
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        // --- 을 <hr>로 변환 (가로줄)
+        .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
+        // #^n을 Hn으로 변환
+        .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
+        .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
+        .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
+        // 링크 변환
+        .replace(
+          /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
+          '<a href="$1" target="_blank" style="color:#2563eb; text-decoration:underline;">$1</a>'
+        );
+
+      return formattedResponse;
     }
+
     // html 로드 시 함수 호출
     document.addEventListener("DOMContentLoaded", () => {
       getAllThread();
       loadPreviousChat();
     });
-    
-    </script>
+  </script>
 
 </body>
 
