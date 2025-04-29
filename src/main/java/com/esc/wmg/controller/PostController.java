@@ -2,6 +2,9 @@ package com.esc.wmg.controller;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.esc.wmg.entity.CommentEntity;
 import com.esc.wmg.entity.PostEntity;
 import com.esc.wmg.entity.UserEntity;
+import com.esc.wmg.repository.CommentRepository;
 import com.esc.wmg.repository.PostRepository;
 import com.esc.wmg.service.ImageService;
 
@@ -28,10 +33,23 @@ public class PostController {
     PostRepository repository;
 
     @Autowired
+    CommentRepository cmtRepository;
+
+    @Autowired
     ImageService imageService;
 
     public PostController(ImageService imageService) {
         this.imageService = imageService;
+    }
+
+    // 게시글 좋아요 기능
+    @GetMapping("/postLikes")
+    public String postLikes(
+            @RequestParam("post_idx") Long postidx
+    ) {
+
+        cmtRepository.postLikes(postidx);
+        return "redirect:/postContent?post_idx=" + postidx;
     }
 
     // 게시판 글 삭제 기능
@@ -78,10 +96,10 @@ public class PostController {
         return "PostUpdate";
     }
 
-    // 조회수 증가 기능
+    // 조회수 증가 및 댓글 조회 기능
     @GetMapping("/postContent")
     public String postContent(@RequestParam("post_idx") long idx, Model model, HttpSession session) {
-        repository.views(idx); // 먼저 조회수 +1
+        repository.views(idx); // 조회수 +1
 
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
 
@@ -89,13 +107,19 @@ public class PostController {
             return "redirect:/login";
         }
 
+        // 게시글 가져오기
         PostEntity post = repository.findById(idx)
                 .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
 
+        // 댓글 목록 가져오기
+        List<CommentEntity> commentList = cmtRepository.findOrderedCommentsByPostIdx(idx);
+
+        // 모델에 담기
         model.addAttribute("post", post);
+        model.addAttribute("commentList", commentList);
         model.addAttribute("loginUser", loginUser);
 
-        return "PostContent";
+        return "PostContent"; // PostContent.jsp로 이동
     }
 
     // 게시판 글 업로드 기능
@@ -122,9 +146,9 @@ public class PostController {
         return "postWrite";
     }
 
-    // 게시판 글 조회
     @GetMapping("/post")
-    public String post(@RequestParam(value = "page", defaultValue = "0") int page,
+    public String post(
+            @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "searchPost", required = false) String searchPost,
             @RequestParam(value = "category", defaultValue = "all") String category,
             Model model) {
@@ -141,13 +165,14 @@ public class PostController {
         } else {
             postPage = repository.findAll(pageable);
         }
-        model.addAttribute("post_list", postPage.getContent()); // 게시글 10개
-        model.addAttribute("currentPage", page); // 현재 페이지
-        model.addAttribute("totalPages", postPage.getTotalPages()); // 전체 페이지 수
+
+        // 1) 게시글 목록
+        List<PostEntity> posts = postPage.getContent();
+        model.addAttribute("post_list", posts);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
         model.addAttribute("category", category);
 
-        // List<PostEntity> post_list = repository.findAll();
-        // model.addAttribute("post_list", post_list);
         return "post";
     }
 
