@@ -2,11 +2,14 @@
 #  Petition-AI Backend (FastAPI)
 # -------------------------------------------------------------
 # • assistant_go_id        : 고용노동 일반 상담 Assistant
-# • assistant_san_id       : 산업재해(산재) 상담 Assistant
+# • assistant_san_id       : 산업재해 일반 상담 Assistant
 # • assistant_review_id    : 항목 검토 Assistant  (JSON 피드백)
 # • assistant_template_id  : 진정 내용 자동 작성 Assistant
+# • assistant_mini_id      : 진정서 도움 챗봇 Assistant
 #
-#  주요 REST 엔드포인트
+# • assistant_petition_id  : 미사용
+#  
+#   OpenAI주요 REST 엔드포인트
 #   POST /create_thread     - 신규 thread_id 발급
 #   POST /ask_go            - 고용노동 Q&A
 #   POST /ask_san           - 산재 Q&A
@@ -14,9 +17,14 @@
 #   POST /apply_feedback    - 검토 결과 수락(병합)
 #   POST /auto_template     - 본문 초안 생성
 #   POST /generate_document - 최종 문서 JSON 반환
+#   POST /ask_mini     - 진정서 도움 요청 챗봇 포인트
+#   GET /index - 진정서 항목 작성 도움 요청
 # -------------------------------------------------------------
 #  수정 이력
 #   2025-04-23: async polling, context_lock, 로깅, 주석 보강
+# =============================================================
+#  수정 이력
+#   2025-04-29: assistant_mini_id 추가, (ask_mini, index)앤드포인트 추가, 주석 보강
 # =============================================================
 
 import asyncio
@@ -236,7 +244,6 @@ async def ask_mini(req: ChatRequest):
     assistant_id = assistant_mini_id
     ans = await call_assistant(req.thread_id, req.message, assistant_id)
     return {"answer": ans}
-
 
 # 진정서 항목 작성 도움 요청
 @app.get("/index", response_class=HTMLResponse)
