@@ -124,7 +124,7 @@
           </div>
           <div class="comment-box">
             <form action="/sendComment" method="POST" id="comment-form">
-              <div class="cmt-user" th:text="${#strings.substringBefore(loginUser.email, '@')}"></div>
+              <div class="cmt-user" th:text="${loginUser.nick}"></div>
               <!-- 댓글 입력 영역 -->
               <textarea name="cmt_comment" placeholder="댓글 입력..." class="comment-textarea" required></textarea>
 
@@ -152,7 +152,7 @@
             <!-- 댓글 박스 -->
             <div th:class="'comment-box' + (${comment.parentIdx} != null ? ' reply-box' : '')">
               <div class="comment-meta">
-                <span class="comment-author" th:text="${#strings.substringBefore(comment.email, '@')}">작성자</span>
+                <span class="comment-author" th:text="${comment.user.nick}">작성자</span>
                 <span class="comment-time"
                   th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}">시간</span>
               </div>
