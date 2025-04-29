@@ -37,6 +37,11 @@ public class ChatController {
         this.chatRepository = chatRepository;
     }
 
+    @GetMapping("/index")
+    public String index() {
+        return "index";
+    }
+
     // // 1. 로그인 확인 + 2. 세션에서 theadId 가져오기(2-1. 없으면 생성, 2-2 세션에 저장) + 3.채팅 페이지로 이동
     // @GetMapping("/goChat")
     // public String getThreadId(HttpSession session) {
