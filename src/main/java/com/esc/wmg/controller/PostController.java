@@ -119,7 +119,7 @@ public class PostController {
         model.addAttribute("commentList", commentList);
         model.addAttribute("loginUser", loginUser);
 
-        return "PostContent"; // PostContent.jsp로 이동
+        return "PostContent"; // PostContent.html로 이동
     }
 
     // 게시판 글 업로드 기능
