@@ -499,13 +499,12 @@
         // 예시: [{message, chatter}, ...]
         data.forEach(chat => {
           // chatter가 "bot"이면 챗봇 메시지, 이외는 유저로 간주
-
           const messageClass = chat.chatter === "bot" ? "bot" : "user";
           container.innerHTML += `
             <div class="message ${messageClass}">
               <div class="avatar">${chat.chatter === "bot" ? "🤖" : "🙂"}</div>
               <div class="name">${chat.chatter === "bot" ? "챗봇" : "사용자"}</div>
-              <div class="bubble">${chat.chat_content}</div>
+              <div class="bubble">${convertToHtmlFromAiText(chat.chat_content)}</div>
             </div>
           `;
         });
@@ -517,8 +516,6 @@
     //  OpenAI API의 응답을 HTML로 변환 함수
     function convertToHtmlFromAiText(rawResponse) {
       const formattedResponse = rawResponse
-        // \n 줄바꿈을 <br>로 변환
-        .replace(/\n/g, "<br>")
         // ** 내용 **을 <strong>로 변환
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         // * 내용 *을 <em>로 변환
@@ -526,9 +523,11 @@
         // --- 을 <hr>로 변환 (가로줄)
         .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
         // #^n을 Hn으로 변환
-        .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
-        .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
         .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
+        .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
+        .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1
+        // \n 줄바꿈을 <br>로 변환
+        .replace(/\n/g, "<br>")
         // 링크 변환
         .replace(
           /(https?:\/\/[^\s\)<]+)/g, // 괄호 포함 안 함
