@@ -132,7 +132,7 @@ select {
 }
 
 .write-button {
-    background: #0088cc;
+    background: #407ac5;
     color: white;
     padding: 8px 16px;
     border-radius: 8px;
@@ -143,7 +143,7 @@ select {
     gap: 4px;
 }
 
-.board-list {
+.board-list {   
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
@@ -161,9 +161,9 @@ select {
 }
 
 .board-list-header {
-    background: #f1f5f9;
+    background: #8ba2c0;
     font-weight: bold;
-    color: #555;
+    color: #fff;
 }
 
 .board-item:hover {
@@ -259,7 +259,7 @@ select {
 }
 
 .pagination-btn.active {
-    background-color: #3b82f6;
+    background-color: #407ac5;
     /* primary color */
     color: white;
     border: none;

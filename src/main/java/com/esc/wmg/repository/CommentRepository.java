@@ -20,7 +20,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     List<CommentEntity> findByPostIdxOrderByCreatedAtDesc(Long postIdx);
 
     // postIdx에 해당하는 댓글을 조회하고, parentIdx가 null인 경우 부모 댓글을 먼저, 그 이후에는 댓글 작성 시간을 기준으로 오름차순 정렬
-    @Query("SELECT c FROM CommentEntity c WHERE c.postIdx = :postIdx ORDER BY COALESCE(c.parentIdx, c.cmtIdx), c.createdAt ASC")
+    @Query("SELECT c FROM CommentEntity c JOIN FETCH c.user WHERE c.postIdx = :postIdx ORDER BY COALESCE(c.parentIdx, c.cmtIdx), c.createdAt ASC")
     List<CommentEntity> findOrderedCommentsByPostIdx(@Param("postIdx") Long postIdx);
 
     @Transactional
