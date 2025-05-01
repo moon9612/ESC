@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/issues.css}" />
+    <script th:src="@{/js/issues.js}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<style>
+    .statistics-list {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 16px;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .tab-header {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 16px;
+    }
+
+    .tab-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+
+    .tab-item {
+        font-size: 14px;
+        padding-bottom: 6px;
+        cursor: pointer;
+    }
+
+    .list-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .list-container li {
+        margin-bottom: 12px;
+    }
+
+    .list-container a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: #1f2937;
+        font-size: 14px;
+    }
+
+    .list-container a:hover {
+        text-decoration: underline;
+    }
+
+    .external-link {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-left: 8px;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <div class="logo-icon"><i class="ri-user-3-line"></i></div>
+                <span class="logo-text">ESC</span>
+            </a>
+            <nav>
+                <div th:if="${session.loginUser == null}">
+                    <ul>
+                        <li><a href="login">로그인</a></li>
+                    </ul>
+                </div>
+                <div th:if="${session.loginUser != null}">
+                    <ul>
+                        <li><a href="logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="board-header">
+            <h1>최신 이슈 </h1>
+            <p>최신 이슈 키워드를 확인하세요.</p>
+        </div>
+
+        <div class="board-filters">
+            <!-- 이슈 키워드 선택 -->
+            <div class="filter-group">
+
+
+            </div>
+        </div>
+
+        <!-- <div class="statistics-list">
+            <div class="statistics-list-header">
+                <div>번호</div>
+                <div>분류</div>
+                <div>제목</div>
+                <div>작성자</div>
+                <div>조회수</div>
+                <div>날짜</div>
+            </div>
+        </div> -->
+        <div class="statistics-list">
+            <div class="tab-header">
+                <div class="tab-title">관련통계목록</div>
+            </div>
+            <div class="list-container">
+                <ul>
+                    <li>
+                        <a href="#" target="_blank">
+                            1. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1+2+3순위)
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            2. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1순위)
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            3. 사이버폭력실태조사: 디지털 성범죄 목적 경험
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            4. 사이버폭력실태조사: 디지털 성범죄 목적 경험 유형 수
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            5. 사이버폭력실태조사: 디지털 성범죄 유형별 목적 경험률 · 디지털 성착취
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>

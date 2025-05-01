@@ -1,0 +1,273 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9fafb;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 16px;
+    margin: 0 auto;
+    height: 1040px;
+    position: relative;
+}
+
+.header {
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 64px;
+    height: 64px;
+    box-sizing: border-box;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    background: #0088cc;
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.logo-text {
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    color: #0088cc;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 2rem;
+}
+
+nav ul li a {
+    font-size: 0.9rem;
+    color: #666;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #0088cc;
+}
+
+.board-header {
+    margin: 48px 0 24px;
+}
+
+.board-header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.board-header p {
+    color: #666;
+}
+
+.board-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+select {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper input {
+    padding: 8px 16px 8px 36px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 240px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 16px;
+}
+
+.write-button {
+    background: #407ac5;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.board-list {   
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.board-list-header,
+.board-item {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 5fr 1.5fr 1fr 1.5fr;
+    padding: 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+}
+
+.board-list-header {
+    background: #8ba2c0;
+    font-weight: bold;
+    color: #fff;
+}
+
+.board-item:hover {
+    background: #f9fafb;
+}
+
+.board-item.notice {
+    background: #e6f3fc;
+    font-weight: 500;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+}
+
+.badge.notice {
+    background: #0088cc;
+    color: white;
+}
+
+.badge.general {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.badge.faq {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.badge.important {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.title-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.title-link:hover {
+    color: #0088cc;
+}
+
+.new-badge {
+    background: #ef4444;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+/* 게시판 하단 페이지 버튼 */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 1%;
+    margin-top: 2%;
+}
+
+.pagination-container>a:first-child {
+    margin-right: 4px;
+}
+
+.pagination-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    /* gray-200 */
+    color: #374151;
+    /* gray-700 */
+    margin-right: 4px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pagination-btn:last-child {
+    margin-right: 0;
+}
+
+.pagination-btn:hover {
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+.pagination-btn.active {
+    background-color: #407ac5;
+    /* primary color */
+    color: white;
+    border: none;
+}
+
+.pagination-btn.arrow-btn {
+    color: #9ca3af;
+    /* gray-400 */
+    border: 1px solid #e5e7eb;
+    /* gray-200 */
+}
