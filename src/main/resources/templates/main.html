@@ -23,7 +23,6 @@
                 <nav class="nav-menu">
                     <ul>
                         <li><a href="login">로그인</a></li>
-                        <li><a href="post">게시판</a></li>
                     </ul>
                 </nav>
                 <button class="menu-toggle">
@@ -35,46 +34,52 @@
 
     <section class="hero">
         <!-- ✅ 왼쪽 이미지 + 탭 + 카드 묶음 -->
-        <div class="hero-box image-box">
-            <img th:src="@{/img/오와열2.png}" />
+        <div class="hero-box image-box ">
+
+            <div class="keyword-box">
+                <div class="keyword-title">이슈키워드 TOP 10</div>
+                <div class="keyword-grid">
+                    <!-- 왼쪽 키워드 1~5 -->
+                    <ul class="keyword-list" id="leftKeywords">
+                        <li><span class="rank">1</span> <a href="#">유심보호서비스 가입</a></li>
+                        <li><span class="rank">2</span> <a href="#">특혜 채용 고위직 자녀 임용 취소</a></li>
+                        <li><span class="rank">3</span> <a href="#">청탁금지법 위반 의혹</a></li>
+                        <li><span class="rank">4</span> <a href="#">디지털 성범죄</a></li>
+                        <li><span class="rank">5</span> <a href="#">산업생산 증가</a></li>
+                    </ul>
+
+                    <!-- 오른쪽 키워드 6~10 -->
+                    <ul class="keyword-list" id="rightKeywords">
+                        <li><span class="rank">6</span> <a href="#">최저임금 인상안 논란</a></li>
+                        <li><span class="rank">7</span> <a href="#">주 4일제 시범운영</a></li>
+                        <li><span class="rank">8</span> <a href="#">직장 내 괴롭힘 판결</a></li>
+                        <li><span class="rank">9</span> <a href="#">고용노동부 공지</a></li>
+                        <li><span class="rank">10</span> <a href="#">산업안전보건 강화법</a></li>
+                    </ul>
+                </div>
+            </div>
 
             <!-- 탭 -->
             <div class="news-top-wrapper">
                 <div class="news-tabs">
                     <ul>
                         <li class="active" data-tab="tab1">전체뉴스</li>
-                        <li data-tab="tab2">고용노동</li>
-                        <li data-tab="tab3">산업재해</li>
-                        <li data-tab="tab4">1</li>
                     </ul>
                 </div>
 
                 <div class="card-nav-top">
                     <button id="cardPrevBtnTop">◀</button>
-                    <span id="cardPageInfoTop">1 / 3</span>
                     <button id="cardNextBtnTop">▶</button>
                 </div>
             </div>
 
             <!-- 카드 -->
             <div class="card-container">
-                <div class="card">
-                    <span class="label">전체뉴스</span>
-                    <h3>어르신 건강 체크업 프로그...</h3>
-                    <p>어르신 건강을 위한 정기적 체크업 프로그램...</p>
-                    <span class="date">2024-07-02</span>
-                </div>
-                <div class="card">
-                    <span class="label">전체뉴스</span>
-                    <h3>여름방학 청소년 자원봉사 프...</h3>
-                    <p>청소년 자원봉사 프로그램 진행...</p>
-                    <span class="date">2024-07-02</span>
-                </div>
-                <div class="card">
-                    <span class="label">전체뉴스</span>
-                    <h3>프라임 클래식 : 피아노 리...</h3>
-                    <p>피아노 리사이틀 앙코르곡 안내...</p>
-                    <span class="date">2024-06-26</span>
+                <div class="card" th:each="news, stat : ${newsList}" th:if="${stat.index} > 45">
+                    <span class="label" th:text="${news.news_writer}"></span>
+                    <h3 th:text="${news.news_title}"></h3>
+                    <img class="news-image" th:src="@{${news.news_img}}" alt="뉴스 이미지" />
+                    <span class="date" th:text="${news.date}"></span>
                 </div>
             </div>
         </div>
@@ -120,36 +125,35 @@
 
             <div class="notice-box">
                 <div class="notice-header">
-                    <h2>위셋공지</h2>
+                    <a href="post">
+                        <h2>게시판</h2>
+                    </a>
                     <div class="notice-tabs">
-                        <span class="active">위셋소식</span>
-                        <span>공지사항</span>
-                        <span>채용공고</span>
-                        <span class="add">+</span>
+                        <a href="post"><span class="add">+</span></a>
                     </div>
                 </div>
 
                 <div class="highlight-notice">
-                    <span class="badge">N</span>
+                    <span class="badge">공지</span>
                     <div class="notice-content">
-                        <strong class="title">최신타이틀이 들어갑니다</strong>
-                        <p class="desc">내용이 들어갑니다.내용이 들어갑니다.내용이 들어갑니다.</p>
+                        <strong class="title">프로젝트 개발중</strong>
+                        <p class="desc">프로젝트 개발중!</p>
                     </div>
-                    <span class="date">2022.08.18</span>
+                    <span class="date">2025.05.01</span>
                 </div>
 
-                <ul class="notice-list">
+                <ul class="notice-list" th:each="post : ${post_list}">
                     <li>
-                        <span class="title">소식 타이틀이 들어갑니다</span>
-                        <span class="date">2022.08.18</span>
-                    </li>
-                    <li>
-                        <span class="title">소식 타이틀이 들어갑니다</span>
-                        <span class="date">2022.08.18</span>
-                    </li>
-                    <li>
-                        <span class="title">소식 타이틀이 들어갑니다</span>
-                        <span class="date">2022.08.18</span>
+                        <div th:text="${post.post_category}" th:class="|category ${post.post_category == '공지사항' ? 'notice' :
+                        post.post_category == '일반' ? 'general' :
+                        post.post_category == 'FAQ' ? 'faq' :
+                        'default'}|">
+                        </div>
+                        <div class="li-group">
+                            <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="title-link"
+                                th:text="${post.post_title}"></a>
+                            <div th:text="${#temporals.format(post.created_at, 'yyyy.MM.dd')}"></div>
+                        </div>
                     </li>
                 </ul>
             </div>

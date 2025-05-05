@@ -139,10 +139,4 @@ public class UserController {
         return "login";
     }
 
-    // 초기 메인 페이지
-    @GetMapping("/")
-    public String loginForm() {
-        return "main";
-    }
-
 }

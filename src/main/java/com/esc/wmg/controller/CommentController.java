@@ -13,7 +13,6 @@ import com.esc.wmg.entity.UserEntity;
 import com.esc.wmg.repository.CommentRepository;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class CommentController {

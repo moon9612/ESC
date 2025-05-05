@@ -1,4 +1,5 @@
 window.onload = function () {
+
     const animateOnScroll = () => {
         const sections = document.querySelectorAll(".full-screen-section, .hero");
 
@@ -33,10 +34,10 @@ window.onload = function () {
     };
     window.addEventListener("scroll", animateOnScroll);
     animateOnScroll(); // Initial check on load
-    document.querySelector(".scroll-down").addEventListener("click", function () {
-        window.scrollTo({
-            top: document.querySelector(".hero").offsetTop,
-            behavior: "smooth",
-        });
+
+    window.scrollTo({
+        top: document.querySelector(".hero").offsetTop,
+        behavior: "smooth",
     });
+
 }
