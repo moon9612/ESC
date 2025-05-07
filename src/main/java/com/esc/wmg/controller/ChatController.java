@@ -21,6 +21,7 @@ import com.esc.wmg.entity.ThreadEntity;
 import com.esc.wmg.service.ThreadService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class ChatController {
     //     }     
     // }
     // }
-
+    @Transactional
     @GetMapping("/goChat")
     public String getThreadId(HttpSession session) {
         System.out.println("[1] /goChat 진입");
@@ -193,6 +194,7 @@ public class ChatController {
     }
 
     // get 방식의 thread_id를 통해 이전 채팅으로 돌아가기
+    @Transactional
     @GetMapping("/rechat")
     public String returnToChat(@RequestParam("thread_id") String threadId, HttpSession session) {
         // 1. 세션에서 로그인 유저 확인
@@ -225,6 +227,7 @@ public class ChatController {
     // session.loginUser.email을 통해 모든 thread_id 반환하기(비동기)
     @GetMapping("/get_all_thread_id")
     @ResponseBody
+    @Transactional
     public List<ThreadEntity> getAllThreadId(HttpSession session) {
         // 1. 세션에서 로그인 유저 확인
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
@@ -244,6 +247,7 @@ public class ChatController {
     // thread_id를 통해 채팅 내역 반환하기(비동기)
     @GetMapping("/get_chat_history")
     @ResponseBody
+    @Transactional
     public List<ChatEntity> getChatHistory(@RequestParam("thread_id") String threadId) {
 
         // 1. thread_id로 채팅 내역 조회
@@ -255,6 +259,7 @@ public class ChatController {
     // 유저의 입력 메시지 DB 저장하기(비동기)
     @PostMapping("/save_user_message")
     @ResponseBody
+    @Transactional
     public String saveUserMessage(@RequestBody Map<String, Object> payload, HttpSession session) {
         UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
         // 1. 요청에서 데이터 추출
@@ -277,6 +282,7 @@ public class ChatController {
     // 봇의 응답 메시지 DB 저장하기(비동기)
     @PostMapping("/save_bot_message")
     @ResponseBody
+    @Transactional
     public String saveBotMessage(@RequestBody Map<String, Object> payload, HttpSession session) {
 
         // 1. 요청에서 데이터 추출
@@ -298,6 +304,7 @@ public class ChatController {
     // 채팅 내역 불러오기(비동기)
     @GetMapping("/get_previous_chat")
     @ResponseBody
+    @Transactional
     public List<ChatEntity> getPreviousChat(@RequestParam("thread_id") String threadId) {
         // 1. thread_id로 DB에서 채팅 내역 조회
         List<ChatEntity> chatHistory = threadService.getChatByThreadId(threadId);
