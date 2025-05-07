@@ -160,6 +160,7 @@ public class ChatController {
                     System.out.println("[6] 세션에 thread_id 저장 완료: " + newThreadId);
 
                     threadEntity = new ThreadEntity(newThreadId, loginUser.getEmail());
+                    threadEntity.setRoomTitle("고용 노동 상담"); 
                     threadService.saveThreadId(threadEntity);
                     System.out.println("[7] DB에 ThreadEntity 저장 완료");
 
@@ -181,6 +182,75 @@ public class ChatController {
 
                 System.out.println("[9] DB에서 기존 Thread 및 채팅 내역 조회 완료 → chat.html 이동");
                 return "redirect:/chat?thread_id=" + threadId;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("[X-9] 예외 발생 → main으로 리다이렉트");
+            return "main";
+        }
+    }
+    @Transactional
+    @GetMapping("/goChatSan")
+    public String goChatSan(HttpSession session) {
+        System.out.println("[1] /goChatSan 진입");
+
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        ThreadEntity threadEntity = null;
+
+        if (loginUser == null) {
+            System.out.println("[2] 로그인 유저 없음 → /login 리다이렉트");
+            return "redirect:/login";
+        }
+
+        System.out.println("[2] 로그인 유저 확인 완료: " + loginUser.getEmail());
+
+        try {
+            final String threadId = (String) session.getAttribute("thread_id");
+            System.out.println("[3] 세션에서 thread_id 확인: " + threadId);
+
+            if (threadId == null) {
+                System.out.println("[4] thread_id 없음 → FastAPI에 /create_thread 요청 시도");
+
+                String threadApiUrl = "http://127.0.0.1:8000/create_thread"; // localhost → 127.0.0.1 수정
+                RestTemplate restTemplate = new RestTemplate();
+
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                HttpEntity<String> request = new HttpEntity<>("{}", headers);
+
+                ResponseEntity<String> response = restTemplate.postForEntity(threadApiUrl, request, String.class);
+
+                if (response.getStatusCode().is2xxSuccessful()) {
+                    System.out.println("[5] /create_thread 응답 성공");
+                    JSONObject json = new JSONObject(response.getBody());
+                    String newThreadId = json.getString("thread_id");
+
+                    session.setAttribute("thread_id", newThreadId);
+                    System.out.println("[6] 세션에 thread_id 저장 완료: " + newThreadId);
+
+                    threadEntity = new ThreadEntity(newThreadId, loginUser.getEmail());
+                    threadEntity.setRoomTitle("산업 재해 상담"); 
+                    threadService.saveThreadId(threadEntity);
+                    System.out.println("[7] DB에 ThreadEntity 저장 완료");
+
+                    return "redirect:/chatSan?thread_id=" + newThreadId;
+                } else {
+                    System.err.println("[X-7] /create_thread 응답 실패: " + response.getStatusCode());
+                    return "main";
+                }
+            } else {
+                System.out.println("[8] 세션에 기존 thread_id 존재: " + threadId);
+                threadEntity = threadService.getAllThreadByEmail(loginUser.getEmail()).stream()
+                    .filter(thread -> thread.getThreadId().equals(threadId))
+                    .findFirst()
+                    .orElse(null);
+
+                session.setAttribute("thread_id", threadId);
+                List<ChatEntity> tbl_chat = threadService.getChatByThreadId(threadId);
+                session.setAttribute("tbl_chat", tbl_chat);
+
+                System.out.println("[9] DB에서 기존 Thread 및 채팅 내역 조회 완료 → chat.html 이동");
+                return "redirect:/chatSan?thread_id=" + threadId;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,7 +289,15 @@ public class ChatController {
         // chat.html 템플릿 반환
         return "chat";
     }
-
+    @GetMapping("/chatSan")
+    public String chatSan(@RequestParam(value = "thread_id", required = false) String threadId, HttpSession session) {
+        // 필요하다면 세션에 thread_id 저장
+        if (threadId != null) {
+            session.setAttribute("thread_id", threadId);
+        }
+        // chat.html 템플릿 반환
+        return "chatSan";
+    }
     // session.loginUser.email을 통해 모든 thread_id 반환하기(비동기)
     @GetMapping("/get_all_thread_id")
     @ResponseBody
