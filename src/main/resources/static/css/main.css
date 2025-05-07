@@ -17,6 +17,11 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .page-wrapper {
     width: 100%;
 }
@@ -27,12 +32,14 @@ body {
     top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(30, 58, 138, 1);
+    background-color: rgba(30, 58, 138, 0.8);
     /* 네이비 블루 투명 배경 */
     color: white;
     padding: 1rem 0;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 15px 15px;
+    /* 둥근 모서리 */
 }
 
 .main-header.scrolled {
@@ -153,7 +160,7 @@ body {
     max-width: 80%;
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    /* transition: opacity 1.5s ease, transform 1.5s ease; */
 }
 
 .full-screen-section h1 {
@@ -180,13 +187,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: 150px;
 }
 
 .text-box {
     padding: 0 4rem;
     opacity: 0;
     transform: translateX(-30px);
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    /* transition: opacity 1.5s ease, transform 1.5s ease; */
 }
 
 .mini-banner-title {
@@ -361,12 +369,19 @@ body {
 
 .notice-list li {
     display: flex;
-    justify-content: space-between;
     padding: 0.5rem 0;
     font-size: 0.95rem;
     border-bottom: 1px solid #eee;
     transition: background-color 0.2s;
     cursor: pointer;
+    gap: 20px;
+    margin-top: -10px;
+}
+
+.li-group {
+    display: flex;
+    width: 480px;
+    justify-content: space-between;
 }
 
 .notice-list li:hover {
@@ -390,10 +405,10 @@ body {
     flex-direction: column;
     opacity: 0;
     transform: translateX(30px);
-    width: 200%;
+    width: 100%;
     max-width: 1000px;
     margin: 0%;
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    /* transition: opacity 1.5s ease, transform 1.5s ease; */
 }
 
 /* 도형 추가 */
@@ -421,14 +436,92 @@ body {
     margin-top: 200px;
 }
 
-.image-box img {
+/* .image-box img {
     max-width: 73%;
     height: 430px;
     width: 1000px;
     border-radius: 20px;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     margin-left: 270px;
+} */
+
+.keyword-box {
+    background-color: #ffffff;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin-left: auto;
+    /* 오른쪽 정렬 */
+    margin-right: 3rem;
+    font-family: 'Noto Sans KR', sans-serif;
 }
+
+.keyword-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: #000;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.keyword-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.keyword-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 50%;
+}
+
+#leftKeywords {
+    width: 52%;
+    /* 🔵 왼쪽 더 넓게 */
+    border-right: 1px solid #ddd;
+    padding-right: 2rem;
+}
+
+#rightKeywords {
+    width: 50%;
+    /* 🔵 오른쪽 더 좁게 */
+    padding-left: 2rem;
+}
+
+
+.keyword-list li {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #222;
+}
+
+.keyword-list .rank {
+    display: inline-block;
+    width: 1.5rem;
+    font-weight: bold;
+    color: #1f8ef1;
+    margin-right: 0.5rem;
+    text-align: center;
+}
+
+.keyword-list a {
+    color: #222;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.keyword-list a:hover {
+    color: #1f8ef1;
+    font-weight: bold;
+}
+
+
 
 .notice-section {
     background-color: #e9f6fb;
@@ -436,10 +529,9 @@ body {
 }
 
 .news-top-wrapper {
+    margin-left: 90px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -448,7 +540,8 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: 100px; 
+    margin-left: 520px;
+    margin-top: 40px;
 }
 
 /* 화살표 버튼 스타일 */
@@ -515,25 +608,39 @@ body {
     color: #0088cc;
 }
 
-.card-container-wrapper {
+.card-wrapper {
+    width: 800px;
     overflow: hidden;
-    width: 300px;
-    /* 카드 1장 기준 */
-    margin-left: 334px;
+    margin: 0 auto;
+    padding-left: 20px; /* ⭐ 왼쪽 여백 추가 */
+    margin-left: 70px;
+}
+
+.card-container-wrapper {
+    width: 750px;
+    /* 예: 카드 3개 정도 보여주고 싶다면 */
+    overflow: hidden;
+    margin: 0 auto;
 }
 
 .card-container {
     margin-top: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* 왼쪽 정렬로 시작 */
     align-items: center;
-    /* ⭐ 카드와 화살표 높이 맞추기 */
-    width: 950px;
+    width: fit-content;
     gap: 2rem;
-    flex-wrap: wrap;
-    margin-left: 164px;
     flex-wrap: nowrap;
-    /* ⭐ 줄바꿈 금지 (가로로 한줄) */
+    transition: transform 0.4s ease-in-out;
+    transform: translateX(30px); /* ⭐ 조금 오른쪽으로 이동 */
+}
+
+
+.card-container img {
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    background-position: center;
 }
 
 .card-nav {
@@ -576,7 +683,7 @@ body {
     background-color: white;
     padding: 1.5rem;
     width: 237px;
-    height: 220px;
+    height: 250px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -682,7 +789,6 @@ body {
     overflow: hidden;
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     /* 부드럽게 */
-    cursor: pointer;
 }
 
 /* 아이콘 기본 상태 */
@@ -727,7 +833,7 @@ body {
 
 .icon-item:hover img {
     opacity: 1;
-    filter: grayscale(0) brightness(1.2);
+    filter: grayscale(0) brightness(1);
     transform: scale(1.4);
     /* 이미지도 자연스럽게 10% 확대 */
 }
@@ -778,6 +884,7 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     /* 그림자 효과 */
 }
+
 
 
 /* 푸터 */
