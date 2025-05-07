@@ -1,7 +1,5 @@
 package com.esc.wmg.controller;
 
-import java.util.List;
-
 import com.esc.wmg.service.NewsService;
 
 import lombok.RequiredArgsConstructor;

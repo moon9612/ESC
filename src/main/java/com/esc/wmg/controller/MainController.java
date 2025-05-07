@@ -36,9 +36,14 @@ public class MainController {
         Pageable pageable = PageRequest.of(page, 3);
         Page<PostEntity> postPage = repository.findAll(pageable);
 
-        // 뉴스 데이터 조회 
+        // 뉴스 데이터 조회 (마지막 10개만 가져오기)
         List<NewsEntity> newsList = newsRepository.findAll();
-        model.addAttribute("newsList", newsList);
+        int totalNews = newsList.size();
+        // 데이터가 10개 이상이면 마지막 10개를 가져오고, 10개 미만이면 모두 가F져오기
+        List<NewsEntity> lastTenNews = (totalNews > 10)
+                ? newsList.subList(totalNews - 10, totalNews)
+                : newsList;  // 10개 미만일 경우 모두 가져오기
+        model.addAttribute("newsList", lastTenNews);
 
         // 1) 게시글 목록
         List<PostEntity> posts = postPage.getContent();
