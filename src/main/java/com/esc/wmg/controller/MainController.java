@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.esc.wmg.entity.NewsEntity;
+import com.esc.wmg.entity.NewsIssueEntity;
 import com.esc.wmg.entity.PostEntity;
+import com.esc.wmg.repository.NewsIssueRepository;
 import com.esc.wmg.repository.NewsRepository;
 import com.esc.wmg.repository.PostRepository;
 
@@ -24,6 +26,9 @@ public class MainController {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private NewsIssueRepository newsIssueRepository;
 
     // 초기 메인 페이지
     @GetMapping("/")
@@ -44,6 +49,9 @@ public class MainController {
                 ? newsList.subList(totalNews - 10, totalNews)
                 : newsList;  // 10개 미만일 경우 모두 가져오기
         model.addAttribute("newsList", lastTenNews);
+
+        List<NewsIssueEntity> newsKeywords = newsIssueRepository.findTop10ByOrderByDateDescRnkAsc();
+        model.addAttribute("newsKeywords", newsKeywords);
 
         // 1) 게시글 목록
         List<PostEntity> posts = postPage.getContent();

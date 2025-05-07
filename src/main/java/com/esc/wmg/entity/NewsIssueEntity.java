@@ -1,5 +1,7 @@
 package com.esc.wmg.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,8 +25,8 @@ public class NewsIssueEntity {
     private String issueKeyword;
 
     @Column(name = "rnk", nullable = false)
-    private int rank;
+    private int rnk;
 
     @Column(name = "date", nullable = false)
-    private String date;
+    private LocalDate date;
 }
