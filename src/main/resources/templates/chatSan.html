@@ -264,7 +264,7 @@
   <main>
     <div class="chat-wrapper">
       <section class="chat-section">
-        <div class="chat-header">AI 챗봇 상담
+        <div class="chat-header">산업 재해 상담
           <div th:if="${session.thread_id == null}">
             <div th:text="쓰레드 없음"></div>
           </div>
@@ -302,9 +302,12 @@
         </div>
         <div class="panel">
           <strong>자원</strong>
-          <div class="resource-item"><strong>노동권리 가이드</strong><small>중요한 권리 정리</small></div>
-          <div class="resource-item"><strong>법률문의 대표번호</strong><small>법률상담 안내</small></div>
-          <div class="resource-item"><strong>Office Hours</strong><small>Consultation schedule</small></div>
+          <a th:href="@{https://labor.moel.go.kr/main/main.do}" style="text-decoration:none; color:inherit; background:none; border:none; outline:none;">
+            <div class="resource-item"><strong>고용 노동부 노동포털</strong><small>온라인 민원 신청</small></div>
+          </a>
+          <a th:href="@{https://1350.moel.go.kr/home/}" style="text-decoration:none; color:inherit; background:none; border:none; outline:none;">
+            <div class="resource-item"><strong>고용 노동부 고객 상담 센터</strong><small>1350(유료)과 함께하는 고용 노동 상담</small><p></p><small>이용시간 : 평일 09:00 ~ 18:00</small></div>
+          </a>
         </div>
       </aside>
     </div>
