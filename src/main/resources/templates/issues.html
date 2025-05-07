@@ -26,7 +26,7 @@
     }
 
     .news-tab-title {
-        font-size: 18px;
+        font-size: 24px;
         font-weight: bold;
         color: #111827;
     }
@@ -85,7 +85,7 @@
     }
 
     .tab-title {
-        font-size: 18px;
+        font-size: 24px;
         font-weight: bold;
         color: #111827;
     }
@@ -150,11 +150,13 @@
     }
 
     .keywords-box {
-        border: 2px solid #d1d5db;
-        border-radius: 16px;
-        padding: 24px;
-        width: 80%;
-    }
+    border: 2px solid #d1d5db;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;           /* news-list와 동일하게 */
+    box-sizing: border-box;
+    margin: 0 auto;        /* 가운데 정렬 */
+}
 
     .keywords-grid {
         display: grid;
@@ -227,7 +229,7 @@
     <main class="container">
         <div class="issues-container">
             <div class="selected-keyword" id="selectedKeyword">
-                디지털 성범죄
+                키워드를 선택해주세요
             </div>
 
             <div class="keywords-box">
@@ -273,7 +275,7 @@
             <div class="news-list-container">
                 <ul>
                     <th:block th:each="news : ${newsCluster}">
-                        <li th:if="${news.mdlIndex} == 4">
+                        <li th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
                                 <span th:text="${news.title}"></span>
                                 <span class="external-link">↗</span>
@@ -339,7 +341,28 @@
             // 상단 제목 바꾸기
             const keywordText = element.innerText.trim();
             document.getElementById('selectedKeyword').innerText = keywordText.replace(/^\d+\s*/, '');
+
+            // 뉴스 목록 필터링
+            const idx = Array.from(document.querySelectorAll('.keyword-item')).indexOf(element);
+            document.querySelectorAll('.news-list-container li').forEach(li => {
+                if (li.getAttribute('data-mdl-index') == idx) {
+                    li.style.display = '';
+                } else {
+                    li.style.display = 'none';
+                }
+            });
         }
+
+        // 페이지 로드시 keyword 파라미터로 자동 선택
+        window.addEventListener('DOMContentLoaded', function () {
+            const params = new URLSearchParams(window.location.search);
+            let idx = parseInt(params.get('keyword') || "1", 10);
+            if (isNaN(idx) || idx < 1 || idx > 10) idx = 1;
+            const keywordItems = document.querySelectorAll('.keyword-item');
+            if (keywordItems.length >= idx) {
+                selectKeyword(keywordItems[idx - 1]);
+            }
+        });
     </script>
 </body>
 
