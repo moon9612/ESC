@@ -11,18 +11,20 @@
 
 <body>
   <header th:replace="~{fragment/header :: header}"></header>
-  <div class="split-layout">
-    <div id="left-frame" class="left-frame full">
-      <div th:replace="~{fragment/left :: left}"></div>
-    </div>
-  </div>
 
-  <div id="right-frame" class="right-frame">
-    <div th:replace="~{fragment/right :: right}"></div>
-  </div>
-  <input type="hidden" id="templateAssistantId" value="{{ template_assistant_id }}">
-  <input type="hidden" id="feedbackAssistantId" value="{{ feedback_assistant_id }}">
-  <input type="hidden" id="miniAssistantId" value="{{ mini_assistant_id }}">
+    <div class="split-layout">
+      <div id="left-frame" class="left-frame full">
+        <div th:replace="~{fragment/left :: left}"></div>
+      </div>
+    </div>
+
+    <div id="right-frame" class="right-frame">
+      <div th:replace="~{fragment/right :: right}"></div>
+    </div>
+    <input type="hidden" id="templateAssistantId" value="{{ template_assistant_id }}">
+    <input type="hidden" id="feedbackAssistantId" value="{{ feedback_assistant_id }}">
+    <input type="hidden" id="miniAssistantId" value="{{ mini_assistant_id }}">
+
 
 
 
@@ -234,7 +236,7 @@
     // OpenAI 답변을 HTML 포맷으로 변환
     function convertToHtmlFromAiText(rawResponse) {
       const formattedResponse = rawResponse
-      
+
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
         .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
