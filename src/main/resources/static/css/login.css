@@ -6,7 +6,8 @@
 
 body {
     font-family: 'Noto Sans KR', sans-serif;
-    background: linear-gradient(135deg, #f8f8f8 0%, #a5a5a5 100%);
+    /* background: linear-gradient(135deg, #ffffff 20%, #2774da 80%); */
+    background: linear-gradient(135deg, #ffffff 20%, #6898d6 80%);
     color: #333;
     min-height: 100vh;
     display: flex;
@@ -22,16 +23,16 @@ body {
     width: 100%;
     max-width: 420px;
     background-color: white;
-    border-radius: 16px;
     box-shadow: 0 8px 24px rgba(82, 113, 255, 0.16);
     padding: 2.5rem;
     margin-bottom: 2rem;
     animation: fadeIn 0.6s ease-out;
     position: relative;
     overflow: hidden;
+    border-radius: 15px;
 }
 
-.container::before {
+/* .container::before {
     content: '';
     position: absolute;
     top: 0;
@@ -39,7 +40,7 @@ body {
     right: 0;
     height: 4px;
     background: linear-gradient(135deg, #5271ff 0%, #8e9fff 100%);
-}
+} */
 
 .container::after {
     content: '';
@@ -76,14 +77,15 @@ body {
 h1 {
     font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
     text-align: center;
     color: #333;
+    margin-top: 3.5rem;
 }
 
 .form-group {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .form-input {
@@ -109,7 +111,7 @@ h1 {
     outline: none;
 }
 
-.form-label {
+/* .form-label {
     position: absolute;
     left: 1rem;
     top: 1rem;
@@ -117,23 +119,23 @@ h1 {
     transition: all 0.3s ease;
     pointer-events: none;
     font-size: 1rem;
-}
+} */
 
-.form-input:focus+.form-label,
+/* .form-input:focus+.form-label,
 .form-input:not(:placeholder-shown)+.form-label {
     transform: translateY(-1.5rem) scale(0.85);
     color: #333;
     background-color: white;
     padding: 0 0.25rem;
-}
+} */
 
-.form-input::placeholder {
+/* .form-input::placeholder {
     color: transparent;
 }
 
 .form-input:focus::placeholder {
     color: #757575;
-}
+} */
 
 .checkbox-container {
     display: flex;
@@ -205,7 +207,8 @@ h1 {
     position: relative;
     overflow: hidden;
     color: white;
-    background: linear-gradient(135deg, #5271ff 0%, #8e9fff 100%);
+    /* background: linear-gradient(135deg, #5271ff 0%, #8e9fff 100%); */
+    background-color: #7f93d3;
     box-shadow: 0 4px 16px rgba(82, 113, 255, 0.12);
     letter-spacing: 0.5px;
 }
@@ -232,6 +235,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+    margin-top: 16px;
 }
 
 .link {
@@ -327,7 +331,9 @@ h1 {
     color: #333;
     text-decoration: none;
     font-size: 1rem;
-    margin-bottom: 1rem;
+    position: absolute;
+    top: 15px;
+    left: 15px;
 }
 
 .back-btn i {

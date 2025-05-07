@@ -22,14 +22,14 @@
     <form id="loginForm" action="userSelect" method="post" th:action="@{/userSelect}" th:object="${loginForm}">
       <div class="form-group">
         <input type="text" id="email" name="email" class="form-input" placeholder="이메일 주소" />
-        <label for="email" class="form-label">이메일 주소</label>
+        <!-- <label for="email" class="form-label">이메일 주소</label> -->
         <div class="error-message" id="emailError">
           유효한 이메일 주소를 입력해주세요.
         </div>
       </div>
       <div class="form-group">
         <input type="password" id="password" name="pw" class="form-input" placeholder="비밀번호" />
-        <label for="password" class="form-label">비밀번호</label>
+        <!-- <label for="password" class="form-label">비밀번호</label> -->
         <div class="error-message" id="passwordError">
           비밀번호를 입력해주세요.
         </div>
@@ -58,13 +58,13 @@
 
   <div class="container" id="forgotPasswordContainer" style="display: none;">
     <a href="#" class="back-btn" id="backToLoginFromForgot">
-      <i class="ri-arrow-left-line"></i> 로그인으로 돌아가기
+      <i class="ri-arrow-left-line"></i> 뒤로가기
     </a>
     <h1>비밀번호 찾기</h1>
     <form id="forgotPasswordForm" method="post" action="sendEmail">
       <div class="form-group">
         <input name="email" type="email" id="forgotEmail" class="form-input" placeholder="가입시 등록한 이메일 주소" />
-        <label for="forgotEmail" class="form-label">가입시 등록한 이메일 주소</label>
+        <!-- <label for="forgotEmail" class="form-label">가입시 등록한 이메일 주소</label> -->
         <div class="error-message" id="forgotEmailError">
           유효한 이메일 주소를 입력해주세요.
         </div>
@@ -87,7 +87,7 @@
   </div>
   <div class="container" id="signupContainer" style="display: none;">
     <a href="#" class="back-btn" id="backToLogin">
-      <i class="ri-arrow-left-line"></i> 로그인으로 돌아가기
+      <i class="ri-arrow-left-line"></i> 뒤로가기
     </a>
     <h1>회원가입</h1>
     <form id="signupForm" th:action="userInsert" method="post">
@@ -141,4 +141,5 @@
   </div>
 
 </body>
+
 </html>

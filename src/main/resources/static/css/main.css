@@ -36,8 +36,7 @@ li {
     top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(30, 58, 138, 0.8);
-    /* 네이비 블루 투명 배경 */
+    background-color: rgba(30, 58, 138, 1);
     color: white;
     padding: 1rem 0;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;

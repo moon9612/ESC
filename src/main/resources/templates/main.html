@@ -11,36 +11,7 @@
 </head>
 
 <body>
-    <header class="main-header">
-        <div class="page-wrapper">
-            <!-- Header -->
-            <div class="container">
-                <a href="#" class="logo">
-                    <img src="https://readdy.ai/api/search-image?query=simple%2520blue%2520payment%2520gateway%2520logo%2520icon%2520with%2520PG%2520letters%2C%2520professional%2520corporate%2520design%2C%2520clean%2520background&width=100&height=100&seq=124&orientation=squarish"
-                        alt="팀 ESC 로고" />
-                    <span>팀 ESC</span>
-                </a>
-                <nav class="nav-menu">
-                    <div th:if="${session.loginUser == null}">
-                        <ul>
-                            <li><a href="login">로그인</a></li>
-                        </ul>
-                    </div>
-                    <div th:if="${session.loginUser != null}">
-                        <ul class="login-Logout">
-                            <li th:text="${session.loginUser.nick} + '님 환영합니다!'"></li>
-
-                        </ul>
-                    </div>
-                    <span>ㅣ</span>
-                    <li class="logout"><a href="logout">로그아웃</a></li>
-                </nav>
-                <button class="menu-toggle">
-                    <i class="ri-menu-line"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+    <header th:replace="~{fragment/header :: header}"></header>
 
     <section class="hero">
         <!-- ✅ 왼쪽 이미지 + 탭 + 카드 묶음 -->
@@ -127,11 +98,14 @@
                     <span>산업 재해</span>
                 </div>
                 <div class="icon-item">
-                    <div class="icon-box">
-                        <img src="img/찾기.png" alt="조직도" class="static-img" />
-                        <img src="img/찾기.gif" alt="조직도 움직이는" class="hover-img" />
-                    </div>
-                    <span>진정서 작성</span>
+                    <a href="petition">
+
+                        <div class="icon-box">
+                            <img src="img/찾기.png" alt="조직도" class="static-img" />
+                            <img src="img/찾기.gif" alt="조직도 움직이는" class="hover-img" />
+                        </div>
+                        <span>진정서 작성</span>
+                    </a>
                 </div>
             </div>
 

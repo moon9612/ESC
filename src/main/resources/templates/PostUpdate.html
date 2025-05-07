@@ -11,26 +11,7 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-container">
-            <a href="#" class="logo">
-                <div class="logo-icon"><i class="ri-user-3-line"></i></div>
-                <span class="logo-text">ESC</span>
-            </a>
-            <nav>
-                <div th:if="${session.loginUser == null}">
-                    <ul>
-                        <li><a href="login">로그인</a></li>
-                    </ul>
-                </div>
-                <div th:if="${session.loginUser != null}">
-                    <ul>
-                        <li><a href="logout">로그아웃</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <header th:replace="~{fragment/header :: header}"></header>
 
     <main class="container main-content">
         <div class="page-header">
