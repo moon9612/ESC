@@ -234,36 +234,12 @@
 
             <div class="keywords-box">
                 <div class="keywords-grid">
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">1</div> 유심보호서비스 가입
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">2</div> 특혜 채용 고위직 자녀 임용 취소
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">3</div> 청탁금지법 위반 의혹
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">4</div> 디지털 성범죄
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">5</div> 산업생산 증가
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">6</div> 복 최현호 무장 시험사격
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">7</div> 복러 두만강 자동차 다리 착공식
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">8</div> 식품매개감염병
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">9</div> 관세 기술협의
-                    </div>
-                    <div class="keyword-item" onclick="selectKeyword(this)">
-                        <div class="keyword-number">10</div> 의대 유급 시한
-                    </div>
+                    <th:block th:each="kw, idx : ${newsKeywords}">
+                        <div class="keyword-item" onclick="selectKeyword(this)">
+                            <div class="keyword-number" th:text="${idx.index + 1}"></div>
+                            <span th:text="${kw.issueKeyword}"></span>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>
