@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.esc.wmg.entity.NewsClusterEntity;
+import com.esc.wmg.entity.NewsIssueEntity;
 import com.esc.wmg.repository.NewsClusterRepository;
+import com.esc.wmg.repository.NewsIssueRepository;
 
 
 @Controller
@@ -17,6 +19,8 @@ public class IssueController {
 
     @Autowired
     private NewsClusterRepository newsClusterRepository;
+    @Autowired
+    private NewsIssueRepository newsIssueRepository;
 
     // Issue 페이지 이동
     @GetMapping("/issues")
@@ -26,7 +30,9 @@ public class IssueController {
         List<NewsClusterEntity> newsCluster = newsClusterRepository.findAll();
         System.out.println("newsCluster: " + newsCluster.size()); // 디버깅용 출력
         model.addAttribute("newsCluster", newsCluster); // 뉴스 클러스터 리스트를 모델에 추가
-
+        
+        List<NewsIssueEntity> newsKeywords = newsIssueRepository.findTop10ByOrderByDateDescRnkAsc();
+        model.addAttribute("newsKeywords", newsKeywords);
         return "issues"; // issue.html로 이동
     }
 }

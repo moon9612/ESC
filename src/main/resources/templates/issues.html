@@ -235,7 +235,9 @@
             <div class="keywords-box">
                 <div class="keywords-grid">
                     <th:block th:each="kw, idx : ${newsKeywords}">
-                        <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-item"
+                             th:attr="data-mdl-index=${kw.mdlIndex}"
+                             onclick="selectKeyword(this)">
                             <div class="keyword-number" th:text="${idx.index + 1}"></div>
                             <span th:text="${kw.issueKeyword}"></span>
                         </div>
@@ -305,23 +307,23 @@
     </main>
     <script>
         function selectKeyword(element) {
-            // 기존 선택된 요소에서 selected 클래스 제거
+            // 기존 선택 해제
             const currentSelected = document.querySelector('.keyword-item.selected');
             if (currentSelected) {
                 currentSelected.classList.remove('selected');
             }
-
-            // 새로 클릭한 요소에 selected 클래스 추가
+            // 새로 선택
             element.classList.add('selected');
 
             // 상단 제목 바꾸기
             const keywordText = element.innerText.trim();
             document.getElementById('selectedKeyword').innerText = keywordText.replace(/^\d+\s*/, '');
 
+            // 선택된 키워드의 mdlIndex 값
+            const mdlIndex = element.getAttribute('data-mdl-index');
             // 뉴스 목록 필터링
-            const idx = Array.from(document.querySelectorAll('.keyword-item')).indexOf(element);
             document.querySelectorAll('.news-list-container li').forEach(li => {
-                if (li.getAttribute('data-mdl-index') == idx) {
+                if (li.getAttribute('data-mdl-index') == mdlIndex) {
                     li.style.display = '';
                 } else {
                     li.style.display = 'none';
