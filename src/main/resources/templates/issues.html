@@ -9,7 +9,68 @@
     <script th:src="@{/js/issues.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
-<style>
+<style id="news-list">
+    /* 뉴스 리스트 박스 */
+    .news-list {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 16px;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    
+    /* 뉴스 탭 제목 */
+    .news-tab-header {
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+    }
+    
+    .news-tab-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #111827;
+    }
+    
+    /* 뉴스 리스트 */
+    .news-list-container ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .news-list-container li {
+        margin-bottom: 8px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
+    }
+    
+    .news-list-container a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        color: #1f2937;
+        font-size: clamp(16px, 2vw, 24px);
+        padding: 10px 12px;
+        border-radius: 6px;
+        width: 100%;
+        word-break: break-word;
+        white-space: normal;
+    }
+    
+    .news-list-container a:hover {
+        background-color: #eef6fb;
+    }
+    
+    /* 외부 링크 아이콘 */
+    .news-external-link {
+        font-size: 14px;
+        color: #9ca3af;
+        margin-left: 8px;
+        flex-shrink: 0;
+    }
+    </style>
+<style id="statistics-list">
     .statistics-list {
         border: 1px solid #d1d5db;
         border-radius: 8px;
@@ -18,23 +79,15 @@
     }
 
     .tab-header {
-        display: flex;
-        flex-direction: column;
         border-bottom: 1px solid #e5e7eb;
         margin-bottom: 16px;
+        padding-bottom: 8px;
     }
 
     .tab-title {
         font-size: 18px;
         font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-
-    .tab-item {
-        font-size: 14px;
-        padding-bottom: 6px;
-        cursor: pointer;
+        color: #111827;
     }
 
     .list-container ul {
@@ -44,7 +97,9 @@
     }
 
     .list-container li {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        transition: background-color 0.3s;
     }
 
     .list-container a {
@@ -53,17 +108,94 @@
         align-items: center;
         text-decoration: none;
         color: #1f2937;
-        font-size: 14px;
+        font-size: clamp(16px, 2vw, 24px);
+        /* 화면 크기에 따라 가변 폰트 크기 */
+        padding: 10px 12px;
+        border-radius: 6px;
+        width: 100%;
+        /* 항상 부모 크기에 맞춤 */
+        word-break: break-word;
+        /* 길어도 줄바꿈 */
+        white-space: normal;
+        /* 줄바꿈 허용 */
     }
 
     .list-container a:hover {
-        text-decoration: underline;
+        background-color: #eef6fb;
     }
 
     .external-link {
-        font-size: 12px;
+        font-size: 14px;
         color: #9ca3af;
         margin-left: 8px;
+        flex-shrink: 0;
+        /* 아이콘은 크기 줄지 않게 고정 */
+    }
+</style>
+<style id="issues-header">
+    .issues-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .selected-keyword {
+        background-color: #78c7f8;
+        color: white;
+        padding: 8px 24px;
+        border-radius: 24px;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .keywords-box {
+        border: 2px solid #d1d5db;
+        border-radius: 16px;
+        padding: 24px;
+        width: 80%;
+    }
+
+    .keywords-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 16px;
+    }
+
+    .keyword-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        transition: background-color 0.3s, color 0.3s;
+        color: #374151;
+        font-size: 16px;
+        font-weight: 500;
+        justify-content: center;
+    }
+
+    .keyword-item.selected {
+        background-color: #78c7f8;
+        color: white;
+    }
+
+    .keyword-number {
+        background-color: #6b7280;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .keyword-item.selected .keyword-number {
+        background-color: #b7e1fc;
     }
 </style>
 
@@ -90,29 +222,87 @@
     </header>
 
     <main class="container">
-        <div class="board-header">
-            <h1>최신 이슈 </h1>
-            <p>최신 이슈 키워드를 확인하세요.</p>
-        </div>
+        <div class="issues-container">
+            <div class="selected-keyword" id="selectedKeyword">
+                디지털 성범죄
+            </div>
 
-        <div class="board-filters">
-            <!-- 이슈 키워드 선택 -->
-            <div class="filter-group">
-
-
+            <div class="keywords-box">
+                <div class="keywords-grid">
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">1</div> 유심보호서비스 가입
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">2</div> 특혜 채용 고위직 자녀 임용 취소
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">3</div> 청탁금지법 위반 의혹
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">4</div> 디지털 성범죄
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">5</div> 산업생산 증가
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">6</div> 복 최현호 무장 시험사격
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">7</div> 복러 두만강 자동차 다리 착공식
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">8</div> 식품매개감염병
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">9</div> 관세 기술협의
+                    </div>
+                    <div class="keyword-item" onclick="selectKeyword(this)">
+                        <div class="keyword-number">10</div> 의대 유급 시한
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- <div class="statistics-list">
-            <div class="statistics-list-header">
-                <div>번호</div>
-                <div>분류</div>
-                <div>제목</div>
-                <div>작성자</div>
-                <div>조회수</div>
-                <div>날짜</div>
+        <br>
+        <div class="news-list">
+            <div class="tab-header">
+                <div class="tab-title">이슈 관련 뉴스 목록</div>
             </div>
-        </div> -->
+            <div class="news-list-container">
+                <ul>
+                    <li>
+                        <a href="#" target="_blank">
+                            1. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1+2+3순위)
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            2. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1순위)
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            3. 사이버폭력실태조사: 디지털 성범죄 목적 경험
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            4. 사이버폭력실태조사: 디지털 성범죄 목적 경험 유형 수
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            5. 사이버폭력실태조사: 디지털 성범죄 유형별 목적 경험률 · 디지털 성착취
+                            <span class="external-link">↗</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
         <div class="statistics-list">
             <div class="tab-header">
                 <div class="tab-title">관련통계목록</div>
@@ -154,6 +344,22 @@
         </div>
 
     </main>
+    <script>
+        function selectKeyword(element) {
+            // 기존 선택된 요소에서 selected 클래스 제거
+            const currentSelected = document.querySelector('.keyword-item.selected');
+            if (currentSelected) {
+                currentSelected.classList.remove('selected');
+            }
+
+            // 새로 클릭한 요소에 selected 클래스 추가
+            element.classList.add('selected');
+
+            // 상단 제목 바꾸기
+            const keywordText = element.innerText.trim();
+            document.getElementById('selectedKeyword').innerText = keywordText.replace(/^\d+\s*/, '');
+        }
+    </script>
 </body>
 
 </html>
