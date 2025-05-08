@@ -10,7 +10,6 @@
   <link rel="stylesheet" th:href="@{/css/chat.css}">
 </head>
 
-
 <body>
   <div>
     <header th:replace="~{fragment/header :: header}">
@@ -27,7 +26,7 @@
             <div th:text="${thread == null ? '쓰레드 없음' : thread.name}"></div>
           </div>
           <div th:if="${session.thread_id != null}">
-            <div class="thread_id" th:text="${session.thread_id}"></div>
+            <input th:value="${session.thread_id}" type="hidden" class="thread_id"></input>
           </div>
         </div>
         <div class="chat-messages">
