@@ -23,9 +23,7 @@
             <div class="keywords-box">
                 <div class="keywords-grid">
                     <th:block th:each="kw, idx : ${newsKeywords}">
-                        <div class="keyword-item"
-                             th:attr="data-mdl-index=${kw.mdlIndex}"
-                             onclick="selectKeyword(this)">
+                        <div class="keyword-item" th:attr="data-mdl-index=${kw.mdlIndex}" onclick="selectKeyword(this)">
                             <div class="keyword-number" th:text="${idx.index + 1}"></div>
                             <span th:text="${kw.issueKeyword}"></span>
                         </div>
@@ -45,7 +43,8 @@
                         <li th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
                                 <span th:text="${news.title}"></span>
-                                <span th:text="${#numbers.formatDecimal(news.similarity * 100, 0, 2)} + '%'" class="external-link"></span>
+                                <span th:text="${#numbers.formatDecimal(news.similarity * 100, 0, 2)} + '%'"
+                                    class="external-link"></span>
                             </a>
                         </li>
                     </th:block>
@@ -59,38 +58,18 @@
             </div>
             <div class="list-container">
                 <ul>
-                    <li>
-                        <a href="#" target="_blank">
-                            1. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1+2+3순위)
-                            <span class="external-link">↗</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank">
-                            2. 사이버폭력실태조사: 가장 두려운 디지털 성범죄 유형(1순위)
-                            <span class="external-link">↗</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank">
-                            3. 사이버폭력실태조사: 디지털 성범죄 목적 경험
-                            <span class="external-link">↗</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank">
-                            4. 사이버폭력실태조사: 디지털 성범죄 목적 경험 유형 수
-                            <span class="external-link">↗</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" target="_blank">
-                            5. 사이버폭력실태조사: 디지털 성범죄 유형별 목적 경험률 · 디지털 성착취
-                            <span class="external-link">↗</span>
-                        </a>
-                    </li>
+                    <th:block th:each="statistics : ${issueStatistics}" th:with="currentKeyword=${statistics.keyword}">
+                        <li th:attr="data-keyword=${statistics.keyword}">
+                            <a th:href="${statistics.url}" target="_blank">
+                                <span th:text="${statistics.title}"></span>
+                                <span th:if="${statistics.range != null}"
+                                    th:text="' (' + ${statistics.range} + ')'"></span>
+                            </a>
+                        </li>
+                    </th:block>
                 </ul>
             </div>
+
         </div>
         <br>
     </main>
@@ -110,6 +89,7 @@
 
             // 선택된 키워드의 mdlIndex 값
             const mdlIndex = element.getAttribute('data-mdl-index');
+
             // 뉴스 목록 필터링
             document.querySelectorAll('.news-list-container li').forEach(li => {
                 if (li.getAttribute('data-mdl-index') == mdlIndex) {
@@ -118,7 +98,18 @@
                     li.style.display = 'none';
                 }
             });
+
+            // 추가 : 통계 목록 필터링 (keyword 비교)
+            const selectedKeyword = element.querySelector('span').innerText.trim(); // 선택된 키워드 텍스트
+            document.querySelectorAll('.list-container li').forEach(li => {
+                if (li.getAttribute('data-keyword') === selectedKeyword) {
+                    li.style.display = '';
+                } else {
+                    li.style.display = 'none';
+                }
+            });
         }
+
 
         // 페이지 로드시 keyword 파라미터로 자동 선택
         window.addEventListener('DOMContentLoaded', function () {
