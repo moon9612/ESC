@@ -27,8 +27,8 @@ a {
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(30, 58, 138, 1);
-  color: white;
+  color: rgba(30, 58, 138, 1);
+  background-color: white;
   padding: 1rem 0;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -54,7 +54,7 @@ a {
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: rgba(30, 58, 138, 1);
   text-decoration: none;
 }
 
@@ -77,7 +77,7 @@ a {
 }
 
 .nav-menu ul li a {
-  color: white;
+  color: rgba(30, 58, 138, 1);
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -85,15 +85,6 @@ a {
   padding: 0.5rem 1rem;
   border-radius: 10px;
   /* 둥근 버튼 스타일 */
-}
-
-.nav-menu ul li a:hover {
-  color: #60a5fa;
-  /* 라이트 블루 */
-  background-color: rgba(255, 255, 255, 0.2);
-  /* 투명한 흰색 배경 */
-  transform: scale(1.1);
-  /* 살짝 확대 */
 }
 
 .nav-menu{
