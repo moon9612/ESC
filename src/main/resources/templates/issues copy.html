@@ -9,19 +9,8 @@
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <script th:src="@{/js/issues.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <style>
-        #news-container,
-        #stats-container {
-            display: none;
-            transition: all 0.3s ease;
-        }
-
-        .news-index {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-    </style>
 </head>
+
 
 <body>
     <header th:replace="~{fragment/header :: header}"></header>
@@ -43,21 +32,17 @@
                 </div>
             </div>
         </div>
-
         <br>
-
-        <!-- 🔻 뉴스 목록 토글 -->
         <div class="news-list">
-            <div class="tab-header" id="news-toggle">
+            <div class="tab-header">
                 <div class="tab-title">이슈 관련 뉴스 목록</div>
                 <div class="tab-similarity">키워드 관련도</div>
             </div>
-            <div class="news-list-container" id="news-container">
+            <div class="news-list-container">
                 <ul>
                     <th:block th:each="news : ${newsCluster}">
                         <li th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
-                                <span class="news-index">0.</span> <!-- JavaScript에서 동적 변경됨 -->
                                 <span th:text="${news.title}"></span>
                                 <span th:text="${#numbers.formatDecimal(news.similarity * 100, 0, 2)} + '%'"
                                     class="external-link"></span>
@@ -67,20 +52,16 @@
                 </ul>
             </div>
         </div>
-
         <br>
-
-        <!-- 🔻 통계 목록 토글 -->
         <div class="statistics-list">
-            <div class="tab-header" id="stats-toggle">
+            <div class="tab-header">
                 <div class="tab-title">관련통계목록</div>
             </div>
-            <div class="list-container" id="stats-container">
+            <div class="list-container">
                 <ul>
                     <th:block th:each="statistics : ${issueStatistics}" th:with="currentKeyword=${statistics.keyword}">
                         <li th:attr="data-keyword=${statistics.keyword}">
                             <a th:href="${statistics.url}" target="_blank">
-                                <span class="news-index">0.</span> <!-- JavaScript에서 동적 변경됨 -->
                                 <span th:text="${statistics.title}"></span>
                                 <span th:if="${statistics.range != null}"
                                     th:text="' (' + ${statistics.range} + ')'"></span>
@@ -89,52 +70,49 @@
                     </th:block>
                 </ul>
             </div>
-        </div>
 
+        </div>
         <br>
     </main>
-
     <script>
         function selectKeyword(element) {
+            // 기존 선택 해제
             const currentSelected = document.querySelector('.keyword-item.selected');
             if (currentSelected) {
                 currentSelected.classList.remove('selected');
             }
+            // 새로 선택
             element.classList.add('selected');
 
+            // 상단 제목 바꾸기
             const keywordText = element.innerText.trim();
             document.getElementById('selectedKeyword').innerText = keywordText.replace(/^\d+\s*/, '');
 
+            // 선택된 키워드의 mdlIndex 값
             const mdlIndex = element.getAttribute('data-mdl-index');
 
-            // 뉴스 필터링 및 번호 재지정
-            const newsItems = document.querySelectorAll('.news-list-container li');
-            let newsIndex = 1;
-            newsItems.forEach(li => {
+            // 뉴스 목록 필터링
+            document.querySelectorAll('.news-list-container li').forEach(li => {
                 if (li.getAttribute('data-mdl-index') == mdlIndex) {
                     li.style.display = '';
-                    const indexSpan = li.querySelector('.news-index');
-                    if (indexSpan) indexSpan.textContent = newsIndex++ + '.';
                 } else {
                     li.style.display = 'none';
                 }
             });
 
-            // 통계 필터링 및 번호 재지정
-            const selectedKeyword = element.querySelector('span').innerText.trim();
-            const statItems = document.querySelectorAll('.list-container li');
-            let statIndex = 1;
-            statItems.forEach(li => {
+            // 추가 : 통계 목록 필터링 (keyword 비교)
+            const selectedKeyword = element.querySelector('span').innerText.trim(); // 선택된 키워드 텍스트
+            document.querySelectorAll('.list-container li').forEach(li => {
                 if (li.getAttribute('data-keyword') === selectedKeyword) {
                     li.style.display = '';
-                    const indexSpan = li.querySelector('.news-index');
-                    if (indexSpan) indexSpan.textContent = statIndex++ + '.';
                 } else {
                     li.style.display = 'none';
                 }
             });
         }
 
+
+        // 페이지 로드시 keyword 파라미터로 자동 선택
         window.addEventListener('DOMContentLoaded', function () {
             const params = new URLSearchParams(window.location.search);
             let idx = parseInt(params.get('keyword') || "1", 10);
@@ -143,17 +121,6 @@
             if (keywordItems.length >= idx) {
                 selectKeyword(keywordItems[idx - 1]);
             }
-
-            // 토글 이벤트 추가
-            document.getElementById('news-toggle').addEventListener('click', function () {
-                const container = document.getElementById('news-container');
-                container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
-            });
-
-            document.getElementById('stats-toggle').addEventListener('click', function () {
-                const container = document.getElementById('stats-container');
-                container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
-            });
         });
     </script>
 </body>
