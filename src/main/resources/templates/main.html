@@ -23,14 +23,14 @@
                     <ul class="keyword-list" id="leftKeywords">
                         <li th:each="issue : ${newsKeywords}" th:if="${issue.rnk} <= 5">
                             <span class="rank" th:text="${issue.rnk}"></span>
-                            <a th:text="${issue.issueKeyword}" href="#"></a>
+                            <a th:text="${issue.issueKeyword}" th:href="@{issues?keyword=}+${issue.rnk}"></a>
                         </li>
                     </ul>
 
                     <ul class="keyword-list" id="rightKeywords">
                         <li th:each="issue : ${newsKeywords}" th:if="${issue.rnk} > 5">
                             <span class="rank" th:text="${issue.rnk}"></span>
-                            <a th:text="${issue.issueKeyword}" href="#"></a>
+                            <a th:text="${issue.issueKeyword}" th:href="@{issues?keyword=}+${issue.rnk}"></a>
                         </li>
                     </ul>
                 </div>
