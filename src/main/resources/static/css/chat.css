@@ -49,7 +49,7 @@
         /* 추가: 전체 높이 고정 */
         min-height: 0;
         /* 추가 */
-        margin-top: 63px;
+        /* margin-top: 63px; */
     }
 
     .chat-section {

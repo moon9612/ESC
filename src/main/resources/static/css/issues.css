@@ -22,7 +22,7 @@ a {
 
 .i-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
     padding: 100px 16px 0 16px;
     margin: 0 auto;
     min-height: 100vh;
@@ -134,20 +134,17 @@ a {
 }
 
 .list-container li {
-    margin-bottom: 8px;
     border-radius: 6px;
     transition: background-color 0.3s;
 }
 
 .list-container a {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     text-decoration: none;
     color: #1f2937;
-    font-size: 14px;
     /* 화면 크기에 따라 가변 폰트 크기 */
-    padding: 10px 12px;
+    padding: 8px 0;
     border-radius: 6px;
     width: 100%;
     /* 항상 부모 크기에 맞춤 */
@@ -238,4 +235,31 @@ a {
 
 .keyword-item.selected .keyword-number {
     background-color: #b7e1fc;
+}
+
+#news-container,
+#stats-container {
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.news-index {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.news-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.news-title-left {
+    text-align: left;
+}
+
+.news-title-right {
+    text-align: right;
+    padding-right: 8px;
 }

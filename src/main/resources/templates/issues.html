@@ -9,18 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/header.css}" />
     <script th:src="@{/js/issues.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <style>
-        #news-container,
-        #stats-container {
-            display: none;
-            transition: all 0.3s ease;
-        }
 
-        .news-index {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-    </style>
 </head>
 
 <body>
@@ -80,10 +69,12 @@
                     <th:block th:each="statistics : ${issueStatistics}" th:with="currentKeyword=${statistics.keyword}">
                         <li th:attr="data-keyword=${statistics.keyword}">
                             <a th:href="${statistics.url}" target="_blank">
-                                <span class="news-index">0.</span> <!-- JavaScript에서 동적 변경됨 -->
-                                <span th:text="${statistics.title}"></span>
-                                <span th:if="${statistics.range != null}"
-                                    th:text="' (' + ${statistics.range} + ')'"></span>
+                                <div class="news-line">
+                                    <span class="news-index">0.</span>
+                                    <span class="news-title-left" th:text="${statistics.title}"></span>
+                                    <span class="news-title-right" th:if="${statistics.range != null}"
+                                        th:text="' (' + ${statistics.range} + ')'"></span>
+                                </div>
                             </a>
                         </li>
                     </th:block>
