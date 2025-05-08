@@ -1,273 +1,351 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f9fafb;
-    color: #333;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+li {
+    list-style: none;
 }
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 .container {
     width: 100%;
     max-width: 1200px;
-    padding: 0 16px;
+    padding: 100px 16px 0 16px; /* <-- 수정! */
     margin: 0 auto;
-    height: 1040px;
+    min-height: 100vh; /* flex-direction 때문에 필요할 수도 있어 */
     position: relative;
 }
 
-.header {
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+/* Header 스타일 */
+.main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(30, 58, 138, 1);
+    color: white;
+    height: 70px; /* 고정! */
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.header-container {
+
+.main-header.scrolled {
+    background-color: #1e3a8a;
+    /* 스크롤 시 네이비 블루 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.main-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 64px;
-    height: 64px;
-    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
     text-decoration: none;
 }
 
-.logo-icon {
-    width: 32px;
-    height: 32px;
-    background: #0088cc;
-    color: white;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 8px;
+.logo img {
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+    /* 로고를 둥글게 */
 }
 
-.logo-text {
-    font-family: 'Pacifico', cursive;
-    font-size: 20px;
-    color: #0088cc;
-}
-
-nav ul {
+.nav-menu ul {
     display: flex;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-nav ul li {
+.nav-menu ul li {
     margin-left: 2rem;
 }
 
-nav ul li a {
-    font-size: 0.9rem;
-    color: #666;
-    transition: color 0.3s;
+.nav-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    /* 둥근 버튼 스타일 */
 }
 
-nav ul li a:hover {
-    color: #0088cc;
+.nav-menu ul li a:hover {
+    color: #60a5fa;
+    /* 라이트 블루 */
+    background-color: rgba(255, 255, 255, 0.2);
+    /* 투명한 흰색 배경 */
+    transform: scale(1.1);
+    /* 살짝 확대 */
 }
 
-.board-header {
-    margin: 48px 0 24px;
+.nav-menu {
+    display: flex;
+    gap: 10px;
 }
 
-.board-header h1 {
+.nav-menu .logout:hover a {
+    color: #d4d4d4;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        background-color: #2a9d8f;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-menu ul li {
+        margin: 1rem 0;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+}
+
+/* 뉴스 리스트 박스 */
+.news-list {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 뉴스 탭 제목 */
+.news-tab-header {
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+}
+
+.news-tab-title {
     font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+}
+
+/* 뉴스 리스트 */
+.news-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-list-container li {
     margin-bottom: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
 }
 
-.board-header p {
-    color: #666;
-}
-
-.board-filters {
+.news-list-container a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 12px;
-}
-
-select {
-    padding: 8px 16px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.search-wrapper {
-    position: relative;
-}
-
-.search-wrapper input {
-    padding: 8px 16px 8px 36px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 240px;
-}
-
-.search-icon {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 16px;
-}
-
-.write-button {
-    background: #407ac5;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 8px;
     text-decoration: none;
+    color: #1f2937;
+    font-size: clamp(16px, 2vw, 24px);
+    padding: 10px 12px;
+    border-radius: 6px;
+    width: 100%;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.news-list-container a:hover {
+    background-color: #eef6fb;
+}
+
+/* 외부 링크 아이콘 */
+.news-external-link {
     font-size: 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.board-list {   
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-}
-
-.board-list-header,
-.board-item {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr 5fr 1.5fr 1fr 1.5fr;
-    padding: 16px;
-    font-size: 14px;
-    border-bottom: 1px solid #eee;
-    align-items: center;
-}
-
-.board-list-header {
-    background: #8ba2c0;
-    font-weight: bold;
-    color: #fff;
-}
-
-.board-item:hover {
-    background: #f9fafb;
-}
-
-.board-item.notice {
-    background: #e6f3fc;
-    font-weight: 500;
-}
-
-.badge {
-    padding: 4px 8px;
-    border-radius: 9999px;
-    font-size: 12px;
-}
-
-.badge.notice {
-    background: #0088cc;
-    color: white;
-}
-
-.badge.general {
-    background: #e0e0e0;
-    color: #333;
-}
-
-.badge.faq {
-    background: #ede9fe;
-    color: #7c3aed;
-}
-
-.badge.important {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-.title-link {
-    text-decoration: none;
-    color: #333;
-}
-
-.title-link:hover {
-    color: #0088cc;
-}
-
-.new-badge {
-    background: #ef4444;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
+    color: #9ca3af;
     margin-left: 8px;
+    flex-shrink: 0;
 }
 
-/* 게시판 하단 페이지 버튼 */
-.pagination-container {
+.statistics-list {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.tab-header {
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+}
+
+.tab-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container li {
+    margin-bottom: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.list-container a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: #1f2937;
+    font-size: clamp(16px, 2vw, 24px);
+    /* 화면 크기에 따라 가변 폰트 크기 */
+    padding: 10px 12px;
+    border-radius: 6px;
+    width: 100%;
+    /* 항상 부모 크기에 맞춤 */
+    word-break: break-word;
+    /* 길어도 줄바꿈 */
+    white-space: normal;
+    /* 줄바꿈 허용 */
+}
+
+.list-container a:hover {
+    background-color: #eef6fb;
+}
+
+.external-link {
+    font-size: 14px;
+    color: #9ca3af;
+    margin-left: 8px;
+    flex-shrink: 0;
+    /* 아이콘은 크기 줄지 않게 고정 */
+}
+
+.issues-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.selected-keyword {
+    background-color: #78c7f8;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 24px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.keywords-box {
+    border: 2px solid #d1d5db;
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    /* news-list와 동일하게 */
+    box-sizing: border-box;
+    margin: 0 auto;
+    /* 가운데 정렬 */
+}
+
+.keywords-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+
+.keyword-item {
     display: flex;
     align-items: center;
-    position: absolute;
-    right: 1%;
-    margin-top: 2%;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
+    transition: background-color 0.3s, color 0.3s;
+    color: #374151;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: center;
 }
 
-.pagination-container>a:first-child {
-    margin-right: 4px;
+.keyword-item.selected {
+    background-color: #78c7f8;
+    color: white;
 }
 
-.pagination-btn {
+.keyword-number {
+    background-color: #6b7280;
+    color: white;
+    border-radius: 8px;
+    /* 둥근 네모 */
     width: 32px;
-    height: 32px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
-    border: 1px solid #e5e7eb;
-    /* gray-200 */
-    color: #374151;
-    /* gray-700 */
-    margin-right: 4px;
-    background-color: white;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+    /* 원래 border-radius: 50%; 대신 8px 등으로 변경 */
 }
 
-.pagination-btn:last-child {
-    margin-right: 0;
-}
-
-.pagination-btn:hover {
-    background-color: #f9fafb;
-    /* gray-50 */
-}
-
-.pagination-btn.active {
-    background-color: #407ac5;
-    /* primary color */
-    color: white;
-    border: none;
-}
-
-.pagination-btn.arrow-btn {
-    color: #9ca3af;
-    /* gray-400 */
-    border: 1px solid #e5e7eb;
-    /* gray-200 */
+.keyword-item.selected .keyword-number {
+    background-color: #b7e1fc;
 }
