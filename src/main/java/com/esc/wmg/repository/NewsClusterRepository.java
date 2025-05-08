@@ -10,5 +10,5 @@ import com.esc.wmg.entity.TblNewsClusterId;
 
 @Repository
 public interface NewsClusterRepository extends JpaRepository<NewsClusterEntity, TblNewsClusterId> {
-    // 
+    List<NewsClusterEntity> findAllByOrderBySimilarityDesc();
 }
