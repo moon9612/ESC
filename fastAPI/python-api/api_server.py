@@ -41,7 +41,7 @@ from openai import OpenAI
 from pydantic import BaseModel, Field, field_validator
 from dotenv import load_dotenv
 
-# 실행 위치: cd fastAPI\python-api
+# 실행 위치:cd fastAPI\python-api 
 # 실행 명령어: uvicorn api_server:app --reload --port 8000
 
 # ------------------------------------------------------------------

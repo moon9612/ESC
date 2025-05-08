@@ -1,12 +1,11 @@
 /* Header 스타일 */
 .main-header {
-    position: fixed;
+    position: relative;
     top: 0;
     width: 100%;
     z-index: 1000;
-    background-color: rgba(30, 58, 138, 0.8);
-    /* 네이비 블루 투명 배경 */
-    color: white;
+    color: rgba(8, 104, 230, 0.8);
+    background-color: white;
     padding: 1rem 0;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -22,7 +21,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 1rem;
 }
@@ -32,7 +31,7 @@
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
+    color: #0ebaee;
     text-decoration: none;
 }
 
@@ -55,7 +54,8 @@
 }
 
 .nav-menu ul li a {
-    color: white;
+    text-align: right;
+    color: #60a5fa;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
@@ -74,19 +74,20 @@
     /* 살짝 확대 */
 }
 
-.nav-menu{
+.nav-menu {
     display: flex;
     gap: 10px;
 }
+
 .nav-menu .logout:hover a {
-    color: #d4d4d4;
+    color: #0ebaee;
 }
 
 .menu-toggle {
     display: none;
     background: none;
     border: none;
-    color: white;
+    color: #0ebaee;
     font-size: 1.5rem;
     cursor: pointer;
 }
