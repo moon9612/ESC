@@ -107,7 +107,10 @@ public class PostController {
 
         // 게시글 가져오기
         PostEntity post = repository.findById(idx)
-                .orElseThrow(() -> new RuntimeException("게시글이 존재하지 않습니다."));
+                .orElse(null);
+        if (post == null) {
+            return "redirect:/post";
+        }
 
         // 댓글 목록 가져오기
         List<CommentEntity> commentList = cmtRepository.findOrderedCommentsByPostIdx(idx);
