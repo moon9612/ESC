@@ -154,8 +154,13 @@ async def call_assistant(
     client.beta.threads.messages.create(thread_id=thread_id, role="user", content=content)
 
     # assistant 실행 요청
-    run = client.beta.threads.runs.create(thread_id=thread_id, assistant_id=assistant_id)
-
+    # run = client.beta.threads.runs.create(thread_id=thread_id, assistant_id=assistant_id)
+    run = client.beta.threads.runs.create(
+    thread_id=thread_id,
+    assistant_id=assistant_id,
+    tool_choice="auto",
+    tools=[{"type": "file_search"}]
+)   
     elapsed = 0.0
     while True:
         result = client.beta.threads.runs.retrieve(thread_id=thread_id, run_id=run.id)
