@@ -35,9 +35,9 @@ public class IssueController {
         model.addAttribute("newsCluster", newsCluster); // 뉴스 클러스터 리스트를 모델에 추가
         // issue 키워드 관련 뉴스 로드
         List<IssueStatisticsEntity> issueStatistics = issueStatisticsRepository.findAll();
-        System.out.println("newsCluster: " + newsCluster.size()); // 디버깅용 출력
-        model.addAttribute("newsCluster", newsCluster); // 뉴스 클러스터 리스트를 모델에 추가
-
+        System.out.println("issueStatistics: " + issueStatistics.size()); // 디버깅용 출력
+        model.addAttribute("issueStatistics", issueStatistics); // 뉴스 클러스터 리스트를 모델에 추가
+        //이슈 키워드 10개 로드
         List<NewsIssueEntity> newsKeywords = newsIssueRepository.findTop10ByOrderByDateDescRnkAsc();
         model.addAttribute("newsKeywords", newsKeywords);
         return "issues"; // issue.html로 이동
