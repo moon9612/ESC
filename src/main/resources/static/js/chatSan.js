@@ -160,7 +160,7 @@ function renderMyCases(threads) {
     // form 방식으로 렌더링
     panel.innerHTML += `
       <div class="case-item">
-        <strong>${thread.roomTitle || "고용 노동 상담"}</strong>
+        <strong>${thread.roomTitle == null || thread.roomTitle === "" ? "고용 노동 상담" : thread.roomTitle}</strong>
         <small>${dateText}</small>
         ${thread.roomInfo ? thread.roomInfo.substring(0, 30) + "..." : ""}
         <form action="rechat?thread_id=${thread.threadId}" method="get" style="display:inline;">
