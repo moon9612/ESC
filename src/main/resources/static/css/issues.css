@@ -20,141 +20,13 @@ a {
     color: inherit;
 }
 
-.container {
+.i-container {
     width: 100%;
     max-width: 1200px;
-    padding: 100px 16px 0 16px; /* <-- 수정! */
+    padding: 100px 16px 0 16px;
     margin: 0 auto;
-    min-height: 100vh; /* flex-direction 때문에 필요할 수도 있어 */
+    min-height: 100vh;
     position: relative;
-}
-
-/* Header 스타일 */
-.main-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: rgba(30, 58, 138, 1);
-    color: white;
-    height: 70px; /* 고정! */
-    padding: 10px 355px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-
-.main-header.scrolled {
-    background-color: #1e3a8a;
-    /* 스크롤 시 네이비 블루 */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.main-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1500px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    gap: 930px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-}
-
-.logo img {
-    height: 40px;
-    margin-right: 10px;
-    border-radius: 50%;
-    /* 로고를 둥글게 */
-}
-
-.nav-menu ul {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-menu ul li {
-    margin-left: 2rem;
-}
-
-.nav-menu ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: color 0.3s ease, transform 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    /* 둥근 버튼 스타일 */
-}
-
-.nav-menu ul li a:hover {
-    color: #60a5fa;
-    /* 라이트 블루 */
-    background-color: rgba(255, 255, 255, 0.2);
-    /* 투명한 흰색 배경 */
-    transform: scale(1.1);
-    /* 살짝 확대 */
-}
-
-.nav-menu {
-    display: flex;
-    gap: 10px;
-}
-
-.nav-menu .logout:hover a {
-    color: #d4d4d4;
-}
-
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-        flex-direction: column;
-        background-color: #2a9d8f;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 100%;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-menu ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-menu ul li {
-        margin: 1rem 0;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
 }
 
 /* 뉴스 리스트 박스 */
@@ -226,9 +98,12 @@ a {
 
 /* tab-header 레이아웃을 flex로 전환 */
 .tab-header {
-    display: flex;                 /* 추가 */
-    justify-content: space-between;/* 추가: 좌우 정렬 */
-    align-items: center;           /* 추가: 수직 정렬 */
+    display: flex;
+    /* 추가 */
+    justify-content: space-between;
+    /* 추가: 좌우 정렬 */
+    align-items: center;
+    /* 추가: 수직 정렬 */
     border-bottom: 1px solid #e5e7eb;
     margin-bottom: 16px;
     padding-bottom: 8px;
@@ -238,9 +113,12 @@ a {
 .tab-similarity {
     font-size: 14px;
     font-weight: 600;
-    color: #6b7280;                /* Tailwind gray-500 정도 */
-    white-space: nowrap;           /* 줄바꿈 방지 */
-    padding-right: 12px;   /* ← anchor 내부와 동일한 우측 여백 */
+    color: #6b7280;
+    /* Tailwind gray-500 정도 */
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
+    padding-right: 12px;
+    /* ← anchor 내부와 동일한 우측 여백 */
 }
 
 .tab-title {

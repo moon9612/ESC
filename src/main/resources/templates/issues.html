@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/issues.css}" />
+    <link rel="stylesheet" th:href="@{/css/header.css}" />
     <script th:src="@{/js/issues.js}"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
 </head>
@@ -13,8 +14,8 @@
 
 <body>
     <header th:replace="~{fragment/header :: header}"></header>
-    
-    <main class="container">
+
+    <main class="i-container">
         <div class="issues-container">
             <div class="selected-keyword" id="selectedKeyword">
                 키워드를 선택해주세요
