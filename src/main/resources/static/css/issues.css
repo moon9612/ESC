@@ -29,7 +29,6 @@ a {
     position: relative;
 }
 
-
 /* Header 스타일 */
 .main-header {
     position: fixed;
@@ -39,7 +38,7 @@ a {
     background-color: rgba(30, 58, 138, 1);
     color: white;
     height: 70px; /* 고정! */
-    padding: 0 16px;
+    padding: 10px 355px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -56,9 +55,10 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 0 auto;
     padding: 0 1rem;
+    gap: 930px;
 }
 
 .logo {
