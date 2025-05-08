@@ -20,18 +20,17 @@
                         <span>팀 ESC</span>
                     </a>
                     <nav class="nav-menu">
-                        <div th:if="${session.loginUser == null}">
-                            <ul>
-                                <li><a href="login">로그인</a></li>
-                            </ul>
-                        </div>
-                        <div th:if="${session.loginUser != null}">
-                            <ul class="login-Logout">
-                                <li th:text="${session.loginUser.nick} + '님 환영합니다!'"></li>
-                            </ul>
-                        </div>
-                        <span>ㅣ</span>
-                        <li class="logout"><a href="logout">로그아웃</a></li>
+                        <ul class="menu-list">
+                            <li th:if="${session.loginUser == null}">
+                                <a href="login">로그인</a>
+                            </li>
+                            <li th:if="${session.loginUser != null}" th:text="${session.loginUser.nick} + '님 환영합니다!'">
+                            </li>
+                            <li th:if="${session.loginUser != null}"><span class="separator">ㅣ</span></li>
+                            <li th:if="${session.loginUser != null}">
+                                <a href="logout">로그아웃</a>
+                            </li>
+                        </ul>
                     </nav>
                     <button class="menu-toggle">
                         <i class="ri-menu-line"></i>
