@@ -272,8 +272,17 @@ public class ChatController {
         List<ChatEntity> tbl_chat = threadService.getChatByThreadId(threadId);
         // 2-2. 세션에 tbl_chat 저장
         session.setAttribute("tbl_chat", tbl_chat);
-        // 3. chat.html 템플릿으로 리다이렉트
-        return "redirect:/chat?thread_id=" + threadId;
+        // 3. tbl_thread에서 thread_id로 room_title 조회
+        ThreadEntity threadEntity = threadService.getAllThreadByEmail(loginUser.getEmail()).stream()
+                .filter(thread -> thread.getThreadId().equals(threadId))
+                .findFirst()
+                .orElse(null);
+        // threadEntity의 room_title로 페이지 분기 '산업 재해 상담'면 chatSan.html로 이외는 chat으로 이동
+        if (threadEntity.getRoomTitle().equals("산업 재해 상담")) {
+            return "redirect:/chatSan?thread_id=" + threadId;
+        }else {
+            return "redirect:/chat?thread_id=" + threadId;
+        }   
     }
 
     @GetMapping("/chat")
