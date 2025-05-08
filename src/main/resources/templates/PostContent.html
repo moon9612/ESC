@@ -74,11 +74,11 @@
             </a>
           </div>
           <div class="footer-right">
-            <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="btn">
+            <a th:href="@{/postContent(post_idx=${post.post_idx} - 1)}" class="btn">
               <i class="ri-arrow-left-s-line"></i>
               이전 글
             </a>
-            <a th:href="@{/postContent(post_idx=${post.post_idx})}" class="btn">
+            <a th:href="@{/postContent(post_idx=${post.post_idx} + 1)}" class="btn">
               다음 글
               <i class="ri-arrow-right-s-line"></i>
             </a>
@@ -97,7 +97,7 @@
             <span id="likeCount" th:text="${post.post_likes} + ' ' + reactions"></span>
           </div>
           <div class="comments-shares">
-            <span>23 comments</span>
+            <span></span>
           </div>
         </div>
 
