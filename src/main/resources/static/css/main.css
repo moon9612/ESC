@@ -44,7 +44,7 @@ li {
 }
 
 .main-header.scrolled {
-    background-color: #1e3a8a;
+    background-color: rgba(30, 58, 138, 1);
     /* 스크롤 시 네이비 블루 */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
@@ -98,7 +98,7 @@ li {
 }
 
 .nav-menu ul li a:hover {
-    color: #60a5fa;
+    color: rgba(30, 58, 138, 1);
     /* 라이트 블루 */
     background-color: rgba(255, 255, 255, 0.2);
     /* 투명한 흰색 배경 */
@@ -112,14 +112,14 @@ li {
 }
 
 .nav-menu .logout:hover a {
-    color: #0ebaee;
+    color: rgba(30, 58, 138, 1);
 }
 
 .menu-toggle {
     display: none;
     background: none;
     border: none;
-    color: #0ebaee;
+    color: rgba(30, 58, 138, 1);
     font-size: 1.5rem;
     cursor: pointer;
 }
