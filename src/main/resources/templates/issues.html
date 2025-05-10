@@ -44,9 +44,9 @@
             <div class="news-list-container" id="news-container">
                 <ul>
                     <th:block th:each="news : ${newsCluster}">
-                        <li th:attr="data-mdl-index=${news.mdlIndex}">
+                        <li th:if="${news.mdlIndex}" th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
-                                <span class="news-index">0.</span> <!-- JavaScript에서 동적 변경됨 -->
+                                <span class="news-index">0.</span> 
                                 <span th:text="${news.title}"></span>
                                 <span th:text="${#numbers.formatDecimal(news.similarity * 100, 0, 2)} + '%'"
                                     class="external-link"></span>
