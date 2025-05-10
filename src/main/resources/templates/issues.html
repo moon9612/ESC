@@ -44,7 +44,7 @@
             <div class="news-list-container" id="news-container">
                 <ul>
                     <th:block th:each="news : ${newsCluster}">
-                        <li th:if="${news.mdlIndex}" th:attr="data-mdl-index=${news.mdlIndex}">
+                        <li th:if="${news.seq}<=10" th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
                                 <span class="news-index">0.</span> 
                                 <span th:text="${news.title}"></span>
