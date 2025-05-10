@@ -239,7 +239,6 @@ a {
 
 #news-container,
 #stats-container {
-    display: none;
     transition: all 0.3s ease;
 }
 
