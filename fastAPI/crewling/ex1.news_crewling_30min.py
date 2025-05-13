@@ -14,7 +14,7 @@ keyword = '(고용보험||임금체불||산재보험||부당해고||실업급여
 def run_job():
     today = datetime.today()
     date_str = today.strftime('%Y%m%d')
-    print(f"📆 자동 수집 기간: {date_str}")
+    print(f" 자동 수집 기간: {date_str}")
 
     doc_list = []
 
@@ -38,14 +38,14 @@ def run_job():
             documents = json_data.get('item', {}).get('documentList', [])
             doc_list += documents
         except Exception as e:
-            print(f"❌ 요청 or 응답 파싱 오류: {e}")
+            print(f" 요청 or 응답 파싱 오류: {e}")
             return
 
         time.sleep(1)
 
     print(f"📄 수집된 문서 수: {len(doc_list)}")
     if not doc_list:
-        print("⚠️ 문서 없음. 종료.")
+        print("⚠ 문서 없음. 종료.")
         return
 
     df = pd.DataFrame(doc_list)
