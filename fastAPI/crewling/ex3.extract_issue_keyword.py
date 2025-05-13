@@ -17,7 +17,7 @@ def run_job():
 
     gtr_ymd = (datetime.today() - timedelta(days=1)).strftime('%Y%m%d')
 
-    file_path = f'/home/mentoring/result/news_{gtr_ymd}_result.csv'
+    file_path = f'/result/news_{gtr_ymd}_result.csv'
     if not os.path.exists(file_path):
         print(f"⚠️ 파일 없음: {file_path}")
         return
@@ -66,7 +66,7 @@ def run_job():
     df['rnk'] = df.index + 1
     df['date'] = datetime.now()   
 
-    df.to_csv(f'/home/mentoring/result/keyword_{gtr_ymd}.csv', index=False, encoding='utf-8-sig')
+    df.to_csv(f'/result/keyword_{gtr_ymd}.csv', index=False, encoding='utf-8-sig')
 
     DB_URL = os.getenv("DB_URL")
     if not DB_URL:
