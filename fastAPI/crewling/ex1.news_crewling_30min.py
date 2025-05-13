@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import random
 
-urlString = 'http://qt.some.co.kr/TrendMap/JSON/ServiceHandler'
+urlString = os.getenv("urlString")
 keyword = '(고용보험||임금체불||산재보험||부당해고||실업급여||근로계약||산업재해||업무상질병)&&~(#@VK#S1#스포츠)&&~(#@VK#S1#TV연예)'
 
 def run_job():
