@@ -59,7 +59,6 @@ def run_job():
                 href = a.get_attribute('href')
                 title = a.text.strip()
 
-                # ✅ info 텍스트 추출: 같은 카드 영역 내 p 태그
                 try:
                     grandparent = a.find_element(By.XPATH, '../../..')  # 혹은 적절히 상위 계층 조정
                     info = grandparent.find_element(By.CSS_SELECTOR, 'p.gsbl_info').text.strip()
@@ -79,7 +78,7 @@ def run_job():
                         "keyword": keyword,
                         "title": title,
                         "range": range_path,
-                        "info": info,  # ✅ 기관/출처 정보 포함
+                        "info": info,  
                         "url": url,
                         "created_at": datetime.now(),
                     })
@@ -106,7 +105,7 @@ def run_job():
 
     try:
         df_result.to_sql(name='tbl_statistics', con=engine, if_exists='append', index=False)
-        print(f"\n✅ 총 {len(df_result)}건 DB 저장 완료")
+        print(f"\n 총 {len(df_result)}건 DB 저장 완료")
     except Exception as e:
         print(f"❌ DB 저장 실패: {e}")
 
