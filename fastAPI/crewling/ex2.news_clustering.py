@@ -65,7 +65,7 @@ def run_job():
     keyword = topic_combination(tr_kwd)
     keyword = '(' + keyword + ')&&~(#@VK#S1#스포츠)'
 
-    urlString = 'http://qt.some.co.kr/TrendMap/JSON/ServiceHandler'
+    urlString = os.getenv("urlString")
 
     yesterday = datetime.today() - timedelta(days=1)
     start_date = yesterday.strftime('%Y%m%d')
