@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def run_job():
     gtr_ymd = (datetime.today() - timedelta(days=1)).strftime('%Y%m%d')
-    csv_path = f'/home/mentoring/result/keyword_{gtr_ymd}.csv'
+    csv_path = f'/result/keyword_{gtr_ymd}.csv'
 
     if not os.path.exists(csv_path):
         print(f"❌ 파일이 존재하지 않습니다: {csv_path}")
