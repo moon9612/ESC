@@ -54,4 +54,4 @@ Tools	Git, GitHub, Figma
 https://youtu.be/RI3M6om8qC0
 
 도메인 사이트
-[togoup.store](http://togoup.store/)
+https://togoup.store
