@@ -1,5 +1,7 @@
 package com.esc.wmg.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,7 +21,7 @@ public class NewsClusterEntity {
 
     @Id
     @Column(name = "date", nullable = false, length = 8, updatable = false)
-    private String date;  // String으로 변경
+    private LocalDateTime date;  // String으로 변경
 
     @Id
     @Column(name = "mdl_index", nullable = false, updatable = false)

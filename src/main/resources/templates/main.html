@@ -74,11 +74,13 @@
             <!-- ✅ 아이콘 메뉴를 가장 위로 이동 -->
             <h3 class="mini-banner-title">👇 서비스 이용방법이 궁금하면?</h3>
             <div class="mini-banner">
-                <div class="mini-box">
-                    <img src="img/동영상.png" alt="상담 챗봇 정지" class="static-img" />
-                    <img src="img/동영상.gif" alt="상담 챗봇 움직이는" class="hover-img" />
-                    <span class="mini-box-text">동영상으로 보기</span>
-                </div>
+                <a th:href="@{https://youtu.be/RI3M6om8qC0}">
+                    <div class="mini-box">
+                        <img src="img/동영상.png" alt="상담 챗봇 정지" class="static-img" />
+                        <img src="img/동영상.gif" alt="상담 챗봇 움직이는" class="hover-img" />
+                        <span class="mini-box-text">동영상으로 보기</span>
+                    </div>
+                </a>
             </div>
 
             <!-- 그 다음 아이콘 배너가 아래로 -->
@@ -102,7 +104,7 @@
                     </a>
                 </div>
                 <div class="icon-item">
-                    <a href="index">
+                    <a href="goIndex">
                         <div class="icon-box">
                             <img src="img/찾기.png" alt="조직도" class="static-img" />
                             <img src="img/찾기.gif" alt="조직도 움직이는" class="hover-img" />

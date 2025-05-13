@@ -38,15 +38,15 @@
         <!-- 🔻 뉴스 목록 토글 -->
         <div class="news-list">
             <div class="tab-header" id="news-toggle">
-                <div class="tab-title">이슈 관련 뉴스 목록</div>
+                <div class="tab-title">이슈 관련 뉴스 목록 </div>
                 <div class="tab-similarity">키워드 관련도</div>
             </div>
             <div class="news-list-container" id="news-container">
                 <ul>
                     <th:block th:each="news : ${newsCluster}">
-                        <li th:attr="data-mdl-index=${news.mdlIndex}">
+                        <li th:if="${news.seq}<=10" th:attr="data-mdl-index=${news.mdlIndex}">
                             <a th:href="${news.url}" target="_blank">
-                                <span class="news-index">0.</span> <!-- JavaScript에서 동적 변경됨 -->
+                                <span class="news-index">0.</span> 
                                 <span th:text="${news.title}"></span>
                                 <span th:text="${#numbers.formatDecimal(news.similarity * 100, 0, 2)} + '%'"
                                     class="external-link"></span>
@@ -62,7 +62,7 @@
         <!-- 🔻 통계 목록 토글 -->
         <div class="statistics-list">
             <div class="tab-header" id="stats-toggle">
-                <div class="tab-title">관련통계목록</div>
+                <div class="tab-title">관련통계목록 </div>
             </div>
             <div class="list-container" id="stats-container">
                 <ul>
@@ -135,16 +135,16 @@
                 selectKeyword(keywordItems[idx - 1]);
             }
 
-            // 토글 이벤트 추가
-            document.getElementById('news-toggle').addEventListener('click', function () {
-                const container = document.getElementById('news-container');
-                container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
-            });
+            // // 토글 이벤트 추가
+            // document.getElementById('news-toggle').addEventListener('click', function () {
+            //     const container = document.getElementById('news-container');
+            //     container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
+            // });
 
-            document.getElementById('stats-toggle').addEventListener('click', function () {
-                const container = document.getElementById('stats-container');
-                container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
-            });
+            // document.getElementById('stats-toggle').addEventListener('click', function () {
+            //     const container = document.getElementById('stats-container');
+            //     container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
+            // });
         });
     </script>
 </body>

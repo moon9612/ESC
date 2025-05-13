@@ -1,4 +1,9 @@
-const THREAD_ID = document.querySelector(".thread_id").innerText;
+// URL에서 thread_id 파라미터 추출
+function getThreadIdFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("thread_id");
+}
+const THREAD_ID = getThreadIdFromUrl();
 const input = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 const container = document.querySelector(".chat-messages");

@@ -1,4 +1,10 @@
-const THREAD_ID = document.querySelector(".thread_id").innerText;
+// URL에서 thread_id 파라미터 추출
+function getThreadIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("thread_id");
+}
+const THREAD_ID = getThreadIdFromUrl();
+
 const input = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
 const container = document.querySelector(".chat-messages");
@@ -207,6 +213,7 @@ function convertToHtmlFromAiText(rawResponse) {
         // --- 을 <hr>로 변환 (가로줄)
         .replace(/---/g, '<hr style="border: 1px solid #e5e7eb; margin: 1rem 0;">')
         // #^n을 Hn으로 변환
+        .replace(/^#### (.*)$/gm, '<h4>$1</h4>') // H4
         .replace(/^### (.*)$/gm, '<h3>$1</h3>') // H3
         .replace(/^## (.*)$/gm, '<h2>$1</h2>') // H2
         .replace(/^# (.*)$/gm, '<h1>$1</h1>') // H1

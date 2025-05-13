@@ -29,6 +29,9 @@ public class IssueStatisticsEntity {
 
     @Column(name = "range")
     private String range;
+    
+    @Column(name = "info")
+    private String info;
     @Id
     @Column(name = "url")
     private String url;

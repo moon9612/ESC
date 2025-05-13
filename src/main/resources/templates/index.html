@@ -25,7 +25,12 @@
   <input type="hidden" id="feedbackAssistantId" value="{{ feedback_assistant_id }}">
   <input type="hidden" id="miniAssistantId" value="{{ mini_assistant_id }}">
 
-
+  <div th:if="${session.thread_id == null}">
+    <div th:text="${thread == null ? '쓰레드 없음' : thread.name}"></div>
+  </div>
+  <div th:if="${session.thread_id != null}">
+    <input th:value="${session.thread_id}" type="hidden" class="thread_id"></input>
+  </div>
 
 
   <script>
@@ -155,7 +160,12 @@
     let input;
     let sendBtn;
 
-    const THREAD_ID = "thread_EfihZmqlmi5Ug8whs3Ey1yqi";  // 대화 스레드 ID
+    // URL에서 thread_id 파라미터 추출
+    function getThreadIdFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("thread_id");
+    }
+    const THREAD_ID = getThreadIdFromUrl();
 
     function renderMessage(sender, content, isLoading = false) {
       const role = sender === "bot" ? "bot" : "user";
@@ -641,13 +651,6 @@
     }
 
   </script>
-
-  <!-- Thymeleaf 서버가 렌더링
-  <script th:inline="javascript">
-    const TEMPLATE_ASSISTANT_ID = /*[[${template_assistant_id}]]*/ "default-template-id";
-    const FEEDBACK_ASSISTANT_ID = /*[[${feedback_assistant_id}]]*/ "default-feedback-id";
-    const MINI_ASSISTANT_ID = /*[[${mini_assistant_id}]]*/ "default-mini-id";
-  </script> -->
 </body>
 
 </html>
